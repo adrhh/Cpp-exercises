@@ -19,7 +19,7 @@ int main()
 {
 	float stopnie;
 
-	cout << "Podaj temperature w stpniach Celcjusza: ";
+	cout << "Podaj temperature w stopniach Celcjusza: ";
 	cin >> stopnie;
 	cout << endl << stopnie << " stopni Celcjusza odpowiada "
 		<< convert(stopnie) << " stopniom Fahrenhaita";
