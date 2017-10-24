@@ -23,7 +23,7 @@ int main()
 
 	float ratio = (float) pol_popul / (float) world_popul * 100.0f;
 
-	cout << "Populacja polski stawnoi "
+	cout << "Populacja Polski stawnoi "
 		<< ratio << "% poulacji swiata."
 		<< endl;
 
