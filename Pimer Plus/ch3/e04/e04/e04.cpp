@@ -12,7 +12,7 @@ using namespace std;
 
 const int H_IN_DAY = 24;
 const int MIN_IN_H = 60,
-		  SEC_IN_MIN = 60;
+	  SEC_IN_MIN = 60;
 
 int main()
 {
