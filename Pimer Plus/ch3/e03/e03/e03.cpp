@@ -25,7 +25,7 @@ int main()
 	cin >> deg;
 	cout << "Podaj minuty: ";
 	cin >> min;
-	cout << "Podaj sekundy: " ;
+	cout << "Podaj sekundy: ";
 	cin >> sec;
 
 	deg_decimal = deg + ( (float) min + (float) sec / SEC_IN_MIN ) / MIN_IN_DEGREE;
