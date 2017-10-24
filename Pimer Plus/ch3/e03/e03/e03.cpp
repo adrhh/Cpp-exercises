@@ -12,7 +12,7 @@ Finally, enter the seconds of arc: 19
 #include <iostream>
 
 const int MIN_IN_DEGREE = 60, 
-		  SEC_IN_MIN = 60;
+	  SEC_IN_MIN = 60;
 
 using namespace std;
 
