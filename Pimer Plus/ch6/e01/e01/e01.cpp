@@ -24,6 +24,7 @@ int main()
 				cout << (char) toupper(ch);
 		}
 		cin.get(ch);
+		cout << endl;
 	}
 
 	return 0;
