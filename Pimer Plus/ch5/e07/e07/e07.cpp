@@ -53,6 +53,8 @@ int main()
 		<< "Rok produkcji: " << cars[i].year << endl
 		<< "Producent: " << cars[i].company << endl
 		<< endl;
+	
+	delete [] cars;
 
 	return 0;
 }
