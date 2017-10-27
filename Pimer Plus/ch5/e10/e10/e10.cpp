@@ -9,7 +9,7 @@ Enter number of rows: 5
 ...**
 ..***
 .****
-***** */
+*****  */
 
 #include <iostream>
 
