@@ -27,7 +27,7 @@ int main()
 		counter++;
 	}
 	 
-	cout << "You entered a total of" << counter <<  "words"<<endl;
+	cout << "You entered a total of " << counter <<  " words"<<endl;
 
 	return 0;
 }
