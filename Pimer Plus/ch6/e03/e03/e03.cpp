@@ -2,7 +2,7 @@
 offering four choices, each labeled with a letter. If the user responds with a letter
 other than one of the four valid choices, the program should prompt the user to
 enter a valid response until the user complies.Then the program should use a
-switch to select a simple action based on the user’s selection.A program run could
+switch to select a simple action based on the userâ€™s selection.A program run could
 look something like this:
 Please enter one of the following choices:
 c) carnivore           p) pianist
@@ -45,7 +45,7 @@ int main()
 		case 'q':
 			flag = false;
 		default:
-			cout << "Please enter a c, p, t, or q: " << endl;
+			cout << "Please enter c, g, p, t, or q to quit: " << endl;
 			cin.get(ch);
 			continue;
 		}	
