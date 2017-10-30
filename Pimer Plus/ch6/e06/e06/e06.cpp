@@ -12,6 +12,7 @@ of the categories, the program should print the word “none.”Aside from displayin
 two categories, the program need do no sorting.*/
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 using namespace std;
@@ -58,7 +59,7 @@ int main()
 		for (int i = 0; i < gp_counter; i++)
 		{
 			cout << grand_patrons[i].name << endl;
-			cout << grand_patrons[i].amount << endl << endl;
+			cout << setprecision(10) << grand_patrons[i].amount << endl << endl;
 		}
 	}
 	else
@@ -70,11 +71,15 @@ int main()
 		for (int i = 0; i < p_counter; i++)
 		{
 			cout << patrons[i].name << endl;
-			cout << patrons[i].amount << endl << endl;
+			cout << setprecision(10) << patrons[i].amount << endl << endl;
 		}
 	}
 	else
 		cout << "Brak sponsorow." << endl;
+
+	delete[] list;
+	delete[] grand_patrons;
+	delete[] patrons;
 
 	return 0;
 }
