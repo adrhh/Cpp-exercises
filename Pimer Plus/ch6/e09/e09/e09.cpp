@@ -50,8 +50,8 @@ int main()
 
 	while (i < n)
 	{
-		
 		string temp;
+		
 		getline(file,list[i].name);
 		getline(file, temp);
 		list[i].amount = stoi(temp);
