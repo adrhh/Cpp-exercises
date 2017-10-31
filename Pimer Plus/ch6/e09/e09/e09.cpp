@@ -91,7 +91,7 @@ int main()
 	if (p_counter)
 	{
 		cout << "Lista sponsorow:" << endl;
-		for (unsigned i = 0; i < p_counter; i++)
+		for (unsigned int i = 0; i < p_counter; i++)
 		{
 			cout << patrons[i].name << endl;
 			cout << setprecision(10) << patrons[i].amount << endl << endl;
