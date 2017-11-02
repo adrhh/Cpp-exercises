@@ -44,7 +44,7 @@ int fill(int tab[], int n)
 			cin.clear();
 			while (cin.get() != '\n')
 				continue;
-			cout << "Bledne dnale" << endl;
+			cout << "Bledne dane" << endl;
 			break;
 		}
 		else if (temp <= 0)
@@ -69,5 +69,5 @@ double avrg(const int tab[], int n)
 	int total=0;
 	for (int i = 0; i < n; i++)
 		total += tab[i];
-	return ((double) total / (double) n);
+	return (double) total / (double) n;
 }
