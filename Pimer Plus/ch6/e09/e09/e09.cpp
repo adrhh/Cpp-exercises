@@ -1,6 +1,6 @@
 /*Do Programming Exercise 6 but modify it to get information from a file.The first
 item in the file should be the number of contributors, and the rest of the file should
-consist of pairs of lines, with the first line of each pair being a contributor’s name
+consist of pairs of lines, with the first line of each pair being a contributorâ€™s name
 and the second line being a contribution.That is, the file should look like this:
 4
 Sam Stone
@@ -51,8 +51,7 @@ int main()
 	while (i < n)
 	{
 		string temp;
-		//int to_int;
-
+		
 		getline(file,list[i].name);
 		getline(file, temp);
 		list[i].amount = stoi(temp);
@@ -92,7 +91,7 @@ int main()
 	if (p_counter)
 	{
 		cout << "Lista sponsorow:" << endl;
-		for (unsigned i = 0; i < p_counter; i++)
+		for (unsigned int i = 0; i < p_counter; i++)
 		{
 			cout << patrons[i].name << endl;
 			cout << setprecision(10) << patrons[i].amount << endl << endl;
