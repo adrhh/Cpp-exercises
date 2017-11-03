@@ -16,7 +16,7 @@ show the array.*/
 using namespace std;
 
 int fill_array(double[], int);
-void show_array(double[], int);
+void show_array(const double[], int);
 void reverse_array(double[], int);
 
 int main()
@@ -49,7 +49,7 @@ int fill_array(double t[], int n)
 	return i;
 }
 
-void show_array(double t[], int n)
+void show_array(const double t[], int n)
 {
 	for (int i = 0; i < n; i++)
 		cout << t[i] << endl;
@@ -58,8 +58,7 @@ void show_array(double t[], int n)
 void reverse_array(double t[], int n)
 {
 	double temp;
-	int mid = n / 2;
-	for (int i = 0, j = n-1; i < mid; i++, j--)
+	for (int i = 0, j = n-1; i < n/2 ; i++, j--)
 	{
 		temp = t[i];
 		t[i] = t[j];
