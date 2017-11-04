@@ -17,7 +17,7 @@ program.The program should use a loop that allows the user to enter pairs of num
 bers.For each pair, use  calculate() to invoke  add() and at least one other func -
 tion.If you are feeling adventurous, try creating an array of pointers to  add() - style
 functions and use a loop to successively apply  calculate() to a series of functions
-by using these pointers.Hint: Here’s how to declare such an array of three pointers :
+by using these pointers.Hint: Hereâ€™s how to declare such an array of three pointers :
 double(*pf[3])(double, double);
 You can initialize such an array by using the usual array initialization syntax and
 function names as addresses.*/
@@ -36,7 +36,11 @@ double calc(double, double, double(*)(double, double));
 int main()
 {
 	const int ARSIZE = 4;
+<<<<<<< HEAD
 	double(*fptr[4])(double, double) = { add, sub, div, mult };
+=======
+	double (*fptr[ARSIZE])(double, double) = {add, sub, div, mult};
+>>>>>>> 1b106ab9e512ddd83279d7d01bb6aafdc0775a69
 
 	char ch;
 	double a, b;
