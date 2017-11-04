@@ -82,7 +82,7 @@ int getinfo(student pa[], int max_size)
 
 void display2(const student * ps)
 {
-	cout << "Dane studentay"
+	cout << "Dane studenta:" << endl
 		<< "imie: " << ps->fullname << endl
 		<< "hobby: " << ps->hobby << endl
 		<< "ocena: " << ps->ooplevel << endl;
@@ -90,7 +90,7 @@ void display2(const student * ps)
 
 void display1(student st)
 {
-	cout << "Dane studentay"
+	cout << "Dane studenta:" << endl
 		<< "imie: " << st.fullname << endl
 		<< "hobby: " << st.hobby << endl
 		<< "ocena: " << st.ooplevel << endl;
@@ -98,8 +98,8 @@ void display1(student st)
 
 void display3(const student pa[], int n)
 {
-	for(int i = 0; i < n; i++)
-		cout << "Dane studenta"
+	for (int i = 0; i < n; i++)
+		cout << "Dane studenta:" << endl
 		<< "imie: " << pa[i].fullname << endl
 		<< "hobby: " << pa[i].hobby << endl
 		<< "ocena: " << pa[i].ooplevel << endl;
