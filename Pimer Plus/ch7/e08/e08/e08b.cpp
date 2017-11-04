@@ -13,37 +13,44 @@ using namespace std;
 const int PORY = 4;
 const int MAXC = 7;
 
-void fill_arr(const char[][MAXC], int, double*);
-void show_arr(const char[][MAXC], int, double*);
+struct Wyniki
+{
+	double war[MAXC];
+};
+
+void fill_arr(const char[][MAXC], int, Wyniki*);
+void show_arr(const char[][MAXC], int, Wyniki*);
 
 const char miesiace[PORY][MAXC] =
-	{ "Wiosna", "Lato", "Jesien", "Zima" };
+{ "Wiosna", "Lato", "Jesien", "Zima" };
+
+
 
 int main()
 {
-	double test[PORY];
-	fill_arr(miesiace, PORY, test);
-	show_arr(miesiace, PORY, test);
+	Wyniki test;
+	fill_arr(miesiace, PORY, &test);
+	show_arr(miesiace, PORY, &test);
 
 	return 0;
 }
 
-void fill_arr(const char s[][MAXC], int n, double* t)
+void fill_arr(const char s[][MAXC], int n, Wyniki *str)
 {
 	for (int i = 0; i < n; i++)
 	{
-		cout << "Podaj wynik za " << *(s+i) << endl;
-		cin >> *(t + i);
+		cout << "Podaj wynik za " << *(s + i) << endl;
+		cin >> *(str->war + i);
 	}
 }
 
-void show_arr(const char s[][MAXC], int n, double* t)
+void show_arr(const char s[][MAXC], int n, Wyniki* str)
 {
 	double total = 0;
 	for (int i = 0; i < n; i++)
 	{
-		cout << "Wynik za " << *(s+i) << " wynosi: " << *(t + i) << endl;
-		total += *(t + i);
+		cout << "Wynik za " << *(s + i) << " wynosi: " << *(str->war + i) << endl;
+		total += *(str->war + i);
 	}
 
 	cout << "Lancze wydatki wynosza: " << total << endl;
