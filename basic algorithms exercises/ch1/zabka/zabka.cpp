@@ -18,7 +18,8 @@ int main()
 	y = 85;
 	z = 30;
 
-	cout << zadanie(x, y, z) << endl; //cout 3, OK
+	cout << zadanie(x, y, z) << endl; 
+	//>> 3, OK
 
 }
 
