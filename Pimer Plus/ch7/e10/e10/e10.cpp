@@ -6,12 +6,12 @@ calculate().For example, suppose you have this definition for the  add()
 function:
 double add(double x, double y)
 {
-	return x + y;
+return x + y;
 }
 Then, the function call in the following would cause  calculate() to pass the val -
 ues 2.5 and 10.4 to the  add() function and then return the  add() return value
 (12.9) :
-	double q = calculate(2.5, 10.4, add);
+double q = calculate(2.5, 10.4, add);
 Use these functions and at least one additional function in the  add() mold in a
 program.The program should use a loop that allows the user to enter pairs of num -
 bers.For each pair, use  calculate() to invoke  add() and at least one other func -
@@ -31,12 +31,12 @@ double add(double, double);
 double sub(double, double);
 double div(double, double);
 double mult(double, double);
-double calc(double, double, double (*)(double, double));
+double calc(double, double, double(*)(double, double));
 
 int main()
 {
 	const int ARSIZE = 4;
-	double (*fptr[4])(double, double) = {add, sub, div, mult};
+	double(*fptr[4])(double, double) = { add, sub, div, mult };
 
 	char ch;
 	double a, b;
@@ -52,7 +52,7 @@ int main()
 		cin.get(ch);
 		if (ch == 'q')
 			break;
-		switch (ch) 
+		switch (ch)
 		{
 		case '+': cout << "wynik: " << calc(a, b, fptr[0]) << endl;
 			break;
@@ -89,7 +89,7 @@ double div(double x, double y)
 	return x / y;
 }
 
-double calc(double x, double y, double (*ptr)(double, double))
+double calc(double x, double y, double(*ptr)(double, double))
 {
 	return (*ptr)(x, y);
 }
