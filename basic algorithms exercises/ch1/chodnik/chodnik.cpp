@@ -21,7 +21,7 @@ int main()
 	tab[2] = 1;
 	tab[3] = 5;
 
-	cout << "wynik: " << zadanie(n, tab) << endl;
+	cout << "wynik: " << zadanie(n, tab) << endl; //cout 4 OK
 
 
 	return 0;
