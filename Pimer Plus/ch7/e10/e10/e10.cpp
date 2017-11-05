@@ -36,11 +36,8 @@ double calc(double, double, double(*)(double, double));
 int main()
 {
 	const int ARSIZE = 4;
-<<<<<<< HEAD
 	double(*fptr[4])(double, double) = { add, sub, div, mult };
-=======
 	double (*fptr[ARSIZE])(double, double) = {add, sub, div, mult};
->>>>>>> 1b106ab9e512ddd83279d7d01bb6aafdc0775a69
 
 	char ch;
 	double a, b;
