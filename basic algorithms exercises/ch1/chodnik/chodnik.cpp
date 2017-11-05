@@ -20,16 +20,9 @@ int main()
 	tab[1] = 3;
 	tab[2] = 1;
 	tab[3] = 5;
-
-<<<<<<< HEAD
+	
 	cout << "wynik: " << zadanie(n, tab) << endl; //cout 4 OK
 
-
-=======
-	cout << "wynik: " << zadanie(n, tab) << endl;
-	// >> 4 OK
-	
->>>>>>> 8fbc9063361917f8bd703532d9f7c230d2d6ebd2
 	return 0;
 }
 
