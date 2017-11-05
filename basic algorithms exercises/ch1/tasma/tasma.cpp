@@ -11,7 +11,7 @@ int main()
 {
 
 	// n 2<=n<=1000000
-	// arr[n-1], -1000<=ai<==1000
+	// arr[n-1], -1000<=arr[i]<==1000
 
 	//test
 	const int n = 5;
