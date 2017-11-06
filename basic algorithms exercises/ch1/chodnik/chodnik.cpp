@@ -22,6 +22,8 @@ int main()
 	tab[3] = 5;
 	
 	cout << "wynik: " << zadanie(n, tab) << endl; //cout 4 OK
+	
+	delete[] tab;
 
 	return 0;
 }
