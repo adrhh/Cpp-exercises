@@ -15,11 +15,7 @@ int main()
 
 	//test
 	n = 5;
-	tab = new int[n-1];
-	tab[0] = 2;
-	tab[1] = 3;
-	tab[2] = 1;
-	tab[3] = 5;
+	tab = new int[n-1] {2,3,1,5};
 	
 	cout << "wynik: " << zadanie(n, tab) << endl; //cout 4 OK
 	
