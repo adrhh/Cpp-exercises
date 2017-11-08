@@ -1,3 +1,6 @@
+/*Provide method definitions for the class described in Chapter Review Question 5
+and write a short program that illustrates all the features.*/
+
 #include "ac.h"
 #include <iostream>
 
