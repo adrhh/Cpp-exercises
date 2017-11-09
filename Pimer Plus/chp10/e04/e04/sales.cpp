@@ -64,6 +64,6 @@ namespace SALES
 		cout << endl;
 		cout << "max: " << max << endl;
 		cout << "min: " << min << endl;
-		cout << "srednia: " << avrg << endl;
+		cout << "srednia: " << avrg << endl; 
 	}
 }
