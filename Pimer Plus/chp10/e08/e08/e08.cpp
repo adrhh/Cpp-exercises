@@ -10,6 +10,10 @@ int main()
 	test.visit(show);
 	test.visit(mult, 3);
 	test.visit(show);
+	test.visit_back(show);
+	test.append(111);
+	test.visit(show);
+
 
 	return 0;
 }

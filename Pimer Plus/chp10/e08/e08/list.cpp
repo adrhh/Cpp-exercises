@@ -36,6 +36,35 @@ bool List::add(item x)
 	return answ;
 }
 
+bool List::append(item x)
+{
+	bool answ;
+
+	if (isfull())
+		answ = false;
+	else
+	{
+
+		if (isempty())
+		{
+			head->value = x;
+			counter++;
+		}
+		else
+		{
+			node *actual = head;
+			while (actual->next != NULL)
+				actual = actual->next;
+			node* n = new node{ x, NULL, actual };
+			actual->next = n;
+			counter++;
+		}
+		answ = true;
+	}
+
+	return answ;
+}
+
 void List::showall() const
 {
 	int i = counter;
@@ -59,6 +88,19 @@ void List::visit(void(*pf)(node*, item), item x)
 	}
 }
 
+void List::visit_back(void(*pf)(node*, item), item x)
+{
+	int i = counter;
+	node *actual = head;
+	while (actual->next != NULL)
+		actual = actual->next;
+	
+	while (i--)
+	{
+		pf(actual, x);
+		actual = actual->prev;
+	}
+}
 
 void show(node* s, item x)
 {
@@ -70,3 +112,4 @@ void mult(node* s, item x)
 {
 	s->value = s->value *x;
 }
+
