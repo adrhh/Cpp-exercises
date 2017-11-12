@@ -49,6 +49,7 @@ int main()
 			<< "srednia: " << avrg << endl
 			<< "max: " << max << endl
 			<< "min: " << min << endl;
+		i = 0;
 		total = 0;
 		min = INT_MAX;
 		max = 0;
