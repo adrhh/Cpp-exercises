@@ -1,5 +1,5 @@
 #ifndef COMPLEX0_H_
-#define COMPLEX0_J
+#define COMPLEX0_H_
 
 #include <iostream>
 using std::istream;
