@@ -139,3 +139,15 @@ String operator+(const String& st1, const String& st2)
 
 	return temps;
 }
+
+String operator+(const char* s, const String& st)
+{
+	char* tempc = new char[strlen(s) + st.len + 1];
+	strcpy(tempc, s);
+	strcat(tempc, st.str);
+
+	String temps(tempc);
+	delete[] tempc;
+
+	return temps;
+}

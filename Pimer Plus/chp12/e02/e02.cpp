@@ -15,7 +15,8 @@ int main()
 	s4 += s3;
 	s4 += " jest spoko";
 	cout << s4 << endl;
-	s5 = s3 + s1;
+	s2 = "Mam na imie " + s3;
+	s5 = s2 + s1;
 	cout << s5 << endl;
 
 	return 0;
