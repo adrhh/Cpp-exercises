@@ -47,7 +47,7 @@ Cow & Cow::operator=(const Cow &c)
 {
 	if (this == &c)
 		return *this;
-	delete hobby;
+	delete[] hobby;
 	strcpy(name, c.name);
 	hobby = new char[strlen(c.hobby) + 1];
 	strcpy(hobby, c.name);
