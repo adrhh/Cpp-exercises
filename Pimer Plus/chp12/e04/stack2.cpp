@@ -46,6 +46,7 @@ bool Stack::pop(Item& item)
 	{
 		item = pitems[--top];
 		size--;
+		//test
 		std::cout << "Usunieto wartosc: " << pitems[top] << std::endl;
 		return true;
 	}
