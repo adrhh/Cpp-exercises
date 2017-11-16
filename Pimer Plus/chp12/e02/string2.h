@@ -24,7 +24,10 @@ public:
 	String & operator=(const char*);
 	String & operator+=(const char*);
 	String & operator+=(const String &);
+	int has(const char c);
 	char operator[](int i);
+	String & stringlow();
+	String & stringup();
 	const char & operator[](int i) const;
 	friend bool operator<(const String& st1, const String& st2);
 	friend bool operator>(const String& st1, const String& st2);

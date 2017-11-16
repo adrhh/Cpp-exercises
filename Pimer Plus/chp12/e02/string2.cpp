@@ -2,11 +2,9 @@
 #include <iostream>
 #include "string2.h"
 
-
 int::String::num_strings = 0;
 
 using namespace std;
-
 
 String::String(const char* s)
 {
@@ -107,7 +105,6 @@ String & String::operator+=(const String& st)
 	strcpy(str, tempc);
 
 	delete[] tempc;
-
 	return *this;
 }
 
@@ -124,7 +121,6 @@ String & String::operator+=(const char* s)
 	strcpy(str, tempc);
 
 	delete[] tempc;
-
 	return *this;
 }
 
@@ -135,8 +131,9 @@ String operator+(const String& st1, const String& st2)
 	strcat(tempc, st2.str);
 
 	String temps(tempc);
-	delete[] tempc;
+	String::num_strings++;
 
+	delete[] tempc;
 	return temps;
 }
 
@@ -147,7 +144,34 @@ String operator+(const char* s, const String& st)
 	strcat(tempc, st.str);
 
 	String temps(tempc);
-	delete[] tempc;
+	String::num_strings++;
 
+	delete[] tempc;
 	return temps;
+}
+
+int String::has(const char c)
+{
+	int total = 0;
+	for (int i = 0; i < len; i++)
+		if (str[i] == c)
+			total++;
+
+	return total;
+}
+
+String & String::stringlow()
+{
+	for (int i = 0; i < len; i++)
+		str[i] = tolower(str[i]);
+
+	return *this;
+}
+
+String & String::stringup()
+{
+	for (int i = 0; i < len; i++)
+		str[i] = toupper(str[i]);
+
+	return *this;
 }
