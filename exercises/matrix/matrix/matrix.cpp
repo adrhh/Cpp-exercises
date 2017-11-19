@@ -1,5 +1,6 @@
 #include "matrix.h"
-#include <iomanip>;
+#include <iomanip>
+#include <cfloat>
 
 using std::cout;
 using std::endl;
@@ -7,6 +8,18 @@ using std::setw;
 using std::setfill;
 using std::left;
 using std::setprecision;
+
+
+int Matrix::counter = 0;
+
+Matrix::Matrix()
+{
+	rows = 1;
+	columns = 1;
+	value = new double*[1];
+	value[0] = new double[1];
+	value[0][0] = 0;
+}
 
 
 Matrix::Matrix(double** t, int n, int m)
@@ -21,6 +34,8 @@ Matrix::Matrix(double** t, int n, int m)
 	for (int i = 0; i < n; i++) 
 		for (int j = 0; j < m; j++) 
 			value[i][j] =  t[i][j];
+
+	counter++;
 }
 
 int Matrix::get_max_dig()
@@ -46,7 +61,7 @@ int Matrix::get_max_dig()
 
 double Matrix::get_max()
 {
-	double max = 0;
+	double max = DBL_MIN;
 
 	for (int i = 0; i < rows; i++)
 		for (int j = 0; j < columns; j++)
@@ -58,7 +73,7 @@ double Matrix::get_max()
 
 double Matrix::get_min()
 {
-	double min = 99999;
+	double min = DBL_MAX;
 
 	for (int i = 0; i < rows; i++)
 		for (int j = 0; j < columns; j++)
@@ -67,6 +82,68 @@ double Matrix::get_min()
 
 	return min;
 }
+
+bool Matrix::is_size_eq(const Matrix& m) const
+{
+	return (columns == m.columns && rows == m.rows) ? true : false;
+}
+
+Matrix operator+(const Matrix& m1, const Matrix& m2)
+{
+	if (!m1.is_size_eq(m2))
+	{
+		cout << "Error, not equal sizes" << endl;
+		Matrix empty;
+
+		return empty;
+	}
+	else
+	{
+		double** temp_arr = new double*[m1.rows];
+		for (int i = 0; i < m1.rows; i++)
+			temp_arr[i] = new double[m1.columns];
+
+		for (int i = 0; i < m1.rows; i++)
+			for (int j = 0; j < m1.columns; j++)
+				temp_arr[i][j] = m1.value[i][j] + m2.value[i][j];
+
+		Matrix matrix(temp_arr, m1.rows, m1.columns);
+
+		for (int i = 0; i < m1.rows; i++)
+			delete[] temp_arr[i];
+
+		return matrix;
+	}
+}
+
+Matrix operator-(const Matrix& m1, const Matrix& m2)
+{
+	if (!m1.is_size_eq(m2))
+	{
+		cout << "Error, not equal sizes" << endl;
+		Matrix empty;
+
+		return empty;
+	}
+	else
+	{
+		double** temp_arr = new double*[m1.rows];
+		for (int i = 0; i < m1.rows; i++)
+			temp_arr[i] = new double[m1.columns];
+
+		for (int i = 0; i < m1.rows; i++)
+			for (int j = 0; j < m1.columns; j++)
+				temp_arr[i][j] = m1.value[i][j] - m2.value[i][j];
+
+		Matrix matrix(temp_arr, m1.rows, m1.columns);
+
+		for (int i = 0; i < m1.rows; i++)
+			delete[] temp_arr[i];
+
+		return matrix;
+	}
+}
+
 
 void Matrix::test_show()
 {
@@ -88,7 +165,7 @@ void Matrix::test_show()
 			char space;
 			if (!j)
 				cout << '|';
-			cout << setfill(' ') << setw(prec) << left << setprecision(prec)
+			cout << setfill(' ') << setw(prec) << left << setprecision(PREC)
 				<< value[i][j];
 			space = (j != columns - 1) ? ' ' : '|';
 			cout << space;

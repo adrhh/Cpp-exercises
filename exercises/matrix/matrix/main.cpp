@@ -10,7 +10,9 @@ int main()
 	test = make2darr(2, 2);
 
 	Matrix t1(test, 2, 2);
-	t1.test_show();
+	Matrix t2(test, 2, 2);
+	Matrix t3 = t1 + t2;
+	t3.test_show();
 
 	return 0;
 }
