@@ -6,13 +6,14 @@ using std::endl;
 using std::setw;
 using std::setfill;
 using std::left;
+using std::setprecision;
 
 
-Matrix::Matrix(int** t, int n, int m)
+Matrix::Matrix(double** t, int n, int m)
 {
-	value  = new int*[n];
+	value  = new double*[n];
 	for (int i = 0; i < n; ++i)
-		value[i] = new int[m];
+		value[i] = new double[m];
 
 	rows = n;
 	columns = m;
@@ -22,25 +23,30 @@ Matrix::Matrix(int** t, int n, int m)
 			value[i][j] =  t[i][j];
 }
 
-int  Matrix::get_max_dig()
+int Matrix::get_max_dig()
 {
-	int max = get_max();
-	int min = get_min();
-	int abs_max, digs = 0;
+	double max = get_max();
+	double min = get_min();
+	double abs_max;
+	int digs = 0;
 
 	if (min < 0)
 		min *= -1;
 
 	abs_max = (max > min) ? max : min;
-	while (abs_max /= 10)
+	while (abs_max > 1)
+	{ 
 		digs++;
+		abs_max /= 10;
+	}
+		
 
 	return digs;
 }
 
-int Matrix::get_max()
+double Matrix::get_max()
 {
-	int max = INT_MIN;
+	double max = 0;
 
 	for (int i = 0; i < rows; i++)
 		for (int j = 0; j < columns; j++)
@@ -50,9 +56,9 @@ int Matrix::get_max()
 	return max;
 }
 
-int Matrix::get_min()
+double Matrix::get_min()
 {
-	int min = INT_MAX;
+	double min = 99999;
 
 	for (int i = 0; i < rows; i++)
 		for (int j = 0; j < columns; j++)
@@ -82,7 +88,7 @@ void Matrix::test_show()
 			char space;
 			if (!j)
 				cout << '|';
-			cout << setfill(' ') << setw(prec) << left
+			cout << setfill(' ') << setw(prec) << left << setprecision(prec)
 				<< value[i][j];
 			space = (j != columns - 1) ? ' ' : '|';
 			cout << space;

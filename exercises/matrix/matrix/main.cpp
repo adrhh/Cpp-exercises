@@ -2,11 +2,11 @@
 
 using namespace std;
 
-int** make2darr(int n, int m);
+double** make2darr(int n, int m);
 
 int main()
 {
-	int** test;
+	double** test;
 	test = make2darr(2, 2);
 
 	Matrix t1(test, 2, 2);
@@ -15,11 +15,11 @@ int main()
 	return 0;
 }
 
-int** make2darr(int n, int m)
+double** make2darr(int n, int m)
 {
-	int** temp = new int*[n];
+	double** temp = new double*[n];
 	for (int i = 0; i < n; ++i)
-		temp[i] = new int[m];
+		temp[i] = new double[m];
 
 	for (int i = 0; i<n; i++) 
 	{

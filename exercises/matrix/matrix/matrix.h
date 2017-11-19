@@ -8,15 +8,15 @@ using std::ostream;
 class Matrix
 {
 private:
-	int rows;
-	int columns;
-	int** value;
+	double rows;
+	double columns;
+	double** value;
 public:
 	void test_show();
 	int get_max_dig();
-	int get_max();
-	int get_min();
-	Matrix(int** t, int n, int m);
+	double get_max();
+	double get_min();
+	Matrix(double** t, int n, int m);
 };
 
 #endif // !MATRIX_H_
