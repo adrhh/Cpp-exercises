@@ -88,6 +88,11 @@ bool Matrix::is_size_eq(const Matrix& m) const
 	return (columns == m.columns && rows == m.rows) ? true : false;
 }
 
+bool Matrix::is_mult(const Matrix& m) const
+{
+	return (columns == m.rows) ? true : false;
+}
+
 Matrix operator+(const Matrix& m1, const Matrix& m2)
 {
 	if (!m1.is_size_eq(m2))
@@ -115,6 +120,67 @@ Matrix operator+(const Matrix& m1, const Matrix& m2)
 		return matrix;
 	}
 }
+
+ Matrix operator*(const Matrix& m1, double x)
+{
+	double** temp_arr = new double*[m1.rows];
+	for (int i = 0; i < m1.rows; i++)
+		temp_arr[i] = new double[m1.columns];
+
+	for (int i = 0; i < m1.rows; i++)
+		for (int j = 0; j < m1.columns; j++)
+			temp_arr[i][j] = m1.value[i][j] * x;
+
+	Matrix matrix(temp_arr, m1.rows, m1.columns);
+
+	for (int i = 0; i < m1.rows; i++)
+		delete[] temp_arr[i];
+
+	return matrix;
+}
+
+ Matrix operator*(double x, const Matrix& m1)
+{
+	 return m1 * x;
+}
+
+ Matrix operator*(const Matrix& m1, const Matrix& m2)
+ {
+	 if (!m1.is_mult(m2))
+	 {
+		 cout << "Error, not equal sizes" << endl;
+		 Matrix empty;
+
+		 return empty;
+	 }
+	 else
+	 {
+		 int n_rows = m1.rows;
+		 int n_columns = m2.columns;
+		 double val;
+		 double** temp_arr = new double*[n_rows];
+		 for (int i = 0; i < n_rows; i++)
+			 temp_arr[i] = new double[n_columns];
+
+		 for (int i = 0; i < n_rows; i++)
+			 for (int j = 0; j < n_columns; j++)
+			 {
+				 val = m1.value[i][0] * m2.value[0][j];
+				 for (int k = 1; k < m1.columns; k++)
+					 val += m1.value[i][k] * m2.value[k][j];
+
+				 temp_arr[i][j] = val;
+			 }
+				 
+
+		 Matrix matrix(temp_arr, n_rows, n_columns);
+
+		 for (int i = 0; i < n_rows; i++)
+			 delete[] temp_arr[i];
+
+		 return matrix;
+	 }
+ }
 
 Matrix operator-(const Matrix& m1, const Matrix& m2)
 {

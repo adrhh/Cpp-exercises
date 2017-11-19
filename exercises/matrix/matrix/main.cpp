@@ -6,13 +6,16 @@ double** make2darr(int n, int m);
 
 int main()
 {
-	double** test;
-	test = make2darr(2, 2);
 
-	Matrix t1(test, 2, 2);
-	Matrix t2(test, 2, 2);
-	Matrix t3 = t1 + t2;
+	double** test2, ** test3;
+	test2 = make2darr(2, 3);
+	test3 = make2darr(3, 2);
+
+	Matrix t1(test2, 2, 3);
+	Matrix t2(test3, 3, 2);
+	Matrix t3 = t1 * t2;
 	t3.test_show();
+
 
 	return 0;
 }
@@ -27,6 +30,7 @@ double** make2darr(int n, int m)
 	{
 		for (int j = 0; j<m; j++) 
 		{
+			cout << "t[" << i << "][" << j << "]=";
 			cin >> temp[i][j];
 		}
 	}

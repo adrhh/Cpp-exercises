@@ -14,6 +14,7 @@ private:
 	double** value;
 	static int counter;
 	bool is_size_eq(const Matrix& m) const;
+	bool is_mult(const Matrix& m) const;
 public:
 	void test_show();
 	int get_max_dig();
@@ -21,6 +22,9 @@ public:
 	double get_min();
 	friend Matrix operator-(const Matrix& m1, const Matrix& m2);
 	friend Matrix operator+(const Matrix& m1, const Matrix& m2);
+	friend Matrix operator*(const Matrix& m1, double x);
+	friend Matrix operator*(double x, const Matrix& m1);
+	friend Matrix operator*(const Matrix& m1, const Matrix& m2);
 	Matrix(double** t, int n, int m);
 	Matrix();
 };
