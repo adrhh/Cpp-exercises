@@ -23,6 +23,8 @@ public:
 	double get_max();
 	double get_min();
 	double det_sarrus();
+	double get_det();
+	Matrix get_minor(int n, int m);
 	friend Matrix operator-(const Matrix& m1, const Matrix& m2);
 	friend Matrix operator+(const Matrix& m1, const Matrix& m2);
 	friend Matrix operator*(const Matrix& m1, double x);

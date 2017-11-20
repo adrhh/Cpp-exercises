@@ -284,3 +284,53 @@ void Matrix::test_show()
 		}
 	}
 }
+
+
+Matrix Matrix::get_minor(int n, int m)
+{
+	if (!is_square())
+	{
+		cout << "Nie mozna utworzyc minoru" << endl;
+		Matrix temp;
+		return temp;
+	}
+	else
+	{
+		if (n > rows || m > columns)
+		{
+			cout << "Nie mozna utworzyc minoru" << endl;
+			Matrix temp;
+			return temp;
+		}
+		else
+		{
+			double** temp_arr = new double*[rows - 1];
+			for (int i = 0; i < rows - 1; i++)
+				temp_arr[i] = new double[columns - 1];
+
+			for(int i = 0; i < rows -1; i++)
+				for (int j = 0; j < columns - 1; j++)
+				{
+					int k = i;
+					int l = j;
+					if (k >= n)
+						k++;
+					if (l >= m)
+						l++;
+					temp_arr[i][j] = value[k][l];
+				}
+
+			Matrix temp(temp_arr, rows - 1, columns - 1);
+			return temp;
+		}
+	}
+}
+
+
+double Matrix::get_det()
+{
+	int n = rows;
+	if (n <= 3)
+		return det_sarrus();
+
+}
