@@ -347,6 +347,7 @@ double Matrix::get_det()
 			det += multi * value[0][i] * minor_arr[i].get_det();
 			multi *= -1;
 		}
+		delete[] minor_arr;
 	}
 
 	return det;
