@@ -330,6 +330,11 @@ Matrix Matrix::get_minor(int n, int m)
 
 double Matrix::get_det()
 {
+	if (!is_square())
+	{
+		cout << "Nie mozna obliczyc wyznacznika" << endl;
+		return 0;
+	}
 	double det;
 	int m = rows;
 	if (m <= 3)
