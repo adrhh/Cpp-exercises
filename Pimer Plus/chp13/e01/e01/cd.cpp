@@ -5,7 +5,7 @@
 using std::cout;
 using std::endl;
 
-Cd::Cd(char* s1, char* s2, int n, double x)
+Cd::Cd(const char* s1, const char* s2, int n, double x)
 {
 	strcpy_s(perf, s1);
 	strcpy_s(label, s2);
@@ -23,8 +23,8 @@ Cd::Cd(const Cd& d)
 
 Cd::Cd()
 {
-	perf[0] = '\0');
-	label[0] = '\0');
+	perf[0] = '\0';
+	label[0] = '\0';
 	selections = 0;
 	playtime = 0.0;
 }
