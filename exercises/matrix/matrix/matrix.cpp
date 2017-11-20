@@ -313,14 +313,15 @@ Matrix Matrix::get_minor(int n, int m)
 				{
 					int k = i;
 					int l = j;
-					if (k >= n)
-						k++;
-					if (l >= m)
-						l++;
+					if (k >= n) k++;
+					if (l >= m) l++;
+
 					temp_arr[i][j] = value[k][l];
 				}
 
 			Matrix temp(temp_arr, rows - 1, columns - 1);
+
+			delete[] temp_arr;
 			return temp;
 		}
 	}
@@ -329,8 +330,24 @@ Matrix Matrix::get_minor(int n, int m)
 
 double Matrix::get_det()
 {
-	int n = rows;
-	if (n <= 3)
+	double det;
+	int m = rows;
+	if (m <= 3)
 		return det_sarrus();
+	else
+	{
+		det = 0;
+		int multi = 1;
+		Matrix* minor_arr = new Matrix[m];
+		for (int i = 0; i < m; i++)
+			minor_arr[i] = get_minor(0, i);
 
+		for (int i = 0; i < m; i++)
+		{ 
+			det += multi * value[0][i] * minor_arr[i].get_det();
+			multi *= -1;
+		}
+	}
+
+	return det;
 }
