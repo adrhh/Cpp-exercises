@@ -15,11 +15,14 @@ private:
 	static int counter;
 	bool is_size_eq(const Matrix& m) const;
 	bool is_mult(const Matrix& m) const;
+	bool is_square() const;
+	
 public:
 	void test_show();
 	int get_max_dig();
 	double get_max();
 	double get_min();
+	double det_sarrus();
 	friend Matrix operator-(const Matrix& m1, const Matrix& m2);
 	friend Matrix operator+(const Matrix& m1, const Matrix& m2);
 	friend Matrix operator*(const Matrix& m1, double x);

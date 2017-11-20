@@ -8,13 +8,14 @@ int main()
 {
 
 	double** test2, ** test3;
-	test2 = make2darr(2, 3);
-	test3 = make2darr(3, 2);
+	test2 = make2darr(3, 3);
+	test3 = make2darr(3, 3);
 
-	Matrix t1(test2, 2, 3);
-	Matrix t2(test3, 3, 2);
+	Matrix t1(test2, 3, 3);
+	Matrix t2(test3, 3, 3);
 	Matrix t3 = t1 * t2;
 	t3.test_show();
+	cout << t1.det_sarrus() << endl;
 
 
 	return 0;

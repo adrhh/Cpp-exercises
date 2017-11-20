@@ -93,6 +93,43 @@ bool Matrix::is_mult(const Matrix& m) const
 	return (columns == m.rows) ? true : false;
 }
 
+bool Matrix::is_square() const
+{
+	return (columns == rows) ? true : false;
+}
+
+
+double Matrix::det_sarrus()
+{
+	double det;
+	if (!is_square())
+	{
+		cout << "Macierz nie jest kwadratowa" << endl;
+		det = 0;
+	}
+	else
+	{
+		switch(rows)
+		{ 
+			case 1:
+				det = value[0][0];
+				break;
+			case 2:
+				det = value[0][0] * value[1][1] - value[0][1] * value[1][0];
+				break;
+			case 3: 
+				det = value[0][0] * value[1][1] * value[2][2]
+					+ value[0][1] * value[1][2] * value[2][0]
+					+ value[0][2] * value[1][0] * value[2][1]
+					- value[0][2] * value[1][1] * value[2][0]
+					- value[0][1] * value[1][0] * value[2][2]
+					- value[0][0] * value[1][2] * value[2][1];
+		}
+	}
+
+	return det;
+}
+
 Matrix operator+(const Matrix& m1, const Matrix& m2)
 {
 	if (!m1.is_size_eq(m2))
