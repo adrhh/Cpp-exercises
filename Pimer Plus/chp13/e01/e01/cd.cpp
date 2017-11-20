@@ -23,8 +23,8 @@ Cd::Cd(const Cd& d)
 
 Cd::Cd()
 {
-	perf[0] = '\0');
-	label[0] = '\0');
+	perf[0] = '\0';
+	label[0] = '\0';
 	selections = 0;
 	playtime = 0.0;
 }
