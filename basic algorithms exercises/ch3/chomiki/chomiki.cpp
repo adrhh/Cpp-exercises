@@ -28,7 +28,10 @@ int main()
 	std::cout << zadanie(ilejest, MAXW, ILECHOMIK, 2, 5) << std::endl;
 	std::cout << zadanie(ilejest, MAXW, ILECHOMIK, 2, 4) << std::endl;
 
-	usun(ilejest);
+	for (int i = 0; i < MAXW; i++)
+		delete[] ilejest[i];
+	delete[] ilejest;
+
 	return 0;
 }
 
@@ -65,11 +68,6 @@ void poka(int** t, int n, int m)
 	}
 }
 
-void usun(int** t)
-{
-	delete[] *t;
-	delete[] t;
-}
 
 int zadanie(int**t, int n, int m, int x, int y)
 {
