@@ -32,8 +32,8 @@ public:
 	VintagePort(const char* br, const char* st, int b, const char* nn, int y);
 	VintagePort(const VintagePort &vp);
 	~VintagePort() { delete[] nickname };
-
-
+	void show() const;
+	friend ostream& operator<<(ostream& os, const VintagePort& vp);
 };
 
 
