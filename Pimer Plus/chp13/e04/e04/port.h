@@ -14,11 +14,11 @@ private:
 public:
 	Port(const char* br = "brak", const char* st = "brak", int b = 0);
 	Port(const Port &p);
-	virtual ~Port() { delete[] brand };
+	virtual ~Port() { delete[] brand; };
 	Port& operator=(const Port& p);
 	Port& operator+=(int b);
 	Port& operator-=(int a);
-	int bcount() const { return bottles };
+	int bcount() const { return bottles; };
 	virtual void show() const;
 	friend ostream& operator<<(ostream& os, const Port& b);
 };
@@ -31,7 +31,7 @@ private:
 public:
 	VintagePort(const char* br, const char* st, int b, const char* nn, int y);
 	VintagePort(const VintagePort &vp);
-	~VintagePort() { delete[] nickname };
+	~VintagePort() { delete[] nickname; };
 	void show() const;
 	friend ostream& operator<<(ostream& os, const VintagePort& vp);
 };
