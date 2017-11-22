@@ -16,7 +16,8 @@ public:
 class lackDMA : public baseDMA
 {
 private:
-	char color[40];
+	enum {MAXC = 40};
+	char color[MAXC];
 public:
 	lackDMA(const char* c = "brak",
 			const char* l = "brak", int r = 0);
@@ -34,7 +35,7 @@ private:
 public:
 	hasDMA(const char* s = "brak",
 			const char* l = "brak", int r = 0);
-	hasDMA(const baseDMA* bd, const char* s = "brak");  ///np baseDMA ob,  hasDMA(ob, "test") wywoluje konstruktor kopjujacy baseDMA
+	hasDMA(const baseDMA& bd, const char* s = "brak");  ///np baseDMA ob,  hasDMA(ob, "test") wywoluje konstruktor kopjujacy baseDMA
 	hasDMA(const hasDMA& hd);
 	~hasDMA();
 	hasDMA& operator=(const hasDMA& hd);
