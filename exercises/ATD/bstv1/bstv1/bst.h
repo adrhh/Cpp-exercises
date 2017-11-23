@@ -13,10 +13,12 @@ class Bst
 {
 private:
 	Node* root;
+	Node* bmin(Node* n) const;
+	Node* next(Node* n) const;
 public:
-	Bst();
+	Bst() {root = nullptr;};
 	void insert(int x);
-	void in_order(Node* n);
+	void in_order(Node* n) const;
 	Node* get_root() { return root; };
 
 };

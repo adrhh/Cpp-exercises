@@ -3,11 +3,6 @@
 
 using std::cout;
 
-Bst::Bst()
-{
-	root = nullptr;
-}
-
 void Bst::insert(int x)
 {
 	Node* temp = nullptr;
@@ -39,7 +34,7 @@ void Bst::insert(int x)
 	}
 }
 
-void Bst::in_order(Node* n)
+void Bst::in_order(Node* n) const
 {
 
 	if (n != nullptr)
@@ -50,3 +45,22 @@ void Bst::in_order(Node* n)
 	}
 }
 
+Node* Bst::bmin(Node* n) const
+{
+	while (n->left != nullptr)
+		n = n->left;
+	return n;
+}
+
+Node* Bst::next(Node* n) const
+{
+	if (n->right != nullptr)
+		return bmin(n);
+	Node* temp = n->parent;
+	while (temp!=nullptr && n==temp->right)
+	{
+		n = temp;
+		temp = temp->parent;
+	}
+	return temp;
+}
