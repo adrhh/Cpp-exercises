@@ -12,6 +12,11 @@ int main()
 
 
 	test.in_order(test.get_root());
+	test.delete_node(test.get_root());
+	cout << endl;
+	test.in_order(test.get_root());
+	cout << endl;
+	cout << test.get_key( test.find(3) )  << endl;
 
 	return 0;
 }

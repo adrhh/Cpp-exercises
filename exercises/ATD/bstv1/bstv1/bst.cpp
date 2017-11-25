@@ -64,3 +64,54 @@ Node* Bst::next(Node* n) const
 	}
 	return temp;
 }
+
+void Bst::delete_node(Node* n)
+{
+	Node* temp = nullptr;
+	Node* z = nullptr;
+	int k;
+
+	if (n->left == nullptr || n->right == nullptr)
+		temp = n;
+	else
+		temp = next(n);
+
+	if (temp->left)
+		z = temp->left;
+	else
+		z = temp->right;
+
+	if (z)
+		z->parent = temp->parent;
+
+	if (!temp->parent)
+		root = z;
+	else
+	{
+		if (temp == temp->parent->left)
+			temp->parent->left = z;
+		else
+			temp->parent->right = z;
+	}
+
+	if (temp != n)
+	{
+		k = temp->key;
+		temp->key = n->key;
+		n->key = k;
+	}
+}
+
+Node* Bst::find(int x) const
+{
+	Node* temp = root;
+	while (temp && x == temp->key)
+	{
+		if (x < temp->key)
+			temp = temp->left;
+		else
+			temp = temp->right;
+	}
+
+	return temp;
+}

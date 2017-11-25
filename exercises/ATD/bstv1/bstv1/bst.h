@@ -14,11 +14,15 @@ class Bst
 private:
 	Node* root;
 	Node* bmin(Node* n) const;
-	Node* next(Node* n) const;
+	
 public:
 	Bst() {root = nullptr;};
+	Node* next(Node* n) const;
+	Node* find(int x) const;
 	void insert(int x);
 	void in_order(Node* n) const;
+	void delete_node(Node* n);
+	int get_key(Node* n) { return n->key; };
 	Node* get_root() { return root; };
 
 };
