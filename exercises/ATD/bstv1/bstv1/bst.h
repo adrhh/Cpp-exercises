@@ -21,6 +21,8 @@ public:
 	Node* find(int x) const;
 	void insert(int x);
 	void in_order(Node* n) const;
+	void pre_order(Node* n) const;
+	void post_order(Node* n) const;
 	void delete_node(Node* n);
 	int get_key(Node* n) { return n->key; };
 	Node* get_root() { return root; };

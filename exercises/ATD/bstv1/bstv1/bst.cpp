@@ -44,6 +44,27 @@ void Bst::in_order(Node* n) const
 		in_order(n->right);
 	}
 }
+void Bst::pre_order(Node* n) const
+{
+
+	if (n != nullptr)
+	{
+		cout << n->key;
+		in_order(n->left);
+		in_order(n->right);
+	}
+}
+
+void Bst::post_order(Node* n) const
+{
+
+	if (n != nullptr)
+	{
+		in_order(n->left);		
+		in_order(n->right);
+		cout << n->key;
+	}
+}
 
 Node* Bst::bmin(Node* n) const
 {
@@ -105,7 +126,7 @@ void Bst::delete_node(Node* n)
 Node* Bst::find(int x) const
 {
 	Node* temp = root;
-	while (temp && x == temp->key)
+	while (temp && x != temp->key)
 	{
 		if (x < temp->key)
 			temp = temp->left;
