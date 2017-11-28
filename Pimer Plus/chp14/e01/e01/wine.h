@@ -4,6 +4,7 @@
 
 using std::string;
 using std::valarray;
+
 typedef valarray<int> ArrInt;
 typedef Pair<ArrInt, ArrInt> PairArr;
 
