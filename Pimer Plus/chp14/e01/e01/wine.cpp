@@ -8,7 +8,8 @@ Wine::Wine(const char*l, int y, const int yr[], const int bot[]) : label(l), yea
 {
 }
 
-int Wine::sum() const
+int Wine::sum()
 {
-	return yers_bottles.second().sum();
+	ArrInt& botref = yers_bottles.second();
+	return botref.sum();
 }

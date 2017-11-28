@@ -17,5 +17,5 @@ private:
 public:
 	Wine();
 	Wine(const char*l, int y, const int yr[], const int bot[]);
-	int sum() const;
+	int sum();
 };
