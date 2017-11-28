@@ -13,6 +13,7 @@ public:
 	Pair() {};
 };
 
+
 template <class T, class S>
 T& Pair<T, S>::first()
 {
