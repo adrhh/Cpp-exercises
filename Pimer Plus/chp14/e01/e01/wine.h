@@ -17,5 +17,9 @@ private:
 public:
 	Wine();
 	Wine(const char*l, int y, const int yr[], const int bot[]);
+	Wine(const char*l, int y);
+	string& Label() { return label; };
+	void GetBottles();
+	void Show();
 	int sum();
 };
