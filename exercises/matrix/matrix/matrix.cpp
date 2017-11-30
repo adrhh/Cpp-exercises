@@ -9,7 +9,6 @@ using std::setfill;
 using std::left;
 using std::setprecision;
 
-
 int Matrix::counter = 0;
 
 Matrix::Matrix()
@@ -55,7 +54,6 @@ int Matrix::get_max_dig()
 		abs_max /= 10;
 	}
 		
-
 	return digs;
 }
 
@@ -126,7 +124,6 @@ double Matrix::det_sarrus()
 					- value[0][0] * value[1][2] * value[2][1];
 		}
 	}
-
 	return det;
 }
 
@@ -208,7 +205,6 @@ Matrix operator+(const Matrix& m1, const Matrix& m2)
 
 				 temp_arr[i][j] = val;
 			 }
-				 
 
 		 Matrix matrix(temp_arr, n_rows, n_columns);
 
@@ -352,8 +348,14 @@ double Matrix::get_det()
 			det += multi * value[0][i] * minor_arr[i].get_det();
 			multi *= -1;
 		}
+		for (int i = 0; i < m; i++)
+		{ 
+			for (int j = 0; j < minor_arr->rows; j++)
+				delete[] minor_arr[i].value[j];
+			delete[] minor_arr[i].value;
+		}
+
 		delete[] minor_arr;
 	}
-
 	return det;
 }

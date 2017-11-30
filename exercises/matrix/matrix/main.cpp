@@ -6,7 +6,7 @@ double** make2darr(int n, int m);
 
 int main()
 {
-	/*
+	
 	double** test2;
 	test2 = make2darr(3, 3);
 
@@ -15,8 +15,7 @@ int main()
 	t3.test_show();
 	cout << t1.det_sarrus() << endl;
 	Matrix t4 = t3.get_minor(0, 1);
-	t4.test_show(); */
-
+	t4.test_show(); 
 	double** test3;
 	test3 = make2darr(4, 4);
 	Matrix t5(test3, 4, 4);

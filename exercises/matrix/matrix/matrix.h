@@ -32,6 +32,10 @@ public:
 	friend Matrix operator*(const Matrix& m1, const Matrix& m2);
 	Matrix(double** t, int n, int m);
 	Matrix();
+	~Matrix() 
+	{ //todo
+	};
+
 };
 
 #endif // !MATRIX_H_
