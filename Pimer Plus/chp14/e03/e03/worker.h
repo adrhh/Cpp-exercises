@@ -28,8 +28,49 @@ private:
 protected:
 	void Data() const;
 	void Get();
-
+public:
+	Waiter() : Worker(), panache() {}
+	Waiter(const string& s, long n, int p =  0) : Worker(s,n), panache(p) {}
+	Waiter(const Worker& w, int p = 0) : Worker(w), panache(p) {}
+	void Set();
+	void Show() const;
 };
 
+class Singer : virtual public Worker
+{
+protected:
+	enum {inna, alt, kontralt, sopran, bas, baryton, tenor};
+	enum {Vtypes = 7};
+	void Data() const;
+	void Get();
+private:
+	static const char *pv[Vtypes];
+	int voice;
+public:
+	Singer() : Worker(), voice(inna) {}
+	Singer(const string& s, long n, int v = inna) : Worker(s,n), voice(v) {}
+	Singer(const Worker& w, int v = inna) : Worker(w), voice(v) {}
+	void Set();
+	void Show() const;
+};
+
+class SingingWaiter : public Singer, public Waiter
+{
+protected:
+	void Data() const;
+	void Get();
+public:
+	SingingWaiter() {};
+	SingingWaiter(const string& s, long n, int p = 0, int v = inna) 
+		: Worker(s,n), Waiter(s,n,p), Singer(s,n,v) {}
+	SingingWaiter(const Worker& w, int p = 0, int v = inna)
+		: Worker(w), Waiter(w, p), Singer(w, v) {}
+	SingingWaiter(const Worker& w, int p = 0)
+		: Worker(w), Waiter(w, p), Singer(w) {}
+	SingingWaiter(const Worker& w, int v = inna)
+		: Worker(w), Waiter(w), Singer(w, v) {}
+	void Set();
+	void Show() const;
+};
 
 #endif // !WORKER_H_
