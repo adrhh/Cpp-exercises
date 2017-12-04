@@ -20,5 +20,4 @@ public:
 	bool enqueue(const T & item);
 	bool dequeue(T & item);
 };
-
 #endif //!QUEUE_H_
