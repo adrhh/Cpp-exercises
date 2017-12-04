@@ -16,7 +16,6 @@ public:
 	~Queue();
 	bool isempty() const { return items == 0; }
 	bool isfull() const { return items == qsize; }
-	int queuecount() const { return items; }
 	bool enqueue(const T& item);
 	bool dequeue(T& item);
 };

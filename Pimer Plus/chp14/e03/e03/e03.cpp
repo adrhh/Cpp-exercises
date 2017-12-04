@@ -16,11 +16,11 @@ int main()
 		char choice;
 		cout << "Podaj kategorie" << endl
 			<< "k kelner" << endl
-			<< "p  piosenkarz" << endl
+			<< "p piosenkarz" << endl
 			<< "s spiweajacy kelner" << endl
 			<< "w koniec" << endl;
 		cin >> choice;
-		while (strchr("kpsw", choice))
+		while (!strchr("kpsw", choice))
 		{
 			cout << "wybierz k,p,s lub w" << endl;
 			cin >> choice;
@@ -41,7 +41,8 @@ int main()
 		qs++;
 	}
 
-	Queue<Worker *> wque(qs);
+
+	Queue<Worker*> wque(qs);
 	for (int i = 0; i < qs; i++)
 		wque.enqueue(warr[i]);
 
