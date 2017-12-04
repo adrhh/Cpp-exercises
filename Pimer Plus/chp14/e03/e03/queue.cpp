@@ -1,4 +1,4 @@
-#include "queue.h"
+#include "queue1.h"
 
 template <typename T>
 Queue<T>::Queue(int n) : qsize(n)
