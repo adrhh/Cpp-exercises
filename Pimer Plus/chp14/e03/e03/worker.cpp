@@ -53,8 +53,8 @@ void Waiter::Get()
 
 const char* Singer::pv[Singer::Vtypes] =
 {
-	"inna", "alt", "kontralt", "sopran", "bas", "baryton", "tenor" }
-}
+	"inna", "alt", "kontralt", "sopran", "bas", "baryton", "tenor"
+};
 
 void Singer::Set()
 {
@@ -79,7 +79,7 @@ void Singer::Get()
 {
 	cout << "Podaj nr skali glosu:" << endl;
 	int i;
-	for (int i = 0; i < Vtypes; i++)
+	for (i = 0; i < Vtypes; i++)
 	{
 		cout << i << ": " << pv[i] << "   ";
 		if (i % 4 == 3)
@@ -112,7 +112,7 @@ void SingingWaiter::Set()
 	Get();
 }
 
-void SingingWaiter::Show()
+void SingingWaiter::Show() const
 {
 	cout << "Kategoria spiewajcy kelner:" << endl;
 	Worker::Data();

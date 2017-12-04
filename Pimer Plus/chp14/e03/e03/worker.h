@@ -67,8 +67,8 @@ public:
 		: Worker(w), Waiter(w, p), Singer(w, v) {}
 	SingingWaiter(const Worker& w, int p = 0)
 		: Worker(w), Waiter(w, p), Singer(w) {}
-	SingingWaiter(const Worker& w, int v = inna)
-		: Worker(w), Waiter(w), Singer(w, v) {}
+	//SingingWaiter(const Worker& w, int v = inna)
+	//	: Worker(w), Waiter(w), Singer(w, v) {}
 	void Set();
 	void Show() const;
 };
