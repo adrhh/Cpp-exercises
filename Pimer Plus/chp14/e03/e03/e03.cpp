@@ -41,17 +41,9 @@ int main()
 		qs++;
 	}
 
-	Queue<Worker*> wque(qs);
+	Queue<Worker *> wque(qs);
 	for (int i = 0; i < qs; i++)
 		wque.enqueue(warr[i]);
-
-	cout << "Lista pracownikow: " << endl;
-	while (!wque.isempty())
-	{
-		Worker* temp;
-		wque.dequeue(temp);
-		temp->Show();
-	}
 
 	return 0;
 }

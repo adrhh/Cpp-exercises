@@ -1,12 +1,12 @@
-#ifndef QUEUE_H_
-#define QUEUE_H_
+#ifndef QUEUE1_H_
+#define QUEUE1_H_
 
 template <typename T>
 class Queue
 {
 private:
 	enum { QSIZE = 10 };
-	struct Node{T item; Node * next;};
+	struct Node { T item; Node* next; };
 	Node* front;
 	Node* rear;
 	int items;
@@ -17,7 +17,7 @@ public:
 	bool isempty() const { return items == 0; }
 	bool isfull() const { return items == qsize; }
 	int queuecount() const { return items; }
-	bool enqueue(const T & item);
-	bool dequeue(T & item);
+	bool enqueue(const T& item);
+	bool dequeue(T& item);
 };
-#endif //!QUEUE_H_
+#endif //!QUEUE1_H_

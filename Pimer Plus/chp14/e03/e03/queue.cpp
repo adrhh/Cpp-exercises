@@ -13,10 +13,10 @@ bool Queue<T>::enqueue(const T& item)
 	if (isfull())
 		return false;
 	Node* add = new Node;
-	add->item = it;
+	add->item = item;
 	add->next = nullptr;
 	items++;
-	if (front == NULL)
+	if (front == nullptr)
 		front = add;
 	else
 		rear->next = add;
@@ -29,7 +29,7 @@ template <typename T>
 Queue<T>::~Queue()
 {
 	Node* temp;
-	while (front != NULL)
+	while (front != nullptr)
 	{
 		temp = front;
 		front = front->next;
