@@ -1,5 +1,7 @@
 #include "person.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using std::endl;
 using std::cout;
@@ -11,6 +13,17 @@ ostream& operator<<(ostream& os, const Card& cd)
 {
 	os << cv[cd.color] << ' ' << cd.value;
 	return os;
+}
+
+Deck::Deck()
+{
+	int k = 0;
+	while (k < Maxsize)
+	{
+		for (int i = 0; i < Card::Colors; i++)
+			for (int j = 0; j < Card::Maxvalue; j++)
+				deck[k++] = Card(j, i);
+	}
 }
 
 Person::Person(const char* n, const char* s)
@@ -36,9 +49,22 @@ void Person::Show() const
 	cout << "Nazwisko: " << sname << endl;
 }
 
-void Gunslinger::Show() const
+void Gunslinger::Data() const
 {
-	Person::Show();
 	cout << "Czas wyciagniecia rewolweru: " << get_rt() << endl;
 	cout << "Liczba naciec na rewolwerze: " << marks << endl;
 }
+
+void Gunslinger::Show() const
+{
+	Person::Show();
+	Data();
+}
+
+Card& PokerPlayer::draw()
+{
+	srand(time(0));
+	int choice = rand() % 52;
+	return talia[choice];
+}
+
