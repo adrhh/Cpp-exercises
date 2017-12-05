@@ -61,10 +61,28 @@ void Gunslinger::Show() const
 	Data();
 }
 
-Card& PokerPlayer::draw()
+Card& PokerPlayer::draw() const
 {
 	srand(time(0));
 	int choice = rand() % 52;
 	return talia[choice];
 }
 
+void PokerPlayer::Data() const
+{
+	Card& inhand = draw();
+	cout << inhand;
+}
+
+void PokerPlayer::Show() const
+{
+	Person::Show();
+	Data();
+}
+
+void BadDude::Show() const
+{
+	Person::Show();
+	PokerPlayer::Data();
+	Gunslinger::Data();
+}

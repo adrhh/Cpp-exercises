@@ -32,7 +32,7 @@ private:
 	Card deck[Maxsize];
 public:
 	Deck();
-	Card& operator[](const int n) { return deck[n]; }
+	Card operator[](const int n) const { return deck[n]; }
 };
 
 class Person
@@ -70,7 +70,9 @@ public:
 	PokerPlayer(const char* n = "brak", const char* s = "brak") : Person(n,s), talia() {}
 	PokerPlayer(const Person& p) : Person(p), talia() {}
 	~PokerPlayer() {}
-	Card& draw();
+	Card& draw() const;
+	void Data() const;
+	void Show() const;
 };
 
 class BadDude : public Gunslinger, public PokerPlayer
@@ -81,7 +83,7 @@ public:
 	BadDude(const char* n = "brak", const char* s = "brak", double rt = 0, int m = 0) : Person(n, s), Gunslinger(n, s, rt, m), PokerPlayer(n, s) {}
 	BadDude(const Person& p, double rt = 0, int m = 0) : Person(p), Gunslinger(p, rt, m), PokerPlayer(p) {}
 	BadDude(const Gunslinger& g) : Person(g), Gunslinger(g), PokerPlayer(g) {}
-
+	void Show() const;
 };
 
 #endif // !PERSON_H_
