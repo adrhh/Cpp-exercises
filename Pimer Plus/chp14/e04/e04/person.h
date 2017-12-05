@@ -31,8 +31,22 @@ private:
 	char* sname;
 public:
 	Person(const char* n = "brak", const char* s = "brak");
-	~Person() { delete name; delete sname; };
+	Person(const Person& p);
+	virtual ~Person() { delete[] name; delete[] sname; };
+	virtual void Show() const;
+	virtual void Set() = 0;
+};
 
+class Gunslinger : public Person
+{
+private:
+	double rtime;
+	int marks;
+public:
+	Gunslinger(const char* n = "brak", const char* s = "brak", double rt = 0, int m = 0) : Person(n, s), rtime(rt), marks(m) {};
+	Gunslinger(const Person& p, double rt = 0, int m = 0) : Person(p), rtime(rt), marks(m) {};
+	double get_rt() const { return rtime; };
+	void Show() const;
 };
 
 
