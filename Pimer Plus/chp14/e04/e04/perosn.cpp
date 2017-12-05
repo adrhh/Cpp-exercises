@@ -31,7 +31,7 @@ Person::Person(const char* n, const char* s)
 	name = new char[strlen(n) + 1];
 	strcpy(name, n);
 	sname = new char[strlen(s) + 1];
-	strcpy(sname, n);
+	strcpy(sname, s);
 }
 
 Person::Person(const Person& p)
@@ -61,17 +61,23 @@ void Gunslinger::Show() const
 	Data();
 }
 
-Card& PokerPlayer::draw() const
+int PokerPlayer::rnd() const
 {
 	srand(time(0));
 	int choice = rand() % 52;
-	return talia[choice];
+	return choice;
+}
+
+Card& PokerPlayer::draw(int n) const
+{
+
+	return talia[n];
 }
 
 void PokerPlayer::Data() const
 {
-	Card& inhand = draw();
-	cout << inhand;
+	Card& inhand = draw(rnd());
+	cout << inhand << endl;
 }
 
 void PokerPlayer::Show() const

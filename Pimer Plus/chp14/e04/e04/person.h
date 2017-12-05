@@ -45,7 +45,6 @@ public:
 	Person(const Person& p);
 	virtual ~Person() { delete[] name; delete[] sname; }
 	virtual void Show() const;
-	virtual void Set() = 0;
 };
 
 class Gunslinger : virtual public Person
@@ -64,13 +63,15 @@ public:
 
 class PokerPlayer : virtual public Person
 {
+private:
+	int rnd() const;
 protected:
 	Deck talia;
 public:
 	PokerPlayer(const char* n = "brak", const char* s = "brak") : Person(n,s), talia() {}
 	PokerPlayer(const Person& p) : Person(p), talia() {}
 	~PokerPlayer() {}
-	Card& draw() const;
+	Card& draw(int n) const;
 	void Data() const;
 	void Show() const;
 };
