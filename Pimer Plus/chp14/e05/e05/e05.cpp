@@ -21,5 +21,13 @@ int main()
 	cout << hf << endl;
 	hf.ShowAll();
 
+	cin.get();
+	highfink hf2;
+	hf2.SetAll();
+	cout << "Uzycie wskaznika do klasy bazowej:" << endl;
+	abstr_emp* test[4] = { &em, &fi, &hf, &hf2 };
+	for (int i = 0; i < 4; i++)
+		test[i]->ShowAll();
+
 	return 0;
 }

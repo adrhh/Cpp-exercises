@@ -63,7 +63,6 @@ public:
 		cout << "Zaradzani: " << inchargeof << endl;
 	}
 	virtual void SetAll();
-
 };
 
 class fink : virtual public abstr_emp
@@ -74,22 +73,32 @@ protected:
 	const string ReportsTo() const { return reportsto; }
 	string& ReportsTo() { return reportsto; }
 public:
-	fink();
-	fink(const string& fn, const string& ln, const string& j, const string& rpo);
-	fink(const abstr_emp& e, const string& rpo);
-	fink(const fink& f);
-	virtual void ShowAll() const;
+	fink() : abstr_emp(), reportsto("brak") {}
+	fink(const string& fn, const string& ln, const string& j, const string& rpo)
+		: abstr_emp(fn, ln, j), reportsto(rpo) {}
+	fink(const abstr_emp& e, const string& rpo)
+		: abstr_emp(e), reportsto(rpo) {}
+	fink(const fink& f) : abstr_emp(f), reportsto(f.reportsto) {}
+	virtual void ShowAll() const
+	{
+		abstr_emp::ShowAll();
+		cout << "Donosi do: " << reportsto << endl;
+	}
 	virtual void SetAll();
 };
 
 class highfink : public manager, public fink
 {
 public:
-	highfink();
-	highfink(const string& fn, const string& ln, const string& j, const string& rpo, int ico);
-	highfink(const abstr_emp& e, const string& rpo, int ico);
-	highfink(const fink& f, int ico);
-	highfink(const manager& m, const string& rpo);
+	highfink() : abstr_emp(), manager(), fink() {}
+	highfink(const string& fn, const string& ln, const string& j, const string& rpo, int ico)
+		: abstr_emp(fn, ln, j), fink(fn, ln, j, rpo), manager(fn, ln, j, ico) {}
+	highfink(const abstr_emp& e, const string& rpo, int ico)
+		: abstr_emp(e), fink(e,rpo), manager(e, ico) {}
+	highfink(const fink& f, int ico)
+		: abstr_emp(f), fink(f), manager(f, ico) {}
+	highfink(const manager& m, const string& rpo)
+		: abstr_emp(m), fink(m, rpo), manager(m) {}
 	virtual void ShowAll() const;
 	virtual void SetAll();
 };
