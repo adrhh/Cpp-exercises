@@ -16,6 +16,15 @@ Time::Time(const int h, const int m ) : hours(h), minutes(m)
 	}
 }
 
+Time::Time(const Time& t)
+{
+	int min = t.minutes;
+	int hou = t.hours;
+	int res = t.rest;
+	this->set(hou, min);
+	rest += res;
+}
+
 void Time::set(const int h, const int m)
 {
 	hours = h;
@@ -53,6 +62,15 @@ Time& Time::operator+=(const Time& t)
 	rest += t.rest;
 	int temp_m = minutes + t.minutes;
 	int temp_h = hours + t.hours;
+	this->set(temp_h, temp_m);
+	return *this;
+}
+
+Time& Time::operator-=(const Time& t)
+{
+	rest -= t.rest;
+	int temp_m = minutes - t.minutes;
+	int temp_h = hours - t.hours;
 	this->set(temp_h, temp_m);
 	return *this;
 }
