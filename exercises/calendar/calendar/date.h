@@ -24,6 +24,7 @@ public:
 	void show() const;
 	int get_min() { return minutes; }
 	int get_hour() { return hours; }
+	Time& operator+=(const Time& t);
 	friend ostream& operator<<(ostream& os, Time& t);
 };
 

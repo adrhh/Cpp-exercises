@@ -41,6 +41,21 @@ void Time::add_min(int m)
 	rest += hours / Hmax;
 	hours %= Hmax;
 }
+void Time::add_hour(int h)
+{
+	hours += h;
+	rest += hours / Hmax;
+	hours %= Hmax;
+}
+
+Time& Time::operator+=(const Time& t)
+{
+	rest += t.rest;
+	int temp_m = minutes + t.minutes;
+	int temp_h = hours + t.hours;
+	this->set(temp_h, temp_m);
+	return *this;
+}
 
 void Time::show() const
 {
