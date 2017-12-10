@@ -12,6 +12,11 @@ int main()
 	test2.show();
 	test += test2;
 	test.show();
+	test *= 2;
+	test.show();
+	Time test3;
+	test3 = test2 + test;
+	test3.show();
 
 	return 0;
 }

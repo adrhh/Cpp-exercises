@@ -1,6 +1,8 @@
 #include "date.h"
 
 using std::cout;
+using std::wcerr;
+using std::endl;
 
 Time::Time(const int h, const int m ) : hours(h), minutes(m)
 {
@@ -75,6 +77,14 @@ Time& Time::operator-=(const Time& t)
 	return *this;
 }
 
+Time& Time::operator*=(const int x)
+{
+	int tot_min = get_total_min();
+	tot_min *= x;
+	set(0, tot_min);
+	return *this;
+}
+
 void Time::show() const
 {
 	cout << rest << ' ' << hours
@@ -85,6 +95,38 @@ ostream& operator<<(ostream& os, Time& t)
 {
 	os << t.hours << " : " << t.minutes << ' ';
 	return os;
+}
+
+int Time::get_total_min() const
+{
+	// rest not included
+	return  minutes + hours*Mmax;
+}
+
+Time operator+(const Time& t1, const Time& t2)
+{
+	int temp_m = t1.minutes + t2.minutes;
+	int temp_h = t1.hours + t2.hours;
+	int temp_r = t1.rest + t2.rest;
+	Time temp_t(temp_h, temp_m);
+	temp_t.rest += temp_r;
+	return temp_t;
+}
+
+Time operator-(const Time& t1, const Time& t2)
+{
+	Time temp;
+	int tot_min = t1.get_total_min() - t2.get_total_min();
+	if (tot_min < 0)
+	{
+		wcerr << "Nie mozna odjemowac mniejszej ilosci od wiekszej ilosci czasu" << endl
+			<< "Zwracam obiekt pusty" << endl;
+		temp.set(0, 0);
+	}
+	else
+		temp.set(0, tot_min);
+
+	return temp;
 }
 
 

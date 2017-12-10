@@ -18,6 +18,7 @@ private:
 public:
 	//default constructor
 	Time(const int h = 0, const int m = 0);
+	//copy construcotr
 	Time(const Time& t);
 	void add_min(int m);
 	void add_hour(int h);
@@ -25,8 +26,12 @@ public:
 	void show() const;
 	int get_min() const { return minutes; }
 	int get_hour() const { return hours; }
+	int get_total_min() const;
 	Time& operator+=(const Time& t);
 	Time& operator-=(const Time& t);
+	Time& operator*=(const int x);
+	friend Time operator+(const Time& t1, const Time& t2);
+	friend Time operator-(const Time& t1, const Time& t2);
 	friend ostream& operator<<(ostream& os, Time& t);
 };
 
