@@ -42,8 +42,8 @@ class Date
 private:
 	enum {Mmax = 12, Leap_year = 4, M31days = 7};
 	//31 days months
-	int m31[M31days] = { 1,3,5,7,8,10,12 };
-	int mfeb = 2;
+	const int m31[M31days] = { 1,3,5,7,8,10,12 };
+	const int mfeb = 2;
 	int year;
 	int month;
 	int day;
@@ -53,11 +53,9 @@ private:
 public:
 	//default constructor
 	Date(const int y = 0, const int m = 0, const int d = 0, const  int h = 0, const int min = 0);
-	set(const int y = 0, const int m = 0, const int d = 0, const int h = 0, const int min = 0);
-	void set_leap() { return (year % Leap_year == 0) ? true : false; }
+	//set(const int y = 0, const int m = 0, const int d = 0, const int h = 0, const int min = 0);
+	void set_leap() { leap = (year % Leap_year == 0) ? true : false; }
 	void set_month_days();
-}
-
-
+};
 
 #endif // !DATE_H_
