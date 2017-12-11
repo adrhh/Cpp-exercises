@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include "sqlite3.h"
 
 using std::wcerr;
@@ -13,11 +14,14 @@ char**,    An array of strings representing fields in the row
 char**     An array of strings representing column names 
 ); */
 
-static int callback(void* not_used, int columns, char **col_val, char **col_name)
+static int callback(void* data, int columns, char **col_val, char **col_name)
 {
-	for (int i = 0; i<columns; i++) 
-		cout << col_name[i] << '\t' << col_val[i] ? col_val[i] : "NULL";
-
+	for (int i = 0; i < columns; i++)
+	{ 
+		cout << col_name[i] << " : " << col_val[i] ? col_val[i] : "NULL";
+		cout << endl;
+	}
+	cout << data;
 	cout << endl;
 	return 0;
 }
@@ -27,6 +31,7 @@ int main()
 	sqlite3  *db;
 	bool sqlb;
 	char *err_msg = "blad bazy danych";
+	const char* data = "Callback function called\n";
 
 	sqlb = sqlite3_open("test.db", &db);
 	if (sqlb)
@@ -56,6 +61,26 @@ int main()
 	}
 	else
 		cout << "tabela utworzona" << endl;
+
+	sql =
+		"INSERT INTO empls VALUES (1, 'Wilhelm', 'August', 2500.50, 'ksiaze', '543789');"\
+		"INSERT INTO empls VALUES (2, 'Pawel', 'Wirtemberski', 1624.30, 'ksiaze', '340914');";
+
+	sqlb = sqlite3_exec(db, sql, callback, 0, &err_msg);
+	if (sqlb != SQLITE_OK)
+	{
+		wcerr << err_msg;
+		sqlite3_free(err_msg);
+	}
+	else
+		cout << "rekordy dodane" << endl;
+
+
+	sql = 
+		"SELECT * FROM empls";
+
+	sqlb = sqlite3_exec(db, sql, callback, (void*)data, &err_msg);
+
 
 	sqlite3_close(db);
 
