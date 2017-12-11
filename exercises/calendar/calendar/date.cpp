@@ -1,8 +1,16 @@
 #include "date.h"
 
+/*
+1.1 Time methods: lines 11-138
+1.2 Data methods: lines 140
+*/
+
 using std::cout;
 using std::wcerr;
 using std::endl;
+
+//1.1 Time method
+//****************************************************
 
 Time::Time(const int h, const int m ) : hours(h), minutes(m)
 {
@@ -44,7 +52,7 @@ void Time::set(const int h, const int m)
 	}
 }
 
-void Time::add_min(int m)
+void Time::add_min(const int m)
 {
 	minutes += m;
 	hours += minutes / Mmax;
@@ -52,7 +60,7 @@ void Time::add_min(int m)
 	rest += hours / Hmax;
 	hours %= Hmax;
 }
-void Time::add_hour(int h)
+void Time::add_hour(const int h)
 {
 	hours += h;
 	rest += hours / Hmax;
@@ -70,7 +78,7 @@ Time& Time::operator+=(const Time& t)
 
 Time& Time::operator-=(const Time& t)
 {
-	rest -= t.rest;
+	//rest -= t.rest;
 	int temp_m = minutes - t.minutes;
 	int temp_h = hours - t.hours;
 	this->set(temp_h, temp_m);
@@ -129,6 +137,21 @@ Time operator-(const Time& t1, const Time& t2)
 	return temp;
 }
 
+//1.2 Time methods
+//****************************************************
 
+Date::Date(const int y, const int m, const int d, const  int h, const int min) : year(y), month(m), day(d), time(h, min)
+{
 
+}
+
+void Date::set_month_days()
+{
+	month_days = 30;
+	for (int i = 0; i < M31days; i++)
+		if (month == m31[i])
+			month_days = 31;
+	if (month = 2)
+		month_days = leap ? 28 : 29;
+}
 
