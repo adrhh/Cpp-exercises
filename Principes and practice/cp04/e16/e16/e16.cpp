@@ -19,6 +19,7 @@ int main()
 	sort(test.begin(), test.end());
 
 	int dominata=0;
+	int max_c = 0;
 
 	for(int i=0; i<test.size() - 1; i++)
 	{
@@ -29,7 +30,11 @@ int main()
 			count++;
 			i++;
 		}
-		dominata = (dominata < count) ? count : dominata;
+		if (max_c < count)
+		{
+			max_c = count;
+			dominata = temp;
+		}
 	}
 
 	cout << "dominata zbioru jest: " << dominata << endl;
