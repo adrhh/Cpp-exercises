@@ -146,7 +146,7 @@ void Date::set_month_days()
 	for (int i = 0; i < M31days; i++)
 		if (month == m31[i])
 			month_days = 31;
-	if (month = 2)
+	if (month == Mfeb)
 		month_days = leap ? 28 : 29;
 }
 
