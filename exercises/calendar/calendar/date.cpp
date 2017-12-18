@@ -3,16 +3,11 @@
 #include "date.h"
 
 
-/*
-1.1 Time methods: lines 11-138
-1.2 Data methods: lines 140
-*/
-
 using std::cout;
 using std::wcerr;
 using std::endl;
 
-//1.1 Time method
+// Time methods
 //****************************************************
 
 Time::Time(const int h, const int m ) : hours(h), minutes(m)
@@ -140,7 +135,7 @@ Time operator-(const Time& t1, const Time& t2)
 	return temp;
 }
 
-//1.2 Time methods
+// Date methods
 //****************************************************
 
 Date::Date(const int y, const int m, const int d, const  int h, const int min) : year(y), month(m), day(d), time(h, min)
