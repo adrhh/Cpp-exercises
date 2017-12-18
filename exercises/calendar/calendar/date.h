@@ -56,6 +56,7 @@ public:
 	//set(const int y = 0, const int m = 0, const int d = 0, const int h = 0, const int min = 0);
 	void set_leap() { leap = (year % Leap_year == 0) ? true : false; }
 	void set_month_days();
+	void show() const;
 };
 
 #endif // !DATE_H_

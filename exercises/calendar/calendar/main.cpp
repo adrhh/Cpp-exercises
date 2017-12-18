@@ -22,7 +22,7 @@ int main()
 
 	const int size = 3;
 
-	Arr<Time*, size> arr_test;
+	Arr<Time*> arr_test(size);
 	
 	arr_test[0] = &test;
 	arr_test[1] = &test2;
@@ -34,11 +34,20 @@ int main()
 	{
 		arr_test[4]->show();
 	}
-	catch(Arr<Time*, size>::index_err& e)
+	catch(Arr<Time*>::index_err& e)
 	{ 
 		cout << e.what() << endl;
 		cout << "indeks: " << e.get_index() << " jest nieporawny" << endl;
 	}
+
+	cout << arr_test.get_size() << endl;
+	arr_test.pop_end();
+	cout << arr_test.get_size() << endl;
+	arr_test[1]->show();
+	arr_test.push_back(&test);
+	cout << arr_test.get_size() << endl;
+	arr_test[2]->show();
+	test.show();
 
 	return 0;
 }

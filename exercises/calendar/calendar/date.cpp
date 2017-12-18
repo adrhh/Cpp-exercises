@@ -150,3 +150,8 @@ void Date::set_month_days()
 		month_days = leap ? 28 : 29;
 }
 
+void Date::show() const
+{
+	time.show();
+	cout << year << ' ' << month << ' ' << day;
+}
