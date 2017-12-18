@@ -1,7 +1,5 @@
-
 #include <iostream>
 #include "date.h"
-
 
 using std::cout;
 using std::wcerr;
@@ -138,10 +136,9 @@ Time operator-(const Time& t1, const Time& t2)
 // Date methods
 //****************************************************
 
-Date::Date(const int y, const int m, const int d, const  int h, const int min) : year(y), month(m), day(d), time(h, min)
-{
-
-}
+Date::Date(const int y, const int m, const int d, const  int h, const int min) 
+		  : year(y), month(m), day(d), time(h, min)
+{}
 
 void Date::set_month_days()
 {
