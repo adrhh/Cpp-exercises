@@ -138,7 +138,25 @@ Time operator-(const Time& t1, const Time& t2)
 
 Date::Date(const int y, const int m, const int d, const  int h, const int min) 
 		  : year(y), month(m), day(d), time(h, min)
-{}
+{
+	set_month_days();
+	if (day > month_days)
+		//day to max value;
+		day = month_days;
+	if (month > Mmax)
+		month = Mmax;
+}
+
+Date::Date(const int y, const int m, const int d, const Time& t)
+	: year(y), month(m), day(d), time(t)
+{
+	set_month_days();
+	if (day > month_days)
+		//day to max value;
+		day = month_days;
+	if (month > Mmax)
+		month = Mmax;
+}
 
 void Date::set_month_days()
 {
@@ -154,4 +172,11 @@ void Date::show() const
 {
 	time.show();
 	cout << year << ' ' << month << ' ' << day;
+}
+
+ostream& operator<<(ostream& os, Date& d)
+{
+	os << d.year << '-' << d.month << '-' << d.day << ' ';
+	os << d.time;
+	return os;
 }
