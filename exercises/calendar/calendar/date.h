@@ -7,14 +7,14 @@ using std::ostream;
 
 //hours and minutes
 //24:60 max
+//days only for add/sub
 class Time
 {
 private:
 	enum {Hmax = 24, Mmax = 60};
 	int hours;
 	int minutes;
-	//only for + and *
-	int rest = 0;
+	int days = 0;
 public:
 	//default constructor
 	Time(const int h = 0, const int m = 0);
@@ -26,12 +26,14 @@ public:
 	void show() const;
 	int get_min() const { return minutes; }
 	int get_hour() const { return hours; }
-	int get_rest() const { return rest; }
-	void set_rest(int n = 0) { rest = n; }
+	int get_rest() const { return days; }
+	void set_rest(int n = 0) { days = n; }
 	int get_total_min() const;
 	Time& operator+=(const Time& t);
 	Time& operator-=(const Time& t);
 	Time& operator*=(const int x);
+	bool operator<(const Time& t);
+	bool operator>(const Time& t);
 	friend Time operator+(const Time& t1, const Time& t2);
 	friend Time operator-(const Time& t1, const Time& t2);
 	friend ostream& operator<<(ostream& os, Time& t);
@@ -43,12 +45,14 @@ private:
 	enum {Mmax = 12, Leap_year = 4, M31days = 7, Mfeb = 2};
 	//31 days months
 	const int m31[M31days] = { 1,3,5,7,8,10,12 };
+
 	int year;
 	int month;
 	int day;
+	Time time;
+
 	bool leap;
 	int month_days;
-	Time time;
 	void set_leap() { leap = (year % Leap_year == 0) ? true : false; }
 	void set_month_days();
 public:
@@ -56,7 +60,9 @@ public:
 	Date(const int y = 0, const int m = 0, const int d = 0, const  int h = 0, const int min = 0);
 	Date(const int y, const int m, const int d, const Time& t);
 	void show() const;
+	bool operator<(const Date& d);
 	friend ostream& operator<<(ostream& os, Date& d);
+	friend Time operator-(const Date& d1, const Date& d2);
 };
 
 #endif // !DATE_H_

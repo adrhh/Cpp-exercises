@@ -17,7 +17,7 @@ Time::Time(const int h, const int m ) : hours(h), minutes(m)
 	}
 	if (hours >= Hmax)
 	{
-		rest += hours / Hmax;
+		days += hours / Hmax;
 		hours %= Hmax;
 	}
 }
@@ -26,16 +26,16 @@ Time::Time(const Time& t)
 {
 	int min = t.minutes;
 	int hou = t.hours;
-	int res = t.rest;
+	int res = t.days;
 	this->set(hou, min);
-	rest += res;
+	days += res;
 }
 
 void Time::set(const int h, const int m)
 {
 	hours = h;
 	minutes = m;
-	rest = 0;
+	days = 0;
 	if (minutes >= Mmax)
 	{
 		minutes %= Mmax;
@@ -43,7 +43,7 @@ void Time::set(const int h, const int m)
 	}
 	if (hours >= Hmax)
 	{
-		rest += hours / Hmax;
+		days += hours / Hmax;
 		hours %= Hmax;
 	}
 }
@@ -53,19 +53,19 @@ void Time::add_min(const int m)
 	minutes += m;
 	hours += minutes / Mmax;
 	minutes %= Mmax;
-	rest += hours / Hmax;
+	days += hours / Hmax;
 	hours %= Hmax;
 }
 void Time::add_hour(const int h)
 {
 	hours += h;
-	rest += hours / Hmax;
+	days += hours / Hmax;
 	hours %= Hmax;
 }
 
 Time& Time::operator+=(const Time& t)
 {
-	rest += t.rest;
+	days += t.days;
 	int temp_m = minutes + t.minutes;
 	int temp_h = hours + t.hours;
 	this->set(temp_h, temp_m);
@@ -91,7 +91,7 @@ Time& Time::operator*=(const int x)
 
 void Time::show() const
 {
-	cout << rest << ' ' << hours
+	cout << days << ' ' << hours
 		 << ' ' << minutes << ' ';
 }
 
@@ -103,7 +103,7 @@ ostream& operator<<(ostream& os, Time& t)
 
 int Time::get_total_min() const
 {
-	// rest not included
+	// days not included
 	return  minutes + hours*Mmax;
 }
 
@@ -111,9 +111,9 @@ Time operator+(const Time& t1, const Time& t2)
 {
 	int temp_m = t1.minutes + t2.minutes;
 	int temp_h = t1.hours + t2.hours;
-	int temp_r = t1.rest + t2.rest;
+	int temp_r = t1.days + t2.days;
 	Time temp_t(temp_h, temp_m);
-	temp_t.rest += temp_r;
+	temp_t.days += temp_r;
 	return temp_t;
 }
 
@@ -131,6 +131,16 @@ Time operator-(const Time& t1, const Time& t2)
 		temp.set(0, tot_min);
 
 	return temp;
+}
+
+bool Time::operator<(const Time& t)
+{
+	return (get_total_min() < t.get_total_min()) ? true : false;
+}
+
+bool Time::operator>(const Time& t)
+{
+	return (get_total_min() > t.get_total_min()) ? true : false;
 }
 
 // Date methods
@@ -179,4 +189,38 @@ ostream& operator<<(ostream& os, Date& d)
 	os << d.year << '-' << d.month << '-' << d.day << ' ';
 	os << d.time;
 	return os;
+}
+
+Time operator-(const Date& d1, const Date& d2)
+{
+	Time temp;
+	return temp;
+}
+
+bool Date::operator<(const Date& d)
+{
+	bool answ = true;
+
+	if (year > d.year)
+		answ = false;
+	else if (year < d.year)
+		answ = true;
+	else
+	{
+		if (month > d.month)
+			answ = false;
+		else if (month < d.month)
+			answ = true;
+		else
+		{
+			if (day > d.day)
+				answ = false;
+			else if (day < d.day)
+				answ = true;
+			else
+				answ = time < d.time;
+		}
+	}
+
+	return answ;
 }

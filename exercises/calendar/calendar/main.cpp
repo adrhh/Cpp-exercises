@@ -49,5 +49,12 @@ int main()
 	arr_test[2]->show();
 	test.show();
 
+	cout << "\n\n\n\n";
+
+	Date d1(2017, 12, 14, test);
+	d1.show();
+
+	cout << '\n' << d1 << endl;
+
 	return 0;
 }
