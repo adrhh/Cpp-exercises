@@ -10,7 +10,7 @@ int main()
 {
 	Time test(23, 59);
 	test.show();
-	Time test2(0, 20);
+	Time test2(24, 0);
 	test2.show();
 	test += test2;
 	test.show();
@@ -51,11 +51,12 @@ int main()
 
 	cout << "\n\n\n\n";
 
-	Date d1(2017, 12, 14, test);
+	Date d1(2017, 12, 31, test);
 	d1.show();
 
 	cout << '\n' << d1 << endl;
 	cout << d1.get_days_from_start() << endl;
+	cout << d1.get_days_from_maxy() << endl;
 
 	return 0;
 }

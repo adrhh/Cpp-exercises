@@ -63,6 +63,14 @@ void Time::add_hour(const int h)
 	hours %= Hmax;
 }
 
+Time& Time::operator=(const Time& t)
+{
+	hours = t.hours;
+	minutes = t.minutes;
+	days = t.days;
+	return *this;
+}
+
 Time& Time::operator+=(const Time& t)
 {
 	days += t.days;
@@ -170,6 +178,14 @@ Date::Date(const int y, const int m, const int d, const Time& t)
 		month = Mmax;
 }
 
+Date::Date(const Date& d) 
+{
+	year = d.year;
+	month = d.month;
+	day = d.day;
+	time = d.time;
+}
+
 void Date::set_month_days()
 {
 	month_days = 30;
@@ -236,20 +252,31 @@ bool operator==(const Date& d1, const Date& d2)
 	return false;
 }
 
+Date& Date::operator=(const Date& d)
+{
+	year = d.year;
+	month = d.month;
+	day = d.day;
+	time = d.time;
+	return *this;
+}
+
 int Date::get_days_from_maxy() const
 {
-	Date start(Min_year, 0, 0, 0, 0);
-	int total_min = 0;
-	while (!(start == *this))
+	int total_days = 0;
+	int m = Min_year;
+	while (m++ < year )
 	{
-
+		Date temp(m, 12, 31, 23, 59);
+		total_days += temp.get_days_from_start();
 	}
-	return 0;
+	total_days += get_days_from_start();
+	return total_days;
 }
 
 int Date::get_minutes_from_start() const
 {
-	return get_days_from_start() * 60;
+	return get_days_from_start() * 60 * 24 - time.get_total_min();
 }
 
 int Date::get_days_from_start() const
@@ -267,7 +294,7 @@ int Date::get_days_from_start() const
 			}		
 		if (i == Mfeb)
 		{ 
-			days += leap ? 28 : 29;
+			days += (year % 4 == 0)? 29 : 28;
 			is30d = false;
 		}
 		if (is30d)

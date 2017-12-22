@@ -32,6 +32,7 @@ public:
 	Time& operator+=(const Time& t);
 	Time& operator-=(const Time& t);
 	Time& operator*=(const int x);
+	Time& operator=(const Time& t);
 	bool operator<(const Time& t);
 	bool operator>(const Time& t);
 	friend Time operator+(const Time& t1, const Time& t2);
@@ -59,6 +60,7 @@ public:
 	//default constructor
 	Date(const int y = 0, const int m = 0, const int d = 0, const  int h = 0, const int min = 0);
 	Date(const int y, const int m, const int d, const Time& t);
+	Date(const Date& d);
 	void show() const;
 	//srat from Min_year = 2000
 	int get_days_from_maxy() const;
@@ -66,6 +68,7 @@ public:
 	int get_minutes_from_start() const;
 	int get_days_from_start() const;
 	bool operator<(const Date& d);
+	Date& operator=(const Date& d);
 	friend ostream& operator<<(ostream& os, Date& d);
 	friend Time operator-(const Date& d1, const Date& d2);
 	friend bool operator==(const Date& d1, const Date& d2);
