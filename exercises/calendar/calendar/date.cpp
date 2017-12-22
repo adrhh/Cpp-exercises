@@ -305,3 +305,11 @@ int Date::get_days_from_start() const
 
 	return days;
 }
+
+int Date::get_day_name() const
+{
+	//0 sunday, 1-monday.. 6 saturday
+	//2000.01.01 = 6 
+	int days = get_days_from_maxy();
+	return (days+6) % 7;
+}

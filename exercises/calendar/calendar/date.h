@@ -67,6 +67,7 @@ public:
 	//strat 01.01.current year
 	int get_minutes_from_start() const;
 	int get_days_from_start() const;
+	int get_day_name()const;
 	bool operator<(const Date& d);
 	Date& operator=(const Date& d);
 	friend ostream& operator<<(ostream& os, Date& d);
