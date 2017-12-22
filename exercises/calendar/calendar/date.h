@@ -42,7 +42,7 @@ public:
 class Date
 {
 private:
-	enum {Mmax = 12, Leap_year = 4, M31days = 7, Mfeb = 2};
+	enum {Mmax = 12, Leap_year = 4, M31days = 7, Mfeb = 2, Min_year = 2000};
 	//31 days months
 	const int m31[M31days] = { 1,3,5,7,8,10,12 };
 
@@ -60,9 +60,15 @@ public:
 	Date(const int y = 0, const int m = 0, const int d = 0, const  int h = 0, const int min = 0);
 	Date(const int y, const int m, const int d, const Time& t);
 	void show() const;
+	//srat from Min_year = 2000
+	int get_days_from_maxy() const;
+	//strat 01.01.current year
+	int get_minutes_from_start() const;
+	int get_days_from_start() const;
 	bool operator<(const Date& d);
 	friend ostream& operator<<(ostream& os, Date& d);
 	friend Time operator-(const Date& d1, const Date& d2);
+	friend bool operator==(const Date& d1, const Date& d2);
 };
 
 #endif // !DATE_H_

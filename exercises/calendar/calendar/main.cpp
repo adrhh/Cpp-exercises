@@ -55,6 +55,8 @@ int main()
 	d1.show();
 
 	cout << '\n' << d1 << endl;
+	cout << d1.get_days_from_start() << endl;
 
 	return 0;
 }
+

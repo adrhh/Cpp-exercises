@@ -154,6 +154,7 @@ Date::Date(const int y, const int m, const int d, const  int h, const int min)
 		//day to max value;
 		day = month_days;
 	if (month > Mmax)
+		//month to max value
 		month = Mmax;
 }
 
@@ -165,6 +166,7 @@ Date::Date(const int y, const int m, const int d, const Time& t)
 		//day to max value;
 		day = month_days;
 	if (month > Mmax)
+		//month to max value
 		month = Mmax;
 }
 
@@ -223,4 +225,56 @@ bool Date::operator<(const Date& d)
 	}
 
 	return answ;
+}
+
+bool operator==(const Date& d1, const Date& d2)
+{
+	if (d1.year == d2.year &&
+		d1.month == d2.month &&
+		d1.day == d2.day)
+		return true;
+	return false;
+}
+
+int Date::get_days_from_maxy() const
+{
+	Date start(Min_year, 0, 0, 0, 0);
+	int total_min = 0;
+	while (!(start == *this))
+	{
+
+	}
+	return 0;
+}
+
+int Date::get_minutes_from_start() const
+{
+	return get_days_from_start() * 60;
+}
+
+int Date::get_days_from_start() const
+{
+	int days = 0;
+	bool is30d = true;
+	for (int i = 0; i < month - 1; i++)
+	{
+		is30d = true;
+		for (int j = 0; j < M31days; j++)
+			if (i == m31[j])
+			{
+				days += 31;
+				is30d = false;
+			}		
+		if (i == Mfeb)
+		{ 
+			days += leap ? 28 : 29;
+			is30d = false;
+		}
+		if (is30d)
+			days += 30;
+	}
+
+	days += day;
+
+	return days;
 }
