@@ -32,7 +32,8 @@ int main()
 		int total = 0;
 		char choice;
 		cin.clear();
-		while (!(cin >> n)) {
+		while (!(cin >> n))
+		{
 			cin.clear();    
 			while (cin.get() != '\n')
 				continue; 
