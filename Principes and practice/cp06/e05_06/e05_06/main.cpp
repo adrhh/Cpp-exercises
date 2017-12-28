@@ -32,6 +32,11 @@ public:
 
 string String_stream::get()
 {
+	if (full)
+	{				 
+		full = false;
+		return buffer;
+	}
 	string temp;
 	cin >> temp;
 
