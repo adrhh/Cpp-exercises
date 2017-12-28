@@ -47,12 +47,18 @@ void String_stream::putback(string s)
 }
 
 String_stream str;
+bool noun();
 
 bool the()
 {
 	string word = str.get();
 	if (word == "the")
 		return noun();
+	else
+	{
+		str.putback(word);
+		return noun();
+	}
 }
 
 bool noun()
