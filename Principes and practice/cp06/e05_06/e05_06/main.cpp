@@ -39,8 +39,6 @@ string String_stream::get()
 	}
 	string temp;
 	cin >> temp;
-	//test
-	cout << temp;
 	return temp;
 }
 
@@ -103,8 +101,6 @@ bool conj()
 	}	
 }
 
-
-
 bool sentence()
 {
 	string dot;
@@ -128,13 +124,21 @@ bool sentence()
 int main()
 {
 	bool is_s;
+	char ch;
+	string sen;
 	while (true)
 	{
+		cout << "Podaj zdanie to sprawdzenia: " << endl;
 		is_s = sentence();
-		cout << is_s << endl;
+		cout << "zdnie: ";
+		sen = (is_s) ? "poprawne" : "nie porawne";
+		cout << sen << endl;
+		cout << "[enter]-wprowadz koljene zdanie lub q-zakoncz" << endl;
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cin.get(ch);
+		if (ch == 'q')
+			break;		
 	}
 	
-	
-
 	return 0;
 }
