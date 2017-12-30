@@ -189,7 +189,7 @@ long and()
 int main()
 try
 {
-	cout << "Kalkulator obsluguje operatory: * / + -\n"
+	cout << "Kalkulator obsluguje operatory: & ^ | !\n"
 		<< "Wyraznie zakoncz znakiem ; by je wdrukowac\n";
 	double val = 0;
 	while (cin) {
