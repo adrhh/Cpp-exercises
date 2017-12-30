@@ -39,7 +39,8 @@ string String_stream::get()
 	}
 	string temp;
 	cin >> temp;
-
+	//test
+	cout << temp;
 	return temp;
 }
 
@@ -72,9 +73,9 @@ bool noun()
 	vector<string>::iterator it;
 	it = find(Noun.begin(), Noun.end(), s);
 	if (it != Noun.end())
-		return false;
-	else
 		return true;
+	else
+		return false;
 }
 
 bool verb()
@@ -83,9 +84,9 @@ bool verb()
 	vector<string>::iterator it;
 	it = find(Verb.begin(), Verb.end(), s);
 	if (it != Verb.end())
-		return false;
-	else
 		return true;
+	else
+		return false;
 }
 
 bool conj()
@@ -94,21 +95,46 @@ bool conj()
 	vector<string>::iterator it;
 	it = find(Conjuction.begin(), Conjuction.end(), s);
 	if (it != Conjuction.end())
-		return false;
-	else
 		return true;
+	else
+	{
+		str.putback(s);
+		return false;
+	}	
 }
 
 
 
 bool sentence()
 {
-	return true;
+	string dot;
+
+	if (!the() || !verb())
+		return false;
+
+	if (!conj())
+	{
+		dot = str.get();
+		if (dot == ".")
+			return true;
+		else
+			return false;
+	}
+	else
+		return sentence();
 }
 
 
 int main()
 {
+	bool is_s;
+	while (true)
+	{
+		is_s = sentence();
+		cout << is_s << endl;
+	}
+	
+	
 
 	return 0;
 }
