@@ -21,12 +21,11 @@ int main()
 	srand((unsigned int)time(0));
 	string cchoice;
 	string hchoice;
-	int b, c;
+	int b, c=0;
 
 	while (true)
 	{
 		cchoice = Words[rand() % Words.size()];
-		cout << Words[1] << endl;
 
 		while (hchoice != cchoice)
 		{
@@ -58,14 +57,28 @@ int main()
 int cow_count(string f, string a)
 {
 	int cows = 0;
-	string temp = f;
-	for (int i = 0; i < a.length(); i++)
+	string temp_f = f;
+	string temp_a = a;
+	//delete correct letters from answer
+	//delete by swap letter to @
+	for (int i = 0; i < f.length(); i++)
 	{
-		for (int j = 0; j < temp.length(); j++)
-			if (a[i] == temp[j] && i!=j)
+		if (a[i] == f[i])
+		{
+			temp_f[i] = '@';
+			temp_a[i] = '@';
+		}
+		if (i == a.length() - 1)
+			break;
+	}
+	for (int i = 0; i < temp_a.length(); i++)
+	{
+
+		for (int j = 0; j < temp_f.length(); j++)
+			if (temp_a[i] == temp_f[j] && temp_f[j] != '@')
 			{		
 				cows++;	
-				temp.erase(j, j + 1);
+				temp_a[i] = '@';
 				break;
 			}
 	}
@@ -76,12 +89,12 @@ int cow_count(string f, string a)
 int bull_count(string f, string a)
 {
 	int bulls = 0;
-	for (int i = 0; i < a.length(); i++)
+	for (int i = 0; i < f.length(); i++)
 	{ 
-		if (i == f.length() - 1)
-			break;
 		if (a[i] == f[i])
 			bulls++;
+		if (i == a.length() - 1)
+			break;
 	}
 	return bulls;
 }
