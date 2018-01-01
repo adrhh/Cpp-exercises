@@ -1,12 +1,15 @@
 #include <iostream>
 #include <vector>
-#include "event.h"
 #include "person.h"
+#include "event.h"
+#include "todb.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+
+
 
 int main()
 {
@@ -22,5 +25,11 @@ int main()
 	test.add_event(list[1]);
 	test.show_events();
 
+	Todb test1;
+	test1.open_db("test.db");
+	test1.make_columns();
+
 	return 0;
 }
+
+
