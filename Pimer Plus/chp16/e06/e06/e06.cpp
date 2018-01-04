@@ -50,7 +50,7 @@ int main()
 	double perhour;
 	cin >> perhour;
 	double min_per_cust;
-	min_per_cust = MIN_PER_HR;
+	min_per_cust = MIN_PER_HR / perhour;
 
 	Item temp;
 	long turnaways = 0;
@@ -78,13 +78,15 @@ int main()
 		}
 		if (wait_time <= 0 && !line.empty())
 		{
-			temp = line.front();
 			line.pop();
+			wait_time = temp.ptime();
 			line_wait += cycle - temp.when();
 			served++;
 		}
 		if (wait_time > 0)
-			sum_line += line.size();
+			wait_time--;
+
+		sum_line += line.size();
 	}
 
 	if (customers > 0)
