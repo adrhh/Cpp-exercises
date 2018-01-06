@@ -25,7 +25,7 @@ void error(const string& s);
 
 struct Token 
 {
-	char kind;										//token type
+	char kind;									//token type
 	double value;									//value for numbers
 	string name;									//value for var names
 	Token(char ch) : kind(ch), value(0) { }
@@ -34,13 +34,13 @@ struct Token
 };
 
 class Token_stream {
-	bool full;										 //is buffer full ?
+	bool full;									 //is buffer full ?
 	Token buffer;									 //buffer for take token from stream
 public:
-	Token_stream() :full(0), buffer(0) { }            //default constructor
+	Token_stream() :full(0), buffer(0) { }            				  //default constructor
 	Token get();									  //get Token from stream
-	void unget(Token t) { buffer = t; full = true; }  //putback Token to buffer
-	void ignore(char c);							  //ignore Tokens to c
+	void unget(Token t) { buffer = t; full = true; }  			          //putback Token to buffer
+	void ignore(char c);							          //ignore Tokens to c
 };
 
 //constant varibles for Token kind
