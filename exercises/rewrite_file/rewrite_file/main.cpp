@@ -43,7 +43,7 @@ int main()
 		throw cin_fail();
 
 	//open file in binary mode
-	ifstream inf(fname, ios::binary);  //input file
+	ifstream inf(fname, ios::binary, ios::in);  //input file read only
 	if (!inf.is_open())
 		throw open_fail(fname);
 	//begin position
@@ -71,7 +71,7 @@ int main()
 	//open output file in binary mode
 	cout << "Podaj sciezke i nazwe pliku do otwarcia" << endl;
 	cin >> fname;
-	ofstream of(fname, ios::binary);  //output file
+	ofstream of(fname, ios::binary, ios::out);  //output file
 	//write buffer to file
 	of.write(buffer, size);
 	of.close();
