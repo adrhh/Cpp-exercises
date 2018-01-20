@@ -1,0 +1,100 @@
+#include "tab_ludzi.h"
+#include "Pracownik.h"
+#include <iostream>
+
+#define  _CRT_SECURE_NO_WARNINGS
+
+
+using std::cout;
+using std::endl;
+using std::cin;
+
+Tablica_ludzi::Tablica_ludzi(long int dlugosc) : dlugosc(dlugosc), aktualne_wypelnienie(0)
+{
+	tablica = new Pracownik[dlugosc];
+}
+
+Tablica_ludzi::~Tablica_ludzi()
+{
+	delete[] tablica;
+}
+
+
+
+void Tablica_ludzi::wypelnij()
+{
+	if (aktualne_wypelnienie < dlugosc)
+	{
+		
+		Pracownik* temp = new Pracownik;
+		temp->Wpisz();
+		tablica[aktualne_wypelnienie] = *temp;
+		aktualne_wypelnienie++;
+	}
+	else
+
+		cout << "tablica pelna" << endl;
+}
+
+void Tablica_ludzi::modyfikuj(int i)
+{
+	if (i > aktualne_wypelnienie)
+		cout << "indeks poza zakresem" << endl;
+	else
+	{
+		char temp[30];
+		cout << "Podaj nowe imie:";
+		cin >> temp;
+		tablica[i].Imie(temp);
+		cout << "Podaj nowe nazwisko:";
+		cin >> temp;
+		tablica[i].Nazwisko(temp);
+		cout << "ustaw nowa date urodzenia";
+		int rok, mie, dzien;
+		cin >> rok >> mie >> dzien;
+		tablica[i].DataUrodzenia(dzien, mie, rok);
+	}
+}
+
+int Tablica_ludzi::sprawdz(const char* imie, const char* nazw)
+{
+	int indeks = -1;
+	for (int i = 0; i < aktualne_wypelnienie; i++)
+		if (tablica[i].SprawdzImie(imie) && tablica[i].SprawdzNazwisko(nazw))
+		{
+			indeks = i;
+			break;
+		}
+	return indeks;
+}
+
+void Tablica_ludzi::wyswietl() const
+{
+	for (int i = 0; i < aktualne_wypelnienie; i++)
+		tablica[i].Wypisz();
+}
+
+Tablica_ludzi::Tablica_ludzi(const Tablica_ludzi &wzorzec)
+{
+	dlugosc = wzorzec.dlugosc;
+	aktualne_wypelnienie = wzorzec.aktualne_wypelnienie;
+	tablica = new Pracownik[dlugosc];
+
+	for (int i = 0; i < dlugosc; i++)
+		tablica[i] = wzorzec.tablica[i];
+}
+
+Tablica_ludzi & Tablica_ludzi::operator =(const Tablica_ludzi &wzorzec)
+{
+	if (this == &wzorzec)
+		return *this;
+
+	delete[] tablica;
+	dlugosc = wzorzec.dlugosc;
+	aktualne_wypelnienie = wzorzec.aktualne_wypelnienie;
+	tablica = new Pracownik[dlugosc];
+	for (int i = 0; i < dlugosc; i++)
+		tablica[i] = wzorzec.tablica[i];
+
+	return *this;
+}
