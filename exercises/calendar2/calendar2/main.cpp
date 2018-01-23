@@ -39,10 +39,36 @@ int main()
 			}
 		case 'p':
 			{
-			for (auto i : p_list)
-				cout << i << endl;
+			if (p_list.size())
+				for (auto i : p_list)
+					cout << i << endl;
+			else
+				cout << "brak ludzi" << endl;
 			break;
 			}
+		case 'e':
+			if (p_list.size())
+			{
+				for (unsigned int i = 0; i < p_list.size(); i++)
+					cout << i << " :" << p_list[i].get_name() << endl;
+				cout << "wybierz numer osoby" << endl;
+
+					unsigned int choice;
+				cin >> choice;
+				cin.clear();
+				cin.sync();
+				while (choice < 0 && choice > p_list.size())
+				{
+					cout << "nieporawny wybor wpisz liczbe od 0 do" << p_list.size() - 1 << endl;
+					cin >> choice;
+					cin.clear();
+					cin.sync();
+				}
+
+			}
+			else
+				cout << "brak ludzi" << endl;
+			break;
 		default:
 			cout << "zly wybor" << endl;
 		}

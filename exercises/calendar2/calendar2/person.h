@@ -22,6 +22,7 @@ public:
 	void add_event(Event* e);
 	void delete_event(Event* e);
 	void show_events() const;
+	string get_name() const { return fname; }
 	friend ostream& operator<<(ostream& os, const Person& p);
 
 };

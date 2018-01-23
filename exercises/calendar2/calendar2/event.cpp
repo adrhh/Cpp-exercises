@@ -69,9 +69,7 @@ void Shopping::set_total()
 	//for each item in shoping_list:
 	//total_price += item quantity * item price
 	for (auto p : shopping_list)
-	{
 		total_price += get<0>(p.second) * get<1>(p.second);
-	}
 }
 
 void Shopping::add_item(const string& s, int quantity, float price)
