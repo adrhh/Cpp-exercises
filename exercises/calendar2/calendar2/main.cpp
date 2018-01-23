@@ -9,9 +9,51 @@ using std::cin;
 using std::endl;
 using std::vector;
 
+void main_menu();
 
 int main()
 {
+	
+	//print
+	main_menu();
+
+	char ch;
+	cin >> ch;
+	//clear buffor
+	cin.clear();
+	cin.sync();
+
+	vector<Person> p_list;
+
+	while (ch != 'q')
+	{
+		switch (ch)
+		{
+		case 'd':
+			{
+			string temp_n, temp_s;
+			cout << "podaj imie i nazwisko" << endl;
+			cin >> temp_n >> temp_s;
+			p_list.push_back(Person(temp_n, temp_s));
+			break;
+			}
+		case 'p':
+			{
+			for (auto i : p_list)
+				cout << i << endl;
+			break;
+			}
+		default:
+			cout << "zly wybor" << endl;
+		}
+
+		main_menu();
+		cin >> ch;
+		//clear buffor
+		cin.clear();
+		cin.sync();
+	}
+
 	vector<Event*> list(3);
 	list[0] = new Meeting;
 	list[1] = new Meeting("test");
@@ -47,4 +89,11 @@ int main()
 	return 0;
 }
 
-
+void main_menu()
+{
+	cout << "wybierz:" << endl
+		<< "d - doaj osobe" << endl
+		<< "p - pokaz liste osob" << endl
+		<< "e - edytuj osobe" << endl
+		<< "q - zakoncz" << endl;
+}

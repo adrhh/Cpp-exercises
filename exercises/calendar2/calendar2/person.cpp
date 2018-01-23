@@ -22,6 +22,18 @@ void Person::delete_event(Event* e)
 
 void Person::show_events() const
 {
-	for (auto e : e_list)
-		e->show();
+	if (e_list.size())
+		for (auto e : e_list)
+			e->show();
+	else
+		cout << "brak wydarzen" << endl;
+}
+
+ostream& operator<<(ostream& os, const Person& p)
+{
+	os << p.fname << " " << p.sname << " :" << endl;
+	p.show_events();
+	//todo create operator<< for show
+
+	return os;
 }
