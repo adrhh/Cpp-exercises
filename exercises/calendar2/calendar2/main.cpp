@@ -10,6 +10,10 @@ using std::endl;
 using std::vector;
 
 void main_menu();
+void e_menu();
+void e_f(int i);
+
+vector<Person> p_list;
 
 int main()
 {
@@ -23,7 +27,7 @@ int main()
 	cin.clear();
 	cin.sync();
 
-	vector<Person> p_list;
+	
 
 	while (ch != 'q')
 	{
@@ -53,7 +57,7 @@ int main()
 					cout << i << " :" << p_list[i].get_name() << endl;
 				cout << "wybierz numer osoby" << endl;
 
-					unsigned int choice;
+				unsigned int choice;
 				cin >> choice;
 				cin.clear();
 				cin.sync();
@@ -64,6 +68,8 @@ int main()
 					cin.clear();
 					cin.sync();
 				}
+
+				e_f(choice);
 
 			}
 			else
@@ -122,4 +128,33 @@ void main_menu()
 		<< "p - pokaz liste osob" << endl
 		<< "e - edytuj osobe" << endl
 		<< "q - zakoncz" << endl;
+}
+
+void e_menu()
+{
+	cout << "wybierz:" << endl
+		<< "d - dodaj zdarzenie" << endl
+		<< "p - pokaz liste zdarze" << endl
+		<< "q - wyjdz z menu" << endl;
+}
+
+void e_f(int i)
+{
+	e_menu();
+	char ch;
+	cin >> ch;
+	//clear buffor
+	cin.clear();
+	cin.sync();
+	switch (ch)
+	{
+	case 'p':
+		p_list[i].show_events();
+		break;
+	case 'd':
+		break;
+	default:
+		cout << "zly wybor" << endl;
+	}
+
 }
