@@ -8,6 +8,14 @@ Person::Person(const string& f, const string& s) : fname(f), sname(s)
 	person_id = person_counter;
 }
 
+/*
+Person::~Person()
+{
+	for (auto i : e_list)
+		delete i;
+}
+*/
+
 void Person::add_event(Event* e)
 {
 	e_list.push_back(e);
@@ -24,7 +32,11 @@ void Person::show_events() const
 {
 	if (e_list.size())
 		for (auto e : e_list)
+		{
 			e->show();
+			cout << endl;
+		}
+			
 	else
 		cout << "brak wydarzen" << endl;
 }

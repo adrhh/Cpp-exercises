@@ -87,12 +87,12 @@ void Shopping::show() const
 	Event::show();
 	for (auto p : shopping_list)
 		cout << p.first << " : " << get<0>(p.second) << " " << get<1>(p.second);
-	cout << "lacznie do zaplaty: " << total_price;
+	cout << " lacznie do zaplaty: " << total_price;
 }
 
 void Meeting::show() const
 {
 	Event::show();
 	cout << place;
-	cout << "meeting " << endl;
+	cout << " meeting " << endl;
 }

@@ -24,7 +24,7 @@ public:
 	void show_events() const;
 	string get_name() const { return fname; }
 	friend ostream& operator<<(ostream& os, const Person& p);
-
+	~Person() {};
 };
 
 #endif // !PERSON_H_

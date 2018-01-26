@@ -11,13 +11,16 @@ using std::vector;
 
 void main_menu();
 void e_menu();
-void e_f(int i);
+void e_fun(int i);    //event function
+void a_menu();
+void a_event(int i);   //add event
+void a_shop(int i);   //add shoping
+void a_met(int i);	  //add meeting
 
 vector<Person> p_list;
 
 int main()
 {
-	
 	//print
 	main_menu();
 
@@ -26,8 +29,6 @@ int main()
 	//clear buffor
 	cin.clear();
 	cin.sync();
-
-	
 
 	while (ch != 'q')
 	{
@@ -69,7 +70,7 @@ int main()
 					cin.sync();
 				}
 
-				e_f(choice);
+				e_fun(choice);
 
 			}
 			else
@@ -86,6 +87,7 @@ int main()
 		cin.sync();
 	}
 
+	/* --------------test---------------
 	vector<Event*> list(3);
 	list[0] = new Meeting;
 	list[1] = new Meeting("test");
@@ -104,13 +106,15 @@ int main()
 	test.add_event(list[0]);
 	test.add_event(list[1]);
 	test.show_events();
+	*/
 	
 	try
 	{
 		Todb test1;
 		test1.open_db("test.db");
 		test1.make_columns();
-		test1.add(test);
+		for(auto i: p_list)
+			test1.add(i);
 		
 	}
 	catch (Todb::db_err& e)
@@ -138,7 +142,7 @@ void e_menu()
 		<< "q - wyjdz z menu" << endl;
 }
 
-void e_f(int i)
+void e_fun(int i)
 {
 	e_menu();
 	char ch;
@@ -152,9 +156,129 @@ void e_f(int i)
 		p_list[i].show_events();
 		break;
 	case 'd':
+		a_event(i);
 		break;
 	default:
 		cout << "zly wybor" << endl;
 	}
+}
 
+void a_event(int i)
+{
+	a_menu();
+	char ch;
+	cin >> ch;
+	//clear buffor
+	cin.clear();
+	cin.sync();
+	switch (ch)
+	{
+	case 'z':
+		a_shop(i);
+		break;
+	case 's':
+		a_met(i);
+		break;
+	default:
+		cout << "zly wybor" << endl;
+	}
+}
+
+void a_menu()
+{
+	cout << "wybierz:" << endl
+		<< "z - zakupy" << endl
+		<< "s - spotkanie" << endl
+		<< "q - wyjdz z menu" << endl;
+}
+
+void a_shop(int i)
+{
+	Shopping* temp = new Shopping();
+	int temp_y, temp_m, temp_d, temp_h;
+	cout << "podaj date:" << endl;
+
+	cout << "rok:" << endl;
+	cin >> temp_y;
+	cin.clear();
+	cin.sync();
+
+	cout << "miesiac:" << endl;
+	cin >> temp_m;
+	cin.clear();
+	cin.sync();
+
+	cout << "dzien:" << endl;
+	cin >> temp_d;
+	cin.clear();
+	cin.sync();
+
+	cout << "godzine:" << endl;
+	cin >> temp_h;
+	cin.clear();
+	cin.sync();
+
+	temp->set_time(temp_y, temp_m, temp_d, temp_h);
+
+	string temp_s;
+	int temp_qu;
+	float temp_pr;
+
+	cout << "dodaj przemidot do listy zakupow (q-zakoncz):" << endl;
+	cin >> temp_s;
+	while (temp_s != "q")
+	{
+		cout << "podaj ilosc:" << endl;
+		cin >> temp_qu;
+		cin.clear();
+		cin.sync();
+
+		cout << "podaj cene:" << endl;
+		cin >> temp_pr;
+		cin.clear();
+		cin.sync();
+
+		temp->add_item(temp_s, temp_qu, temp_pr);
+
+		cout << "dodaj koljeny przemidot do listy zakupow (q-zakoncz):" << endl;
+		cin >> temp_s;
+	}
+
+	p_list[i].add_event(temp);
+}
+
+void a_met(int i)
+{
+	
+	int temp_y, temp_m, temp_d, temp_h;
+	cout << "podaj date:" << endl;
+
+	cout << "rok:" << endl;
+	cin >> temp_y;
+	cin.clear();
+	cin.sync();
+
+	cout << "miesiac:" << endl;
+	cin >> temp_m;
+	cin.clear();
+	cin.sync();
+
+	cout << "dzien:" << endl;
+	cin >> temp_d;
+	cin.clear();
+	cin.sync();
+
+	cout << "godzine:" << endl;
+	cin >> temp_h;
+	cin.clear();
+	cin.sync();
+
+	string temp_plac;
+	cout << "podaj miejsce:" << endl;
+	cin >> temp_plac;
+
+	Meeting* temp = new Meeting(temp_plac);
+	temp->set_time(temp_y, temp_m, temp_d, temp_h);
+
+	p_list[i].add_event(temp);
 }
