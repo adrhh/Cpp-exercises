@@ -36,6 +36,7 @@ int main()
 		vector<double> test = { 9.0, 1.0, 4.0, 14.0, 9.0 };
 		vecinfo* testi = vifo(test);
 		show(*testi);
+		delete testi;
 	}
 	catch (exception& e)
 	{
