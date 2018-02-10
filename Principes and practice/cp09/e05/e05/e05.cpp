@@ -61,7 +61,7 @@ bool is_isbn(int a, int b, int c, char d)
 	return answ;
 }
 
-<<<<<<< HEAD
+
 bool operator==(const ISBN& i1, const ISBN& i2)
 {
 	bool answ = true;
@@ -73,7 +73,3 @@ bool operator==(const ISBN& i1, const ISBN& i2)
 	return answ;
 }
 
-
-
-=======
->>>>>>> 995f8ef561ce5a505d28033c02861342bd7e8c1b
