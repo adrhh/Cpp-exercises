@@ -46,8 +46,8 @@ int main()
 
 Book::Book(int a, int b, int c, char d, const string& tit, const string& aut) : isbn(ISBN(a, b, c, d)), author(aut), title(tit), is_brred(false)
 {
-	//if (!is_isbn(a, b, c, d))
-	//	throw Invalid();
+	if (!is_isbn(a, b, c, d))
+		throw Invalid();
 }
 
 bool is_isbn(int a, int b, int c, char d)
@@ -61,6 +61,7 @@ bool is_isbn(int a, int b, int c, char d)
 	return answ;
 }
 
+<<<<<<< HEAD
 bool operator==(const ISBN& i1, const ISBN& i2)
 {
 	bool answ = true;
@@ -74,3 +75,5 @@ bool operator==(const ISBN& i1, const ISBN& i2)
 
 
 
+=======
+>>>>>>> 995f8ef561ce5a505d28033c02861342bd7e8c1b
