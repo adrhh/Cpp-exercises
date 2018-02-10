@@ -72,26 +72,5 @@ bool operator==(const ISBN& i1, const ISBN& i2)
 	return answ;
 }
 
-<<<<<<< HEAD
-=======
 
-bool operator==(const Book& b1, const Book& b2)
-{
-	return b1.isbn == b2.isbn;
-}
 
-bool operator!=(const Book& b1, const Book& b2)
-{
-	return !(b1.isbn == b2.isbn);
-}
-
-ostream& operator<<(ostream& os, const Book& b)
-{
-	os << b.author << endl;
-	os << b.title << endl;
-	os << b.isbn.ia << '-' << b.isbn.ib << '-'
-		<< b.isbn.ic << '-' << b.isbn.id;
-
-	return os;
-}
->>>>>>> 3dad13eeb666588b5a4097e81560c5465d1b8f49
