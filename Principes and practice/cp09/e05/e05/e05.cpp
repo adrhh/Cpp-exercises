@@ -61,14 +61,3 @@ bool is_isbn(int a, int b, int c, char d)
 	return answ;
 }
 
-bool operator==(const ISBN& i1, const ISBN& i2)
-{
-	bool answ = true;
-	if (i1.ia != i2.ia ||
-		i1.ib != i2.ib ||
-		i1.ic != i2.ic ||
-		i1.id != i2.id)
-		answ = false;
-	return answ;
-}
-
