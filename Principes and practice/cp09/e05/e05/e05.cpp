@@ -62,7 +62,7 @@ bool is_isbn(int a, int b, int c, char d)
 	if (!isalnum(d))
 		answ = false;
 
-	return false;
+	return answ;
 }
 
 bool operator==(const ISBN& i1, const ISBN& i2)
