@@ -89,6 +89,7 @@ public:
 	double get_debt() const { return debt; }
 	void set_debt(double x) { debt = x; }
 	int get_id() { return id; }
+	friend bool operator==(const Patron& p1, const Patron& p2);
 };
 
 using namespace Chrono;
@@ -101,14 +102,19 @@ private:
 		Book book;
 		Patron patr;
 		Date date;
+		Transacion(const Book& b, const Patron& p, const Date& d) :
+			book(b), patr(p), date(d) {}
 	};
+	class Invalid
+	{};
 	vector<Book> books;
 	vector<Patron> patrons;
 	vector<Transacion> trans;
 public:
 	void add_book(const Book& b);
 	void add_patron(const Patron& p);
-	void make_trans(const Book& b, const Patron& p);
+	void make_trans(const Book& b, const Patron& p, const Date& d);
+	vector<Patron> debt_pats() const;
 };
 
 bool is_isbn(int a, int b, int c, char d);

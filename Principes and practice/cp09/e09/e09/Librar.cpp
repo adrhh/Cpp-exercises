@@ -172,6 +172,13 @@ ostream& operator<<(ostream& os, const Book& b)
 	return os;
 }
 
+
+bool operator==(const Patron& p1, const Patron& p2)
+{
+	return (p1.name == p2.name &&
+		p1.id == p2.id);
+}
+
 Book::Book(int a, int b, int c, char d, const string& tit, const string& aut, Book::Genere g)
 	: isbn(ISBN(a, b, c, d)), author(aut), title(tit), genere(g), is_brred(false)
 {
@@ -181,13 +188,51 @@ Book::Book(int a, int b, int c, char d, const string& tit, const string& aut, Bo
 
 void Library::add_book(const Book& b)
 {
-
+	books.push_back(b);
 }
 void Library::add_patron(const Patron& p)
 {
-
+	patrons.push_back(p);
 }
-void Library::make_trans(const Book& b, const Patron& p)
+void Library::make_trans(const Book& b,const Patron& p, const Date& d)
 {
+	bool is_ok = false;
+	for (auto it : books)
+	{
+		if (it == b)
+		{ 
+			is_ok = true;
+			break;
+		}
+	}
+	if (is_ok)
+	{
+		is_ok = false;
+		for (auto it : patrons)
+		{
+			if (it == p)
+			{
+				is_ok = true;
+				break;
+			}
+		}
+	}
 
+	if (is_ok)
+	{
+		Transacion temp(b, p, d);
+		trans.push_back(temp);
+	}
+	else
+		throw Invalid();
+}
+
+vector<Patron> Library::debt_pats() const
+{
+	vector<Patron> temp;
+	for (auto it : patrons)
+		if (it.get_is_debt())
+			temp.push_back(it);
+
+	return temp;
 }
