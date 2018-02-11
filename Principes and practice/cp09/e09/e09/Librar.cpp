@@ -4,6 +4,7 @@
 
 using std::endl;
 using std::ios_base;
+using std::cout;
 
 static const string Generes[5] = { "fiction", "fact", "magazine", "biography", "kids" };
 
@@ -224,7 +225,8 @@ void Library::make_trans(const Book& b,const Patron& p, const Date& d)
 		trans.push_back(temp);
 	}
 	else
-		throw Invalid();
+		cout << "err";
+		//throw Invalid();
 }
 
 vector<Patron> Library::debt_pats() const

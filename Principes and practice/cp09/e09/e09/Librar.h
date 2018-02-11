@@ -115,6 +115,7 @@ public:
 	void add_patron(const Patron& p);
 	void make_trans(const Book& b, const Patron& p, const Date& d);
 	vector<Patron> debt_pats() const;
+	Book get_book(int i) const { return books[i]; }
 };
 
 bool is_isbn(int a, int b, int c, char d);
