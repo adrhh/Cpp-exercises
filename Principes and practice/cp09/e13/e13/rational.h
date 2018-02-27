@@ -21,6 +21,9 @@ public:
 	double get_d() const;
 	void show() const;
 	Rational operator+(const Rational& r);
+	Rational operator-(const Rational& r);
+	Rational operator*(const Rational& r);
+	Rational operator/(const Rational& r);
 };
 
 Rational::Rational(int a, int b) : numerator(a), denominator(b)
@@ -42,6 +45,32 @@ Rational Rational::operator+(const Rational& r)
 
 	return Rational(a + b, den);
 }
+
+Rational Rational::operator-(const Rational& r)
+{
+	int den = nww(denominator, r.denominator);
+	int a = numerator * den / denominator;
+	int b = r.numerator * den / r.denominator;
+
+	return Rational(a - b, den);
+}
+
+Rational Rational::operator*(const Rational& r)
+{
+	int a = numerator * r.numerator;
+	int b = denominator * r.denominator;
+	
+	return Rational(a, b);
+}
+
+Rational Rational::operator/(const Rational& r)
+{
+	int a = numerator * r.denominator;
+	int b = denominator * r.numerator;
+
+	return Rational(a, b);
+}
+
 
 void Rational::show() const
 {
