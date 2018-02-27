@@ -6,6 +6,9 @@
 using std::endl;
 using std::cout;
 
+int nwd(int a, int b);
+int nww(int a, int b);
+
 class Rational
 {
 private:
@@ -33,23 +36,32 @@ double Rational::get_d() const
 
 Rational Rational::operator+(const Rational& r)
 {
-	int den_temp1 = denominator;
-	int num_temp1 = numerator;
-	int den_temp2 = r.denominator;
-	int num_temp2 = r.numerator;
-	if (den_temp1 != den_temp2)
-	{
-		num_temp2 *= den_temp1;
-		num_temp1 *= den_temp2;
-		den_temp1 *= den_temp2;
-	}
-	return Rational(num_temp1 + num_temp2, den_temp1);
+	int den = nww(denominator, r.denominator);
+	int a = numerator * den / denominator;
+	int b = r.numerator * den /r.denominator;
+
+	return Rational(a + b, den);
 }
 
 void Rational::show() const
 {
 	cout << numerator << endl;
 	cout << denominator << endl;
+}
+
+int nwd(int a, int b)
+{
+	int n;
+	if (b == 0)
+		n = a;
+	else
+		n = nwd(b, a%b);
+	return n;
+}
+
+int nww(int a, int b)
+{
+	return a*b / nwd(a, b);
 }
 
 #endif // !RATIONAL_H_
