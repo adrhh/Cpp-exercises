@@ -21,6 +21,14 @@ int main()
 {
 	srand(time(0));
 	wygrane wins;
+	int pola = 0;
+	cout << "podaj liczbe pol" << endl;
+	while (!(cin >> pola) || pola < 2) 
+	{
+		cout << "Podak poprawna liczbe, wieksza od 2";
+		cin.clear();
+		cin.ignore(INT_MAX, '\n'); 
+	}
 	bool graj_dalej = true;
 	while (graj_dalej)
 	{
