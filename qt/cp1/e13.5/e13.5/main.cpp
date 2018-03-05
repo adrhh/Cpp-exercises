@@ -34,7 +34,7 @@ int main()
 	while (graj_dalej)
 	{
 		char ch;
-		gra(12, wins);
+		gra(pola, wins);
 		cout << "Nowa gra t/n" << endl;
 		cin.get(ch);
 		while (cin.get() != '\n' )
