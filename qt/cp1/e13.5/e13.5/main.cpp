@@ -29,6 +29,7 @@ int main()
 		cin.clear();
 		cin.ignore(INT_MAX, '\n'); 
 	}
+
 	bool graj_dalej = true;
 	while (graj_dalej)
 	{
@@ -48,7 +49,7 @@ int main()
 				continue;
 		}
 		if (ch == 'n')
-			graj_dalej == false;
+			graj_dalej = false;
 	}
 	
 
