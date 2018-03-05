@@ -8,5 +8,6 @@ int main()
 	t3.show();
 	cout << nww(5, 3) << endl;
 	cout << nwd(144, 200) << endl;
+	cout << t3;
 	return 0;
 }

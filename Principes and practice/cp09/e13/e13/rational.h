@@ -5,6 +5,7 @@
 
 using std::endl;
 using std::cout;
+using std::ostream;
 
 int nwd(int a, int b);
 int nww(int a, int b);
@@ -20,6 +21,9 @@ public:
 	Rational(int a = 0, int b = 1);
 	double get_d() const;
 	void show() const;
+	friend ostream& operator<<(ostream& os, const Rational& r);
+	Rational& operator=(const Rational& r);
+	Rational& operator+=(const Rational& r);
 	Rational operator+(const Rational& r);
 	Rational operator-(const Rational& r);
 	Rational operator*(const Rational& r);
@@ -36,6 +40,26 @@ double Rational::get_d() const
 {
 	return static_cast<double>(numerator) / static_cast<double>(denominator);
 }
+
+Rational& Rational::operator=(const Rational& r)
+{
+	numerator = r.numerator;
+	denominator = r.denominator;
+	return *this;
+}
+
+
+Rational& Rational::operator+=(const Rational& r)
+{
+	int den = nww(denominator, r.denominator);
+	int a = numerator * den / denominator;
+	int b = r.numerator * den / r.denominator;
+
+	Rational temp(a + b, den);
+	*this = temp;
+	return *this;
+}
+
 
 Rational Rational::operator+(const Rational& r)
 {
@@ -76,6 +100,12 @@ void Rational::show() const
 {
 	cout << numerator << endl;
 	cout << denominator << endl;
+}
+
+ostream& operator<<(ostream& os, const Rational& r)
+{
+	os << r.numerator << "/" << r.denominator;
+	return os;
 }
 
 int nwd(int a, int b)
