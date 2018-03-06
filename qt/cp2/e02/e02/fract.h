@@ -16,6 +16,6 @@ public:
 	Fraction sub(const Fraction& fr);
 	Fraction mult(const Fraction& fr);
 	Fraction div(const Fraction& fr);
-}
+};
 
 #endif // !FRACT_H_
