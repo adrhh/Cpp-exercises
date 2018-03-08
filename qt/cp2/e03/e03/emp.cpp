@@ -43,7 +43,7 @@ void Person::setPosition(const Employer& emp, const Position& p)
 	employer = emp;
 }
 
-Person::Person(const string& n) : name(name), employed(false)
+Person::Person(const string& n) : name(n), employed(false)
 {
 	Employer eempty;
 	Position pempty;
@@ -54,4 +54,12 @@ Person::Person(const string& n) : name(name), employed(false)
 bool Person::isEmployed() const
 {
 	return employed;
+}
+
+string Person::toString() const
+{
+	string temp;
+	temp = name + " , " + position.toString() + " , " + employer.toString();
+
+	return temp;
 }
