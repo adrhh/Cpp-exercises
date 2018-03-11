@@ -1,11 +1,20 @@
 #include "Date.h"
+#include <iostream>
 
-void Date::is_ok(int y = 0, int m = 0, int d = 0)
+using std::cout;
+using std::endl;
+
+int Date::start_year = 1900;
+vector<string> Date::days_names = { "pon", "wto", "sro", "czw", "pia", "sob", "nie" };
+
+void Date::is_ok(int y, int m, int d)
 {
+
 	if (   y < 1900
-		|| m < 0
+		|| m < 1
 		|| m > 12
-		|| d > monthDays(y, d))
+		|| d > monthDays(y, d)
+		|| d < 1)
 
 		throw Invalid();
 }
@@ -18,47 +27,95 @@ bool Date::leapYear(int y)
 	return leap;
 }
 
-Date::Date()
+Date::Date() : days_from_start(0)
 {}
+
 Date::Date(int y, int m, int d)
-{}
-int Date::ymd2dfs(int y, int m, int d)
 {
 	is_ok(y, m, d);
-	int year = y - start_year;
-	int days = 0;
-	days += d;
+	days_from_start = ymd2dfs(y, m, d);
+}
 
-	//todo
+int Date::ymd2dfs(int y, int m, int d)
+{
+	
+	int t_year = y - start_year;
+	int t_month = m;
+	int days = 0;
+
+	days += d;
+	while (t_month != 1)
+	{
+		days += monthDays(t_year, t_month);
+		t_month--;
+	}
+	while (t_year != 0)
+	{
+		if (leapYear(t_year))
+			days += 366;
+		else
+			days += 365;
+		t_year--;
+	}
+
+	return days;
 }
 void Date::getYMD(int& y, int& m, int& d)
 {}
+
 void Date::set(int y, int m, int d)
-{}
+{
+	days_from_start = ymd2dfs(y, m, d);
+}
+
 string Date::toString(bool short_format)
-{}
+{
+	return string("todo");
+}
+
 void Date::setToToday()
 {}
+
 string Date::getWeekDay() const
-{}
+{
+	//1.1.1900 = pon
+	int day_nr = days_from_start % 7;
+	return days_names[day_nr];
+	
+}
+
 bool Date::operator==(const Date& d)
-{}
+{
+	return days_from_start == d.days_from_start;
+}
+
 bool Date::operator<(const Date& d)
-{}
+{
+	return days_from_start < d.days_from_start;
+}
+
 bool Date::operator>(const Date& d)
-{}
+{
+	return days_from_start > d.days_from_start;
+}
+
 int Date::daysBetween(const Date& d)
-{}
+{
+	return 0;
+}
+
 Date Date::addDays(const Date& d)
-{}
+{
+	return Date();
+}
 
 string Date::monthName(int m)
-{}
+{
+	return string("todo");
+}
 
 int Date::monthDays(int y, int m)
 {
-	is_ok(y, m);
-
 	int days = 0;
 	switch (m)
 	{
