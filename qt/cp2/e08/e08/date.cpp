@@ -1,11 +1,15 @@
 #include "Date.h"
 #include <iostream>
+#include <cmath>
 
 using std::cout;
 using std::endl;
+using std::to_string;
 
 int Date::start_year = 1900;
 vector<string> Date::days_names = { "pon", "wto", "sro", "czw", "pia", "sob", "nie" };
+vector<string> Date::month_names = { "sty", "lut", "mar", "kwi", "maj", "cze", "lip", 
+									"sie", "wrz", "paz", "lis", "gru" };
 
 void Date::is_ok(int y, int m, int d)
 {
@@ -61,7 +65,34 @@ int Date::ymd2dfs(int y, int m, int d)
 	return days;
 }
 void Date::getYMD(int& y, int& m, int& d)
-{}
+{
+	int temp_year = 1900;
+	int temp_total_days = days_from_start;
+	int days_in_year = 365;
+
+	while (temp_total_days > days_in_year)
+	{
+		if (leapYear(temp_year))
+			temp_total_days -= 366;
+		else
+			temp_total_days -= 365;
+		temp_year++;
+		days_in_year = leapYear(temp_year) ? 366 : 365;
+	}
+
+	int temp_month = 1;
+	while (temp_total_days > monthDays(temp_year, temp_month))
+	{
+		temp_total_days -= monthDays(temp_year, temp_month);
+		temp_month++;
+	}
+
+	int temp_day = temp_total_days;
+
+	y = temp_year;
+	m = temp_month;
+	d = temp_day;
+}
 
 void Date::set(int y, int m, int d)
 {
@@ -70,7 +101,14 @@ void Date::set(int y, int m, int d)
 
 string Date::toString(bool short_format)
 {
-	return string("todo");
+	int y, m, d;
+	getYMD(y, m, d);
+	string sdate;
+	if (short_format)
+		sdate += to_string(y) + '/' + to_string(m) + '/' + to_string(d);
+	else
+		sdate += to_string(y) + ' ' + monthName(m) + ' ' + to_string(d) + ' ' + getWeekDay();
+	return sdate;
 }
 
 void Date::setToToday()
@@ -80,8 +118,8 @@ string Date::getWeekDay() const
 {
 	//1.1.1900 = pon
 	int day_nr = days_from_start % 7;
+
 	return days_names[day_nr];
-	
 }
 
 bool Date::operator==(const Date& d)
@@ -101,17 +139,21 @@ bool Date::operator>(const Date& d)
 
 int Date::daysBetween(const Date& d)
 {
-	return 0;
+	return abs(days_from_start - d.days_from_start);
 }
 
 Date Date::addDays(const Date& d)
 {
-	return Date();
+	int total_days = days_from_start + d.days_from_start;
+	Date temp_d;
+	temp_d.days_from_start = total_days;
+
+	return temp_d;
 }
 
 string Date::monthName(int m)
 {
-	return string("todo");
+	return month_names[m - 1];
 }
 
 int Date::monthDays(int y, int m)
