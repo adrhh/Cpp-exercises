@@ -17,7 +17,9 @@ private:
 	QList<Position> m_OpenPositions;
 public:
 	bool hire(Person& per, const Position pos);
+	void addPosition(Position pos);
 	QList<Position> findJobs() const;
+	Employer(QString n) : m_Name(n) {}
 };
 
 class Position
@@ -26,8 +28,10 @@ private:
 	QString m_Name;
 	QString m_Description;
 public:
-	Position();
+	Position() : m_Name("empty"), m_Description("empty") {}
+	Position(QString n, QString d) : m_Name(n), m_Description(d) {}
 	QString toString() const;
+	bool operator==(const Position& pos);
 };
 
 class Person
@@ -38,11 +42,11 @@ private:
 	Employer& m_Employer;
 	bool m_Employed;
 public:
-	Position& getPosition();
-	Employer& getEmployer();
+	//Position getPosition();
+	//Employer getEmployer();
 	QString getName() { return m_Name; }
-	void setPosition(const Position pos);
-	void setEmployer(const Employer& emp);
+	void setPosition(const Position pos) { m_Position = pos; }
+	void setEmployer(const Employer& emp) { m_Employer = emp; }
 	bool isEmployed() const { return m_Employed; }
 };
 
