@@ -15,6 +15,10 @@ private:
 	QString phoneNumber;
 public:
 	QString toString() const;
+	QString getFname() const { return firstName; }
+	QString getPhone() const { return phoneNumber; }
+	int getCategory() const { return category; }
+	bool operator==(const Contact& c);
 };
 
 class ContactList
