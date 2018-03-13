@@ -15,6 +15,12 @@ int main(int argc, char *argv[])
 	QList<Position> open_pos = e1.findJobs();
 	show_plist(open_pos);
 
+	Person per1("Jan");
+
+	e1.hire(per1, p1);
+	open_pos = e1.findJobs();
+	show_plist(open_pos);
+
 
 	return EXIT_SUCCESS;
 }

@@ -3,13 +3,20 @@
 
 QTextStream cout(stdout);
 
+Employer::Employer() : m_Name("empty")
+{
+}
+
+Employer::Employer(QString n) : m_Name(n)
+{
+}
 
 bool Employer::hire(Person& per, const Position pos)
 {
 	if (!per.isEmployed())
 	{
 		per.setPosition(pos);
-		per.setEmployer(*this);
+		per.setEmployer(this);
 		m_EmployeeList.push_back(&per);
 		if (m_OpenPositions.indexOf(pos) != -1)
 			m_OpenPositions.removeAt(m_OpenPositions.indexOf(pos));
@@ -52,4 +59,20 @@ void show_plist(const QList<Position>& pl)
 {
 	for (int i = 0; i < pl.size(); i++)
 		cout << pl[i].toString() << endl;
+}
+
+Person::Person() : m_Name("empty")
+{
+	Position p_empty;
+	m_Position = p_empty;
+	m_Employer = nullptr;
+	m_Employed = false;
+}
+
+Person::Person(QString n) : m_Name(n)
+{
+	Position p_empty;
+	m_Position = p_empty;
+	m_Employer = nullptr;
+	m_Employed = false;
 }
