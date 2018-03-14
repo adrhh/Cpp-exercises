@@ -14,6 +14,12 @@ private:
 	QString streetAdress;
 	QString phoneNumber;
 public:
+	Contact(int c, QString fn, QString ls, QString pn) :
+		category(c), firstName(fn), lastName(ls), city("empty"),
+		streetAdress("empty"), phoneNumber(pn)
+	{
+
+	}
 	QString toString() const;
 	QString getFname() const { return firstName; }
 	QString getPhone() const { return phoneNumber; }
