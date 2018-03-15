@@ -3,26 +3,36 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using std::cout;
 using std::endl;
 using std::vector;
 using std::string;
+using std::pair;
+using std::sort;
 
 int randInt(int min, int max);
 vector<int> randPerm(int n, int seed);
 void vprint(const vector<int>& v);
 string shift(const string& text, int key);
 string unshift(const string& crypttext, int key);
+string permute(const string& text, int key);
+string unpermute(const string& text, int key);
 
 int main()
 {
 	const int key = 11;
-	string s1("kalarepa"), s2, s3;
+	string s1("kalarepa"), s2, s3, s4, s5;
 	s2 = shift(s1, key);
-	cout << s1 << endl << s2 << endl;
+	cout << s1 << '\t' << s2 << endl;
 	s3 = unshift(s2, key);
-	cout << s1 << endl << s2 << endl << s3 << endl;
+	cout << s2 << '\t' << s3 << endl;
+	cout << "=============================" << endl;
+	s4 = permute(s1, key);
+	s5 = unpermute(s4, key);
+	cout << s1 << '\t' << s4 << endl;
+	cout << s4 << '\t' << s5 << endl;
 
 	return 0;
 }
@@ -87,14 +97,44 @@ string unshift(const string& crypttext, int key)
 	char ch;
 	for (int i = 0; i < crypttext.size(); i++)
 	{
-		
 		int rnd = static_cast<int> (crypttext[i]) - rand() % crypttext.size(); 
 		rnd %= 128;
 		
 		ch = static_cast<char> (rnd);
-
 		unshifted += ch;
 	}
 
 	return unshifted;
+}
+
+string permute(const string& text, int key)
+{
+	vector<int> pt = randPerm(text.size(), key);
+	string permuted;
+
+	for (int i = 0; i < text.size(); i++)
+		permuted += text[pt[i]];
+
+	return permuted;
+}
+
+string unpermute(const string& ctext, int key)
+{
+	vector<int> pt = randPerm(ctext.size(), key);
+	string unpermuted;
+
+	vector<pair<int, int>> pairs;
+	for (int i = 0; i < pt.size(); i++)
+	{ 
+		pair<int, int> temp(pt[i], i);
+		pairs.push_back(temp);
+	}
+
+	sort(pairs.begin(), pairs.end());
+
+	for (int i = 0; i < ctext.size(); i++)
+		unpermuted += ctext[ pairs[i].second ];
+
+	return unpermuted;
+
 }
