@@ -6,13 +6,16 @@
 #include <QString>
 #include <QPair>
 #include <istream>
+#include <ostream>
 
 using std::istream;
+using std::ostream;
 
 class Birthdays
 {
 public:
-	istream& operator(istream& is, Birthdays& b);
+	friend istream& operator>>(istream& is, Birthdays& b);
+	friend ostream& operator<<(ostream& os, const Birthdays& b);
 private:
 	QList<QPair<QString, QDate>> blist;
 };
