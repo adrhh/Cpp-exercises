@@ -5,9 +5,12 @@
 #include "birthdays.h"
 
 using std::ifstream;
+using std::ostream;
 using std::cout;
 using std::cin;
 using std::string;
+
+void writeBirthdayToFule(ostream& os);
 
 int main(int argc, char *argv[])
 {
@@ -25,4 +28,9 @@ int main(int argc, char *argv[])
 	getchar();
 
 	return 0;
+}
+
+void writeBirthdayToFule(ostream& os)
+{
+
 }

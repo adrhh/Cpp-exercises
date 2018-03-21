@@ -4,6 +4,7 @@
 #include <QDate>
 #include <QList>
 #include <QString>
+#include <QStringList>
 #include <QPair>
 #include <istream>
 #include <ostream>
@@ -16,6 +17,7 @@ class Birthdays
 public:
 	friend istream& operator>>(istream& is, Birthdays& b);
 	friend ostream& operator<<(ostream& os, const Birthdays& b);
+	QList<QString> upToX(int x) const;
 private:
 	QList<QPair<QString, QDate>> blist;
 };

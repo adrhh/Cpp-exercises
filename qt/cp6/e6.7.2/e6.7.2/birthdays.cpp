@@ -4,6 +4,25 @@
 
 using std::string;
 
+QList<QString> Birthdays::upToX(int x) const
+{
+	QList<QString> uX;
+	QDate qr = QDate::currentDate();
+	QDate temp;
+	int d = qr.day();
+	int m = qr.month();
+	int y;
+	for (auto i : blist)
+	{
+		y = i.second.year();
+		temp.setDate(y, m, d);
+		if (temp.daysTo(i.second) < x)
+			uX << i.first + " : " + i.second.toString();
+	}
+	return uX;
+}
+
+
 istream& operator>>(istream& is, Birthdays& b)
 {
 	int y, m, d;

@@ -14,6 +14,7 @@ public:
 	Arglist(const QStringList& ql) : QStringList(ql) {}
 	bool getSwitch(QString option);
 	QString getSwitchArg(QString option, QString defVal = QString());
+	QList<QString> getSwitch2Arg(QString option, QString defVal1 = QString(), QString defVal2 = QString());
 private:
 	void agrsToList(int argc, char* argv[]);
 };
