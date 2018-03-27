@@ -16,7 +16,7 @@ QList<QString> Birthdays::upToX(int x) const
 	{
 		y = i.second.year();
 		temp.setDate(y, m, d);
-		if (temp.daysTo(i.second) < x)
+		if (temp.daysTo(i.second) < x || temp.daysTo(i.second) > 0)
 			uX << i.first + " : " + i.second.toString();
 	}
 	return uX;
@@ -53,7 +53,7 @@ ostream& operator<<(ostream& os, const Birthdays& b)
 	QString sdate;
 	for (int i = 0; i < b.blist.size(); i++)
 	{
-		sdate = b.blist[i].second.toString();
+		sdate = b.blist[i].second.toString("d - M - yyyy");
 		os << b.blist[i].first.toStdString() << ' ';
 		os << sdate.toStdString() << '\n';
 	}
