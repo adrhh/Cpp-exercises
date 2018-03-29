@@ -54,8 +54,8 @@ ostream& operator<<(ostream& os, const Birthdays& b)
 	for (int i = 0; i < b.blist.size(); i++)
 	{
 		sdate = b.blist[i].second.toString("d - M - yyyy");
-		os << b.blist[i].first.toStdString() << ' ';
-		os << sdate.toStdString() << '\n';
+		os << "( " << b.blist[i].first.toStdString() << " : ";
+		os << sdate.toStdString() << " ) ";
 	}
 	return os;
 }
