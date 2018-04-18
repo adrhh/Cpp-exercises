@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 		progScore = hand.getValue();
 		cout << QString("Moj wynik to: %1").arg(pScore) << endl;
 		cout << QString("%1 wygrywa")
-			.arg((pScore >= progScore) ? "Ty": "Ja") << endl;
+			.arg((pScore >= progScore) ? "Ty" : "Ja") << endl;
 		sb = QMessageBox::question(0, QString("QMessageBox::question()"),
 			QString("Kolejne rozdanie"), QMessageBox::Yes | QMessageBox::No);
 
