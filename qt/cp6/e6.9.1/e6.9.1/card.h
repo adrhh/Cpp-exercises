@@ -35,9 +35,10 @@ private:
 public:
 	//defalut deck 52 cards = 4 suit * 13 faces;
 	CardDeck(int suits = 4, int faces = 13);
+	int getCardsLeft() const;
 	void restoreDeck();
 	CardHand deal(int handSize);
-	int getCardsLeft() const;
+	QString toString() const;
 };
 
 #endif // !CARD_H_

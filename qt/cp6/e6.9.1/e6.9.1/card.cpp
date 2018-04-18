@@ -104,3 +104,44 @@ CardHand CardDeck::deal(int handSize)
 
 	return Hand;
 }
+
+QString CardDeck::toString() const
+{
+	QString toStr;
+	int oneLine = 6;
+	for (int i = 0; i < getCardsLeft(); i++)
+	{
+		toStr += at(i).toString();
+		if (i % oneLine != 0 || i == 0)
+			toStr += ", ";
+		else 
+			toStr += '\n';
+	}
+
+	return toStr;
+}
+
+int CardHand::getValue() const
+{
+	int value = 0;
+	for (int i = 0; i < size(); i++)
+		value += at(i).getValue();
+
+	return value;
+}
+
+QString CardHand::toString() const
+{
+	QString toStr;
+	int oneLine = 6;
+	for (int i = 0; i < size(); i++)
+	{
+		toStr += at(i).toString();
+		if (i % oneLine != 0 || i == 0)
+			toStr += ", ";
+		else
+			toStr += '\n';
+	}
+
+	return toStr;
+}
