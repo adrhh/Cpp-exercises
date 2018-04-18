@@ -20,4 +20,24 @@ public:
 	int getValue() const;
 };
 
+class CardHand : public QList<Card>
+{
+public:
+	int getValue() const;
+	QString toString() const;
+};
+
+class CardDeck : public QList<Card>
+{
+private:
+	int m_suits;
+	int m_faces;
+public:
+	//defalut deck 52 cards = 4 suit * 13 faces;
+	CardDeck(int suits = 4, int faces = 13);
+	void restoreDeck();
+	CardHand deal(int handSize);
+	int getCardsLeft() const;
+};
+
 #endif // !CARD_H_

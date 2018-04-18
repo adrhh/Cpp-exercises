@@ -1,7 +1,10 @@
 #include "card.h"
+#include <cstdlib>
+#include <ctime>
 
 QStringList Card::s_Suits = { "pik", "kier", "karo", "trefl" };
 QStringList Card::s_Faces = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
+
 
 Card::Card(int face, int suit)
 {
@@ -52,7 +55,7 @@ int Card::getValue() const
 	case 11:
 		value = 2;
 		break;
-		//Q=2
+	//J=1
 	case 10:
 		value = 1;
 		break;
@@ -62,4 +65,42 @@ int Card::getValue() const
 	}
 
 	return value;
+}
+
+CardDeck::CardDeck(int suits, int faces) : m_faces(faces), m_suits(suits)
+{
+	for (int i = 0; i < suits; i++)
+		for (int j = 0; j < faces; j++)
+			this->append(Card(j, i));
+}
+
+void CardDeck::restoreDeck()
+{
+	clear();
+	*this = CardDeck(m_suits, m_faces);
+}
+
+int CardDeck::getCardsLeft() const
+{
+	return size();
+}
+
+CardHand CardDeck::deal(int handSize)
+{
+	srand(time(0));
+	CardHand Hand;
+	if (handSize > getCardsLeft())
+		qDebug() << "za malo kart" << endl;
+	else
+	{
+		int rNbr = 0;
+		for (int i = 0; i < handSize; i++)
+		{
+			rNbr = rand() % getCardsLeft();
+			Hand << at(rNbr);
+			removeAt(rNbr);
+		}
+	}
+
+	return Hand;
 }
