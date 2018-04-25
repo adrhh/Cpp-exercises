@@ -1,6 +1,8 @@
 #include "bigint.h"
 #include <cctype>
 
+std::string reveseString(const std::string& sourceStr);
+
 bool BigInt::isInputOk(const std::string& sourceStr) const
 {
 	bool strIsNumber = true;
@@ -27,6 +29,14 @@ BigInt::BigInt(const std::string& sourceStr)
 	}
 }
 
+std::string BigInt::reverse() const
+{
+	std::string retStr;
+	for (int i = bigIntAsString.size() - 1; i >= 0; i--)
+		retStr += bigIntAsString[i];
+	return retStr;
+}
+
 void BigInt::showBigInt() const
 {
 	std::cout << bigIntAsString;
@@ -34,35 +44,59 @@ void BigInt::showBigInt() const
 
 BigInt BigInt::operator+(const BigInt& adderBigInt)
 {
-	int iterations = (this->bigIntAsString.size() < adderBigInt.bigIntAsString.size()) ?
+	int smallerSize = (this->bigIntAsString.size() < adderBigInt.bigIntAsString.size()) ?
 						this->bigIntAsString.size() : adderBigInt.bigIntAsString.size();
 	int biggerSize = (this->bigIntAsString.size() > adderBigInt.bigIntAsString.size()) ?
 						this->bigIntAsString.size() : adderBigInt.bigIntAsString.size();
 
 	std::string addResult = "";
-	std::string rest = "";
+	std::string leftOp = reveseString( bigIntAsString );
+	std::string rightOp = reveseString( adderBigInt.bigIntAsString );
+
+	const char CHAR_AS_NUM = '0';
+	const int MAX_DIG = 9;
 
 	for (int i = 0; i <= biggerSize; i++)
-		rest += '0';
+		addResult += CHAR_AS_NUM;
 
-	for (int i = 0; i < iterations; i++)
+	for (int i = 0; i < biggerSize; i++)
 	{
-		addResult += '0';
-		char columnAdd = (this->bigIntAsString[i] - '0') + (adderBigInt.bigIntAsString[i] - '0');
-		if (columnAdd > 9)
+		char columnAdd = CHAR_AS_NUM;
+		if (i < smallerSize)
 		{
-			addResult[i] += (columnAdd % 10);
-			rest[i] += (columnAdd / 10);
+			columnAdd += (leftOp[i] - CHAR_AS_NUM) + (rightOp[i] - CHAR_AS_NUM);
+			if (columnAdd - CHAR_AS_NUM > MAX_DIG)
+			{
+				addResult[i] += (columnAdd - CHAR_AS_NUM)  % 10;
+				addResult[i+1] += (columnAdd - CHAR_AS_NUM) / 10;
+			}
+			else
+			{
+				int tempColumn = (addResult[i] - CHAR_AS_NUM) + (columnAdd - CHAR_AS_NUM);
+				if (tempColumn > MAX_DIG)
+				{
+					addResult[i] += tempColumn % 10;
+					addResult[i + 1] += tempColumn / 10;
+				}
+				else
+					addResult[i] += columnAdd - CHAR_AS_NUM;
+			}			
 		}
-		else
-			addResult[i] += columnAdd;	
 	}
-	//todo
-	//add rest to result and remaining digs form biger number;
-	std::cout << addResult << std::endl;
-	std::cout << rest << std::endl;
+	if (addResult.back() == '0')
+		addResult.pop_back();
+
+	addResult = reveseString(addResult);
 
 	return  BigInt(addResult);
+}
+
+std::string reveseString(const std::string& sourceStr)
+{
+	std::string retStr;
+	for (int i = sourceStr.size() - 1; i >= 0; i--)
+		retStr += sourceStr[i];
+	return retStr;
 }
 
 //BigInt BigInt::operator*(const BigInt& multiperBigInt)
