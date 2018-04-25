@@ -16,7 +16,6 @@ public:
 	void showBigInt() const;
 private:
 	std::string bigIntAsString;
-	std::string reverse() const;
 
 	bool isInputOk(const std::string& sourceStr) const;
 };
