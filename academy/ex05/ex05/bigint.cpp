@@ -149,29 +149,21 @@ BigInt BigInt::operator*(const BigInt& multiperBigInt)
 			int colMult = (rightOp[i] - CHAR_AS_NUM) * (leftOp[k] - CHAR_AS_NUM);
 			if (colMult > MAX_DIG)
 			{
-				multList[i][k] += colMult % 10;
-				multList[i][k + 1] += colMult / 10;
+				int colAdd = colMult + multList[i][k] - CHAR_AS_NUM;
+				multList[i][k] = (colAdd % 10) + CHAR_AS_NUM;
+				multList[i][k + 1] += colAdd / 10;
 			}
 			else
 			{
-				int colAdd = colMult + (multList[i][k] - CHAR_AS_NUM);
-				if (colAdd > MAX_DIG)
-				{
-					multList[i][k] += colAdd % 10;
-					multList[i][k + 1] += colAdd / 10;
-				}
-				else
-					multList[i][k] += colAdd;
-			}			
+				multList[i][k] += colMult;
+			}
 		}
-
 		if (multList[i].back() == CHAR_AS_NUM)
 			multList[i].pop_back();
 
 		multList[i] = reveseString(multList[i]);
 		for (int k = 0; k < i; k++)
 			multList[i] += '0';
-		std::cout << multList[i] << std::endl;
 	}
 
 	BigInt result("0");
