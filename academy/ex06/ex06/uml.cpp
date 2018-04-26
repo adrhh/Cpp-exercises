@@ -3,7 +3,6 @@
 
 using namespace std;
 
-aggClass::MAX_SIZE = 10;
 
 void assocClass::fun() const
 {
@@ -22,5 +21,11 @@ void depenClass::fun(testClass* ptr) const
 	cout << "suma ";
 	ptr->show();
 	cout << " wynosi: " << sum << endl;
+}
+
+void aggClass::showAll() const
+{
+	for (int i = 0; i < iter; i++)
+		ptrTable[i]->show();
 }
 

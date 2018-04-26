@@ -35,9 +35,12 @@ public:
 class aggClass
 {
 public:
-	void addPtr(testClass* ptr);
+	aggClass() : iter(0) {}
+	void addPtr(testClass* ptr) { if (iter < MAX_SIZE) ptrTable[iter++] = ptr; }
+	void showAll() const;
 private:
-	static const int MAX_SIZE;
+	static const int MAX_SIZE = 10;
+	int iter;
 	testClass* ptrTable[MAX_SIZE];
 
 };
