@@ -4,7 +4,8 @@
 #include "pch.h"
 #include "stack.h"
 #include <cstdlib>
-#include <time.h>
+#include <ctime>
+
 
 int getRandInt(int minrange, int maxrange);
 
