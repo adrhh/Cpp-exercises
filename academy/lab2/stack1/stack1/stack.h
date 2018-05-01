@@ -16,7 +16,7 @@ public:
 class IntStackOnArrConstSizeChange : public IntStack
 {
 public:
-	IntStackOnArrConstSizeChange(int arrSize);
+	IntStackOnArrConstSizeChange(int arrSize = 0);
 	~IntStackOnArrConstSizeChange();
 	int pop();
 	void push(int n);
@@ -24,6 +24,7 @@ private:
 	bool isEmpty() const;
 	int position; //top position
 	int maxArrSize;
+public:
 	int* valuesArr;
 	void changeSize();
 };

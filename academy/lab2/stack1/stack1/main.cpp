@@ -6,16 +6,35 @@ using namespace std;
 void st1();
 void st2();
 void lt1();
+void lt2();
 
 int main()
 {
+	IntList2Direct il3;
+	for (int i = 0; i < 10; i++)
+		il3.push_back(i);
+	for (int i = 0; i < 10; i++)
+		cout << il3.pop_back() << endl;
+
 	//st1();
 	//lt1();
 	//st2();
+	//lt2()
 
 	return 0;
 }
 
+void lt2()
+{
+	IntListForward i1;
+	for (int i = 0; i < 10; i++)
+		i1.push_back(i);
+	for (int i = 0; i < 10; i++)
+		cout << i1[i] << endl;
+	i1.reverse();
+	for (int i = 0; i < 10; i++)
+		cout << i1[i] << endl;
+}
 void st1()
 {
 	IntStackOnArrConstSizeChange testStack(5);
@@ -56,6 +75,7 @@ void lt1()
 	cout << l1[6] << endl;
 	l1[6] = 100;
 	cout << l1[6] << endl;
+
 }
 
 void st2()

@@ -5,6 +5,7 @@ IntStackOnArrConstSizeChange::IntStackOnArrConstSizeChange(int arrSize) : positi
 	valuesArr = new int[maxArrSize];
 }
 
+
 int IntStackOnArrConstSizeChange::pop()
 {
 	if (isEmpty())
