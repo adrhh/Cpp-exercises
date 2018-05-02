@@ -11,7 +11,7 @@ public:
 	virtual void erase_at(int index) = 0;
 	virtual int pop_back() = 0;
 	//virtual int find_value(int n) = 0;
-	//virtual int operator[](int index) const = 0;
+	virtual int operator[](int index) const = 0;
 	//virtual void reverse() = 0;
 };
 
