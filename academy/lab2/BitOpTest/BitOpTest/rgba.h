@@ -13,9 +13,9 @@ public:
 	static const unsigned int MyRGBA::GREEN = MyRGBA::ALPHA << MyRGBA::GREEN_SHIFT;
 	static const unsigned int MyRGBA::RED = MyRGBA::ALPHA << MyRGBA::RED_SHIFT;
 	unsigned int rgba;
-	int toInt(int color) const;
+	int toInt(unsigned int color) const;
 public:
-	MyRGBA(int rgbaVal) : rgba(rgbaVal) {}
+	MyRGBA(unsigned int rgbaVal) : rgba(rgbaVal) {}
 	int getRed() const { return toInt(RED); }
 	int getGreen() const { return toInt(GREEN); }
 	int getBlue() const { return toInt(BLUE); }
