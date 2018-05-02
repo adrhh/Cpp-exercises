@@ -64,12 +64,13 @@ private:
 	bool isEmpty() const;
 public:
 	IntList2Direct();
-	~IntList2Direct() { kill(); };
+	~IntList2Direct() { /*kill();*/ };
 	void push_back(int n);
 	void insert(int index, int n);
 	void erase_at(int index);
 	int pop_back();
 	int pop_front();
+	int operator[](int index) const;
 };
 
 #endif // !LIST_H_

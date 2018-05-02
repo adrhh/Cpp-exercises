@@ -203,7 +203,7 @@ void IntListForward::kill()
 
 //INT LIST 2 DIRECT METHODS:
 
-IntList2Direct::IntList2Direct() : head(nullptr), tail(nullptr)
+IntList2Direct::IntList2Direct() : head(nullptr), tail(nullptr), size(0)
 {
 
 }
@@ -222,17 +222,18 @@ void IntList2Direct::push_back(int n)
 	if (isEmpty())
 	{
 		head = tail = newNode;
+		
 	}
 	else if (size == 1)
 	{
-		tail = newNode;
 		newNode->prev = head;
 		head->next = newNode;
+		tail = newNode;
 	}
 	else
 	{
-		newNode->prev = tail;
 		tail->next = newNode;
+		newNode->prev = tail;
 		tail = newNode;
 	}
 	size++;
@@ -352,11 +353,28 @@ int IntList2Direct::pop_front()
 	else
 	{
 		Node* actual = head;
-		returnedInt = head->value;
-		head = head->prev;
+		returnedInt = actual->value;
+		head = actual->next;
 		head->prev = nullptr;
 		delete actual;
 		size--;
+	}
+	return returnedInt;
+}
+
+int IntList2Direct::operator[](int index) const
+{
+	int returnedInt = 0;
+	if (isInRange(index))
+	{
+		int step = 0;
+		Node* actual = head;
+		while (step != index)
+		{
+			actual = actual->next;
+			step++;
+		}
+		returnedInt = actual->value;
 	}
 	return returnedInt;
 }
