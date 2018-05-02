@@ -9,12 +9,15 @@
 
 int getRandInt(int minrange, int maxrange);
 
-class StackTest : public testing::Test
+class StackOCSCTest : public testing::Test
 {
 public:
-	virtual void setUp();
-private:
+	static const int SIZE;
+	
+protected:
 	IntStackOnArrConstSizeChange stack;
+	virtual void setUp();
+	virtual void clear();
 };
 
 #endif // !FLASS_H_

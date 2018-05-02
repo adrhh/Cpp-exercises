@@ -5,7 +5,7 @@
 using std::endl;
 using std::cout;
 
-TEST(TestCaseName, randIntRange)
+TEST(RandIntGenTest, randIntRange)
 {
 	srand(time(0));
 	const int MAX_RANGE = 10;
@@ -21,8 +21,21 @@ TEST(TestCaseName, randIntRange)
 	}
 }
 
-TEST(TestCaseName, TestName) 
+TEST_F(StackOCSCTest, pushTest)
 {
-  EXPECT_EQ(1, 1);
-  EXPECT_TRUE(true);
+	setUp();
+	EXPECT_EQ(StackOCSCTest::SIZE, stack.getPosition());
+}
+
+TEST_F(StackOCSCTest, popTest)
+{
+	setUp();
+	clear();
+	EXPECT_EQ(0, stack.getPosition());
+	EXPECT_EQ(true, stack.isEmpty());
+}
+
+TEST_F(StackOCSCTest, tryToPopEmpty)
+{
+	ASSERT_ANY_THROW(stack.pop(), err);
 }

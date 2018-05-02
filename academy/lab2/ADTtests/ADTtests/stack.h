@@ -17,17 +17,17 @@ public:
 class IntStackOnArrConstSizeChange : public IntStack
 {
 public:
-	IntStackOnArrConstSizeChange(int arrSize = 0);
+	IntStackOnArrConstSizeChange(int arrSize = 1);
 	~IntStackOnArrConstSizeChange();
 	int pop();
+	int getPosition() const { return position; }
 	void push(int n);
-private:
 	bool isEmpty() const;
-	int position; //top position
-	int maxArrSize;
-public:
+private:
 	int* valuesArr;
 	void changeSize();
+	int position;
+	int maxArrSize;
 };
 
 class IntStackAsForwardList : public IntStack
