@@ -60,13 +60,16 @@ private:
 	Node* tail;
 	int size;
 	bool isInRange(int n) const;
+	void kill();
 	bool isEmpty() const;
 public:
 	IntList2Direct();
+	~IntList2Direct() { kill(); };
 	void push_back(int n);
 	void insert(int index, int n);
 	void erase_at(int index);
 	int pop_back();
+	int pop_front();
 };
 
 #endif // !LIST_H_

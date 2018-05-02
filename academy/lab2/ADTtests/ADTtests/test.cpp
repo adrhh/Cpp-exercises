@@ -37,5 +37,5 @@ TEST_F(StackOCSCTest, popTest)
 
 TEST_F(StackOCSCTest, tryToPopEmpty)
 {
-	ASSERT_ANY_THROW(stack.pop(), err);
+	ASSERT_ANY_THROW(stack.pop());
 }

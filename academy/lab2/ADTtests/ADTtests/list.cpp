@@ -321,3 +321,42 @@ int IntList2Direct::pop_back()
 	}
 	return returnedInt;
 }
+void IntList2Direct::kill()
+{
+	if (size != 0)
+	{
+		Node* actual = head;
+		Node* prev = actual;
+		while (actual != nullptr)
+		{
+			prev = actual;
+			actual = actual->next;
+			delete prev;
+		}
+		size = 0;
+	}
+}
+
+int IntList2Direct::pop_front()
+{
+	int returnedInt = 0;
+	if (isEmpty())
+		error("list is empty");
+	else if (size == 1)
+	{
+		returnedInt = head->value;
+		delete head;
+		head = tail = nullptr;
+		size--;
+	}
+	else
+	{
+		Node* actual = head;
+		returnedInt = head->value;
+		head = head->prev;
+		head->prev = nullptr;
+		delete actual;
+		size--;
+	}
+	return returnedInt;
+}
