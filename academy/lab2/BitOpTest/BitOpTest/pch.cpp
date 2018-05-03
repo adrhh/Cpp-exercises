@@ -5,5 +5,3 @@
 
 #include "pch.h"
 #include "rgba.h"
-
-

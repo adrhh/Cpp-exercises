@@ -60,7 +60,6 @@ TEST(MyRGBA, ZeroTest)
 
 TEST(MyRGBA, ChangeColor)
 {
-	const int ALLON = 0xFF;
 	MyRGBA testOb(UINT_MAX);
 
 	testOb.setRed(1);
@@ -71,4 +70,50 @@ TEST(MyRGBA, ChangeColor)
 	EXPECT_EQ(3, testOb.getBlue());
 	EXPECT_EQ(2, testOb.getGreen());
 	EXPECT_EQ(1, testOb.getRed());
+}
+
+TEST(MyRGBAStruct, structCompareToMyRgba)
+{
+	const int ALLON = 0xFF;
+	MyRGBA testObA(UINT_MAX);
+	MyRGBAStruct testObB(ALLON, ALLON, ALLON, ALLON);
+
+	testObA.setRed(1);
+	testObA.setGreen(2);
+	testObA.setBlue(3);
+	testObA.setAlpha(4);
+	testObB.setRed(1);
+	testObB.setGreen(2);
+	testObB.setBlue(3);
+	testObB.setAlpha(4);
+	EXPECT_EQ(testObB.getAlpha(), testObA.getAlpha());
+	EXPECT_EQ(testObB.getBlue(), testObA.getBlue());
+	EXPECT_EQ(testObB.getGreen(), testObA.getGreen());
+	EXPECT_EQ(testObB.getRed(), testObA.getRed());
+}
+
+TEST(baseClass, poliBothTest)
+{
+	const int ALLON = 0xFF;
+	MyRGBA* testObA = new MyRGBA(UINT_MAX);
+	MyRGBAStruct* testObB = new MyRGBAStruct(ALLON, ALLON, ALLON, ALLON);
+
+	Rgba* obA = testObA;
+	Rgba* obB = testObB;
+
+	obA->setRed(1);
+	obA->setGreen(2);
+	obA->setBlue(3);
+	obA->setAlpha(4);
+	obB->setRed(1);
+	obB->setGreen(2);
+	obB->setBlue(3);
+	obB->setAlpha(4);
+	EXPECT_EQ(obB->getAlpha(), obA->getAlpha());
+	EXPECT_EQ(obB->getBlue(), obA->getBlue());
+	EXPECT_EQ(obB->getGreen(), obA->getGreen());
+	EXPECT_EQ(obB->getRed(), obA->getRed());
+
+	delete testObA;
+	delete testObB;
 }
