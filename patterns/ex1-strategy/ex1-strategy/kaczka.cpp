@@ -26,6 +26,12 @@ void NieUmiemLatac::lec()
 	cout << "oj, nie umie latac!" << endl;
 }
 
+void LatnieZRakieta::lec()
+{
+	cout << "UUaaaa lece z napedem rakietowym" << endl;
+}
+
+
 void Kaczka::wykonajLec()
 {
 	ptrLatanie->lec();
@@ -39,19 +45,36 @@ void Kaczka::wykonajPlywaj()
 	cout << "wszytkie kaczki pywaja, nawet te sztuczne!" << endl;
 }
 
+void Kaczka::ustawLatanie(Latanie* lt)
+{
+	delete ptrLatanie;
+	ptrLatanie = lt;
+}
+void Kaczka::ustawKwakanie(Kwakanie* kw)
+{
+	delete ptrKwakanie;
+	ptrKwakanie = kw;
+}
+
 DzikaKaczka::DzikaKaczka()
 {
 	ptrKwakanie = new Kwacz();
 	ptrLatanie = new UmiemLatac();
 }
 
-DzikaKaczka::~DzikaKaczka()
-{
-	delete ptrKwakanie;
-	delete ptrLatanie;
-}
-
 void DzikaKaczka::pokazKaczke()
 {
 	cout << "jestem prawdziwa dzika kakczka" << endl;
+}
+
+ModelKaczki::ModelKaczki()
+{
+	ptrKwakanie = new Piszcz();
+	ptrLatanie = new NieUmiemLatac();
+}
+
+
+void ModelKaczki::pokazKaczke()
+{
+	cout << "jestem drewniana kaczka" << endl;
 }

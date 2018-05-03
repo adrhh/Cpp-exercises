@@ -21,6 +21,11 @@ class NieUmiemLatac : public Latanie
 	void lec();
 };
 
+class LatnieZRakieta : public Latanie
+{
+	void lec();
+};
+
 class Kwakanie
 {
 public:
@@ -48,10 +53,17 @@ protected:
 	Latanie* ptrLatanie;
 	Kwakanie* ptrKwakanie;
 public:
+	~Kaczka()
+	{
+		delete ptrKwakanie;
+		delete ptrLatanie;
+	}
 	virtual void pokazKaczke() = 0;
 	void wykonajLec();
 	void wykonajKwacz();
 	void wykonajPlywaj();
+	void ustawLatanie(Latanie* lt);
+	void ustawKwakanie(Kwakanie* kw);
 };
 
 
@@ -59,7 +71,15 @@ class DzikaKaczka : public Kaczka
 {
 public:
 	DzikaKaczka();
-	~DzikaKaczka();
+	~DzikaKaczka() {}
+	void pokazKaczke();
+};
+
+class ModelKaczki : public Kaczka
+{
+public:
+	ModelKaczki();
+	~ModelKaczki() {}
 	void pokazKaczke();
 };
 
