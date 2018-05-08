@@ -34,6 +34,37 @@ WloskaSerowa::WloskaSerowa()
 	dodatki.push_back("Ser Regiano");
 }
 
+AmerykanskaWege::AmerykanskaWege()
+{
+	nazwa = "Amerykanska pizza wegeterianska";
+	ciasto = "Grube ciatso";
+	sos = "Sos amerykanski";
+
+	dodatki.push_back("Ananas");
+	dodatki.push_back("Oliwki");
+	dodatki.push_back("Kukurydza");
+	dodatki.push_back("Czerwona Cebula");
+}
+
+AmerykanskaPepperoni::AmerykanskaPepperoni()
+{
+	nazwa = "Amerykanska pizza pepperoni";
+	ciasto = "Grube ciatso";
+	sos = "Sos amerykanski";
+
+	dodatki.push_back("Pepperoni");
+	dodatki.push_back("Papryka jalepeno");
+}
+
+AmerykanskaSerowa::AmerykanskaSerowa()
+{
+	nazwa = "Amerykanska pizza serowa";
+	ciasto = "Grube ciatso";
+	sos = "Sos amerykanski";
+
+	dodatki.push_back("Ser Parmezan");
+	dodatki.push_back("Ser Gouda");
+}
 
 Pizza Pizzeria::zamowPizza(string type)
 {
@@ -54,6 +85,16 @@ Pizza WloskaPizzeria::utworzPizza(string type)
 		return WloskaPepperoni();
 	else if (type == "wege")
 		return  WloskaWege();
+}
+
+Pizza AmerykanskaPizzeria::utworzPizza(string type)
+{
+	if (type == "serowa")
+		return AmerykanskaSerowa();
+	else if (type == "pepperoni")
+		return AmerykanskaPepperoni();
+	else if (type == "wege")
+		return  AmerykanskaWege();
 }
 
 void Pizza::przygotowanie()

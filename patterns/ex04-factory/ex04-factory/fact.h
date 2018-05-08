@@ -40,6 +40,24 @@ public:
 	WloskaWege();
 };
 
+class AmerykanskaSerowa : public Pizza
+{
+public:
+	AmerykanskaSerowa();
+};
+
+class AmerykanskaPepperoni : public Pizza
+{
+public:
+	AmerykanskaPepperoni();
+};
+
+class AmerykanskaWege : public Pizza
+{
+public:
+	AmerykanskaWege();
+};
+
 class Pizzeria
 {
 public:
