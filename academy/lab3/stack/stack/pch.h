@@ -7,3 +7,4 @@
 
 #include "gtest/gtest.h"
 #include "stack.h"
+#include "calc.h"

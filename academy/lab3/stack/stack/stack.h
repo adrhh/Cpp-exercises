@@ -16,6 +16,7 @@ private:
 	ListNode<T>* head;
 	int size;
 public:
+	int getSize() const { return size; }
 	ForwardList() : head(nullptr), size(0) {};
 	bool isEmpty() const
 	{
@@ -75,6 +76,7 @@ public:
 	bool isEmpty() const { return fList.isEmpty(); }
 	T pop() { return fList.pop_back(); }
 	void push(T value) { fList.push_back(value); };
+	int getSize() const { return fList.getSize(); }
 };
 
 #endif // !STACK_H_

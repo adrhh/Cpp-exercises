@@ -109,22 +109,22 @@ int IntListForward::operator[](int index) const
 	return returnedInt;
 }
 
-IntListForward::Node& IntListForward::operator[](int index)
-{
-	if (isInRange(index))
-	{
-		int step = 0;
-		Node* actual = head;
-		while (step != index)
-		{
-			actual = actual->next;
-			step++;
-		}
-		return *actual;
-	}
-	else
-		error("range error");
-}
+//IntListForward::Node& IntListForward::operator[](int index)
+//{
+//	if (isInRange(index))
+//	{
+//		int step = 0;
+//		Node* actual = head;
+//		while (step != index)
+//		{
+//			actual = actual->next;
+//			step++;
+//		}
+//		return *actual;
+//	}
+//	else
+//		error("range error");
+//}
 
 //returns index of n value or -1 if n is not in list
 int IntListForward::find_value(int n)
@@ -179,7 +179,6 @@ void IntListForward::reverse()
 		IntListForward temp;
 		for (int i = 0; i < tempArr.size(); i++)
 			temp.push_back(tempArr[i]);
-		
 		kill();
 		head = temp.head;
 	}
@@ -197,7 +196,6 @@ void IntListForward::kill()
 			actual = actual->next;
 			delete prev;
 		}
-		size = 0;
 	}
 }
 
@@ -334,7 +332,6 @@ void IntList2Direct::kill()
 			actual = actual->next;
 			delete prev;
 		}
-		size = 0;
 	}
 }
 
@@ -377,4 +374,9 @@ int IntList2Direct::operator[](int index) const
 		returnedInt = actual->value;
 	}
 	return returnedInt;
+}
+
+void IntList2Direct::reverse()
+{
+	;
 }
