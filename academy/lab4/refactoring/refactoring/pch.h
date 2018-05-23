@@ -7,3 +7,5 @@
 
 #include "gtest/gtest.h"
 #include "personaldata.h"
+#include "database.h"
+#include "employee.h"
