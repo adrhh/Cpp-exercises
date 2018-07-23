@@ -56,6 +56,20 @@ public:
 	}
 };
 
+class GrubeChrupkieCIasto : public Ciasto
+{
+public:
+	GrubeChrupkieCIasto()
+	{
+		setOpis("grube chrupiace ciasto idelane na wloska pizze");
+		std::cout << "grube ciasto utworzono\n";
+	}
+	~GrubeChrupkieCIasto()
+	{
+		std::cout << "grube ciasto usunieto\n";
+	}
+};
+
 class Malze : public Skladnik
 {
 public:
@@ -80,6 +94,20 @@ public:
 	~SwiezeMalze()
 	{
 		std::cout << "swieze mazle usunieto\n";
+	}
+};
+
+class MrozoneMalze : public Malze
+{
+public:
+	MrozoneMalze()
+	{
+		setOpis("mrozone malze, tanie i dobre");
+		std::cout << "swieze mazle utworzono\n";
+	}
+	~MrozoneMalze()
+	{
+		std::cout << "mrozone mazle usunieto\n";
 	}
 };
 
@@ -110,8 +138,32 @@ public:
 	}
 };
 
+class SerMozzarela : public Ser
+{
+public:
+	SerMozzarela()
+	{
+		setOpis("mieka swieza mozzarela");
+		std::cout << "ser Mozzarela utworzono\n";
+	}
+	~SerMozzarela()
+	{
+		std::cout << "ser Mozzarela usunieto\n";
+	}
+};
+
 class Warzywa : public Skladnik
-{};
+{
+public:
+	Warzywa()
+	{
+		std::cout << "warzywo utworzono\n";
+	}
+	~Warzywa()
+	{
+		std::cout << "warzywo usunieto\n";
+	}
+};
 
 class Czosnek : public Warzywa
 {
@@ -119,6 +171,11 @@ public:
 	Czosnek()
 	{
 		setOpis("aromatyczny czosnek");
+		std::cout << "czosnek utworzono\n";
+	}
+	~Czosnek()
+	{
+		std::cout << "czosnek usunieto\n";
 	}
 };
 
@@ -128,6 +185,11 @@ public:
 	Pieczarki()
 	{
 		setOpis("biale pieczarki idelane do pieczenia");
+		std::cout << "pieczarki utworzono\n";
+	}
+	~Pieczarki()
+	{
+		std::cout << "pieczarki usunieto\n";
 	}
 };
 
@@ -154,13 +216,39 @@ public:
 	}
 	virtual std::vector< std::unique_ptr<Warzywa>> tworzWarzywa() const override
 	{
-		return std::vector< std::unique_ptr<Warzywa>>{};// {std::make_unique<Czosnek>(), std::make_unique<Pieczarki>()};
+		std::vector<std::unique_ptr<Warzywa> >warzArr;
+		warzArr.push_back(std::make_unique<Czosnek>());
+		warzArr.push_back(std::make_unique<Pieczarki>());
+		return warzArr;
 	}
 	virtual std::unique_ptr<Malze> tworzMalze() const override
 	{
 		return std::make_unique<SwiezeMalze>();
 	}
-	virtual ~WloskaFabrykaSkladnikoPizzy() {};
+};
+
+class AmerykanskaFabrykaSkladnikoPizzy : public FabrykaSkladnikowPizzy
+{
+public:
+	virtual std::unique_ptr<Ciasto> tworzCiasto() const override
+	{
+		return std::make_unique<GrubeChrupkieCIasto>();
+	}
+	virtual std::unique_ptr<Ser> tworzSer() const override
+	{
+		return std::make_unique<SerMozzarela>();
+	}
+	virtual std::vector< std::unique_ptr<Warzywa>> tworzWarzywa() const override
+	{
+		std::vector<std::unique_ptr<Warzywa> >warzArr;
+		warzArr.push_back(std::make_unique<Czosnek>());
+		warzArr.push_back(std::make_unique<Pieczarki>());
+		return warzArr;
+	}
+	virtual std::unique_ptr<Malze> tworzMalze() const override
+	{
+		return std::make_unique<MrozoneMalze>();
+	}
 };
 
 class Pizza
@@ -170,6 +258,7 @@ protected:
 	std::unique_ptr<Ciasto> ciasto;
 	std::unique_ptr<Ser> ser;
 	std::unique_ptr<Malze> malze;
+	std::vector< std::unique_ptr<Warzywa>> warzywa;
 public:
 	virtual void przygotowanie() = 0;
 	void pieczenie() const
@@ -192,16 +281,25 @@ public:
 	{
 		return ser->getOpis();
 	}
+	std::string getWarzywa() const
+	{
+		std::string str;
+		for (int i = 0; i < warzywa.size(); i++)
+		{
+			str += warzywa[i]->getOpis();
+			if (i < warzywa.size() - 1)
+				str += ", ";
+		}
+			
+		return str;
+	}
 };
 
 class PizzaSerowa : public Pizza
 {
 	FabrykaSkladnikowPizzy* fabrykaSkladnikow;
 public:
-	PizzaSerowa(FabrykaSkladnikowPizzy* f) : fabrykaSkladnikow(f) 
-	{
-		setName("Wloska Pizza serowa");
-	}
+	PizzaSerowa(FabrykaSkladnikowPizzy* f) : fabrykaSkladnikow(f) {}
 	virtual void przygotowanie() override
 	{
 		ciasto = fabrykaSkladnikow->tworzCiasto();
@@ -245,12 +343,45 @@ public:
 		{
 			p = std::make_unique<PizzaSerowa>(PizzaSerowa(fab));
 			p->przygotowanie();
+			p->setName("Wloska Pizza serowa");
 
 		}
 		else if (nazwa == "owoce")
 		{
 			p = std::make_unique<PizzaOwoceMorza>(PizzaOwoceMorza(fab));
 			p->przygotowanie();
+			p->setName("Wloska Pizza owoce morza");
+		}
+		return p;
+	}
+};
+
+class AmerykanskaPizzeria : public Pizzeria
+{
+private:
+	FabrykaSkladnikowPizzy * fab;
+public:
+	AmerykanskaPizzeria() : fab(new AmerykanskaFabrykaSkladnikoPizzy()) {}
+	~AmerykanskaPizzeria()
+	{
+		delete fab;
+	}
+	virtual std::unique_ptr<Pizza> utworzPizza(std::string nazwa) const override
+	{
+		std::unique_ptr<Pizza> p(nullptr);
+
+		if (nazwa == "serowa")
+		{
+			p = std::make_unique<PizzaSerowa>(PizzaSerowa(fab));
+			p->przygotowanie();
+			p->setName("Amerykanska Pizza serowa");
+
+		}
+		else if (nazwa == "owoce")
+		{
+			p = std::make_unique<PizzaOwoceMorza>(PizzaOwoceMorza(fab));
+			p->przygotowanie();
+			p->setName("Amerykanska Pizza owoce morza");
 		}
 		return p;
 	}
