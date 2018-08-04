@@ -2,17 +2,20 @@
 #define GRAF_F_
 
 #include <list>
+#include <vector>
 #include <iostream>
 
 class Graph
 {
 private:
-	int nrVerticles;
+	const int nrVerticles;
+	std::vector<int> vertColor;
 	std::list<int> *adjList;
 public:
 	Graph(int size = 0) : nrVerticles(size)
 	{
 		adjList = new std::list<int>[size];
+		vertColor.resize(size);
 	}
 	~Graph() { delete[] adjList; }
 
@@ -21,16 +24,9 @@ public:
 		adjList[u].push_back(w);
 		adjList[w].push_back(u);
 	}
-	void printGrpah() const
-	{
-		for (int i = 0; i < nrVerticles; i++)
-		{
-			std::cout << "Lista sasiedztwa wierzcholka nr: " << i << std::endl;
-			for (auto j : adjList[i])
-				std::cout << ' ' << j;
-			std::cout << std::endl;
-		}
-	}
+	void printGraph() const;
+	void printGraphColors() const;
+	void greedyColoring();
 }
 
 #endif
