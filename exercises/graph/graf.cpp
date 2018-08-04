@@ -21,14 +21,11 @@ void Graph::printGraphColors() const
 
 void Graph::greedyColoring()
 {
-	std::vector<bool> available(nrVerticles);
+	std::vector<bool> available(nrVerticles, false);
 	vertColor[0] = 0;
 
 	for (int i = 1; i < nrVerticles; i++)
 		vertColor[i] = -1;
-
-	for (int cr = 0; cr < nrVerticles; cr++)
-		available[cr] = false;
 
 	for (int u = 1; u < nrVerticles; u++)
 	{
