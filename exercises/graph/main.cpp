@@ -1,6 +1,5 @@
 #include "graf.h"
 ;
-	
 int main()
 {
 	Graph test(5);
@@ -11,7 +10,10 @@ int main()
 	test.addEdge(1, 2);
 	test.addEdge(1, 4);
 	test.addEdge(3, 4);
-	test.printGrpah();
+	test.printGraph();
+
+	test.greedyColoring();
+	test.printGraphColors();
 
 	getchar();
 
