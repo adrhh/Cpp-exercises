@@ -27,6 +27,8 @@ public:
 	void printGraph() const;
 	void printGraphColors() const;
 	void greedyColoring();
+	void exactColoring();
+	void resetColors();
 }
 
 #endif
