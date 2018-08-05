@@ -47,3 +47,57 @@ void Graph::greedyColoring()
 				available[vertColor[*i]] = false;
 	}
 }
+
+void Graph::resetColors()
+{
+	for (int i = 0; i < vertColor.size(); i++)
+		vertColor[i] = 0;
+}
+
+void Graph::exactColoring()
+{
+	int counter = 0;
+	int b = 0;
+	int bc = 0;
+	bool test;
+	while (true)
+	{
+		if (bc)
+		{
+			test = true;
+			counter++;
+			for (int u = 0; u < nrVerticles; u++)
+			{
+				std::list<int>::iterator i;
+				for (i = adjList[u].begin(); i != adjList[u].end(); i++)
+					if (vertColor[u] == vertColor[*i])
+					{
+						test = false;
+						break;
+					}
+				if (!test)
+					break;
+			}
+			if (test)
+				break;
+		}
+
+		while (true)
+		{
+			int i;
+			for (i = 0; i < nrVerticles; i++)
+			{
+				vertColor[i]++;
+				if (vertColor[i] == b - 1)
+					bc++;
+				if (vertColor[i] < b)
+					break;
+				vertColor[i] = 0;
+				bc--;
+			}
+			if (i < nrVerticles)
+				break;
+			b++;
+		}
+	}
+}
