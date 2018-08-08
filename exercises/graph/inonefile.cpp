@@ -1,6 +1,9 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include <ctime>
+#include <algorithm>
+#include <cstdlib>
 
 class Graph
 {
@@ -8,6 +11,7 @@ private:
 	const int nrVerticles;
 	std::vector<int> vertColor;
 	std::list<int> *adjList;
+	
 public:
 	Graph(int size = 0) : nrVerticles(size)
 	{
@@ -21,6 +25,7 @@ public:
 		adjList[u].push_back(w);
 		adjList[w].push_back(u);
 	}
+	bool haveEdge(int i, int j) const;
 	void printGraph() const;
 	void printGraphColors() const;
 	void greedyColoring();
@@ -28,12 +33,14 @@ public:
 	void resetColors();
 };
 
+Graph* randGraphGerator(int ver, int edges);
+
 
 void Graph::printGraph() const
 {
 	for (int i = 0; i < nrVerticles; i++)
 	{
-		std::cout << "Lista sasiedztwa wierzcholka nr: " << i << std::endl;
+		std::cout << "Lista sasiedztwa wierzcholka nr (" << i << "): " << i;
 		for (auto j : adjList[i])
 			std::cout << ' ' << j;
 		std::cout << std::endl;
@@ -130,26 +137,118 @@ void Graph::exactColoring()
 	}
 }
 
+Graph* randGraphGerator(int ver, int edges)
+{
+	Graph* newGraph = new Graph(ver);
+	srand(time(0));
+
+	if (edges < ver - 1)
+		std::cerr << "zbyt mala liczba wierzcholow, przyjeto: " << ver - 1 << std::endl;
+
+	//najpierw generuj graf spojny 
+	std::vector<int> simpleEdges;
+	for (int i = 0; i < ver; i++)
+		simpleEdges.push_back(i);
+
+	while (true)
+	{
+		//nieparzysta ilosc wierzcholkow
+		if (ver % 2 && simpleEdges.size() == 1)
+			break;
+		//parzysta
+		if (!(ver % 2) && !simpleEdges.size())
+			break;
+
+
+		int i = simpleEdges[0];
+		int j = i;
+		int index;
+		while(j == i)
+		{ 
+			index = rand() % simpleEdges.size();
+			j = simpleEdges[index];
+		}
+
+		newGraph->addEdge(i, j);
+		simpleEdges.erase(simpleEdges.begin() + index);
+		simpleEdges.erase(simpleEdges.begin());
+	}
+
+	//dodaje pozsotale krawedzie
+
+	int reaming = edges - ver;
+	if(edges > (ver*(ver-1))/2)
+	{ 
+		std::cerr << "zby doza ilosc wierzcholkow, przyjeto: " 
+				  << (ver*(ver - 1)) / 2 << std::endl;
+		reaming = (ver*(ver - 1)) / 2 - ver;
+	}
+	for (int i = 0; i < reaming; i++)
+	{
+		while(true)
+		{ 
+			int e = rand() % ver;
+			int f = e;
+			while(e == f)
+				f = rand() % ver;
+			if (newGraph->haveEdge(e, f))
+				continue;
+			else
+			{
+				newGraph->addEdge(e, f);
+				break;
+			}
+		}
+	}
+
+	return newGraph;
+}
+
+bool Graph::haveEdge(int i, int j) const
+{
+	bool isEdge = false;
+	for (auto e : adjList[i])
+		if (e == j)
+		{
+			isEdge = true;
+			break;
+		}
+	return isEdge;
+}
+
+#include "graf.h"
+	
 int main()
 {
-	Graph test(5);
-	test.addEdge(0, 1);
-	test.addEdge(0, 2);
-	test.addEdge(0, 3);
-	test.addEdge(0, 4);
-	test.addEdge(1, 2);
-	test.addEdge(1, 4);
-	test.addEdge(3, 4);
-	test.printGraph();
+	//gereuj graf randGraphGerator(i, j)
+	//i - liczba wierzcholkow
+	//j - liczba krawedzi
+	Graph* test = randGraphGerator(17, 24);
+	test->printGraph();
 
-	test.greedyColoring();
-	test.printGraphColors();
-	test.resetColors();
-	test.printGraphColors();
-	test.exactColoring();
-	test.printGraphColors();
+	clock_t start, end;
 
-	getchar();
+	start = clock();
+	test->greedyColoring();
+	end = clock();
 
+	test->printGraphColors();
+
+	double greedyCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
+
+
+	test->resetColors();
+	start = clock();
+	test->exactColoring();
+	end = clock();
+
+	test->printGraphColors();
+
+	double exactCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
+
+	std::cout << "Czas dzialania algorytmu zachlannego: " << greedyCloroingTime << std::endl
+		      << "Czas dzialania algorytmu dokladnego: " << exactCloroingTime << std::endl;
+
+	delete test;
 	return 0;
 }
