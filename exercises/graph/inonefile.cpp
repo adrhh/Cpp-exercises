@@ -215,8 +215,6 @@ bool Graph::haveEdge(int i, int j) const
 		}
 	return isEdge;
 }
-
-#include "graf.h"
 	
 int main()
 {
