@@ -221,7 +221,7 @@ int main()
 	//gereuj graf randGraphGerator(i, j)
 	//i - liczba wierzcholkow
 	//j - liczba krawedzi
-	Graph* test = randGraphGerator(17, 24);
+	Graph* test = randGraphGerator(10, 30);
 	test->printGraph();
 
 	clock_t start, end;
