@@ -1,11 +1,10 @@
 #include "graf.h"
-;
 
 void Graph::printGraph() const
 {
 	for (int i = 0; i < nrVerticles; i++)
 	{
-		std::cout << "Lista sasiedztwa wierzcholka nr: " << i << std::endl;
+		std::cout << "Lista sasiedztwa wierzcholka nr (" << i << "): " << i;
 		for (auto j : adjList[i])
 			std::cout << ' ' << j;
 		std::cout << std::endl;
@@ -100,4 +99,83 @@ void Graph::exactColoring()
 			b++;
 		}
 	}
+}
+
+Graph* randGraphGerator(int ver, int edges)
+{
+	Graph* newGraph = new Graph(ver);
+	srand(time(0));
+
+	if (edges < ver - 1)
+		std::cerr << "zbyt mala liczba wierzcholow, przyjeto: " << ver - 1 << std::endl;
+
+	//najpierw generuj graf spojny 
+	std::vector<int> simpleEdges;
+	for (int i = 0; i < ver; i++)
+		simpleEdges.push_back(i);
+
+	while (true)
+	{
+		//nieparzysta ilosc wierzcholkow
+		if (ver % 2 && simpleEdges.size() == 1)
+			break;
+		//parzysta
+		if (!(ver % 2) && !simpleEdges.size())
+			break;
+
+
+		int i = simpleEdges[0];
+		int j = i;
+		int index;
+		while(j == i)
+		{ 
+			index = rand() % simpleEdges.size();
+			j = simpleEdges[index];
+		}
+
+		newGraph->addEdge(i, j);
+		simpleEdges.erase(simpleEdges.begin() + index);
+		simpleEdges.erase(simpleEdges.begin());
+	}
+
+	//dodaje pozsotale krawedzie
+
+	int reaming = edges - ver;
+	if(edges > (ver*(ver-1))/2)
+	{ 
+		std::cerr << "zby doza ilosc wierzcholkow, przyjeto: " 
+				  << (ver*(ver - 1)) / 2 << std::endl;
+		reaming = (ver*(ver - 1)) / 2 - ver;
+	}
+	for (int i = 0; i < reaming; i++)
+	{
+		while(true)
+		{ 
+			int e = rand() % ver;
+			int f = e;
+			while(e == f)
+				f = rand() % ver;
+			if (newGraph->haveEdge(e, f))
+				continue;
+			else
+			{
+				newGraph->addEdge(e, f);
+				break;
+			}
+		}
+	}
+
+	return newGraph;
+}
+
+bool Graph::haveEdge(int i, int j) const
+{
+	bool isEdge = false;
+	for (auto e : adjList[i])
+		if (e == j)
+		{
+			isEdge = true;
+			break;
+		}
+	return isEdge;
 }
