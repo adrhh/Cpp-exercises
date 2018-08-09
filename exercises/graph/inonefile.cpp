@@ -30,10 +30,9 @@ public:
 	void printGraphColors() const;
 	void greedyColoring();
 	void exactColoring();
+	void heurColoring();
 	void resetColors();
 };
-
-Graph* randGraphGerator(int ver, int edges);
 
 
 void Graph::printGraph() const
@@ -86,7 +85,7 @@ void Graph::greedyColoring()
 void Graph::resetColors()
 {
 	for (int i = 0; i < vertColor.size(); i++)
-		vertColor[i] = 0;
+		vertColor[i] = -1;
 }
 
 void Graph::exactColoring()
@@ -136,6 +135,49 @@ void Graph::exactColoring()
 		}
 	}
 }
+
+void Graph::heurColoring()
+{
+	std::vector<int> vertArr(nrVerticles);
+	std::vector<int> vertGradeArr(nrVerticles);
+	std::vector<bool> colors(nrVerticles,false);
+	int d, i;
+	for (int v = 0; v  < nrVerticles; v++) 
+	{
+		vertArr[v] = v;                   
+		vertGradeArr[v] = 0;                 
+
+		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) // Przeglądamy kolejnych sąsiadów
+			vertGradeArr[v]++;                    // Obliczamy stopień wyjściowy wierzchołka v
+
+		d = vertGradeArr[v];
+
+		for (i = v; (i > 0) && (vertGradeArr[i - 1] < d); i--)
+		{
+			vertArr[i] = vertArr[i - 1];
+			vertGradeArr[i] = vertGradeArr[i - 1];
+		}
+
+		vertGradeArr[i] = d;
+		vertArr[i] = v;
+	}
+
+	resetColors();
+
+	vertColor[vertArr[0]] = 0;  
+
+	for (int v = 1; v < nrVerticles; v++) 
+	{
+
+		for (auto p = adjList[vertArr[v]].begin(); p != adjList[vertArr[v]].end(); p++)
+			if (vertColor[*p] > -1) 
+				colors[vertColor[*p]] = true; 
+
+		for (i = 0; colors[i]; i++);      
+			vertColor[vertArr[v]] = i;     
+	}
+}
+
 
 Graph* randGraphGerator(int ver, int edges)
 {
@@ -215,13 +257,13 @@ bool Graph::haveEdge(int i, int j) const
 		}
 	return isEdge;
 }
-	
+
 int main()
 {
 	//gereuj graf randGraphGerator(i, j)
 	//i - liczba wierzcholkow
 	//j - liczba krawedzi
-	Graph* test = randGraphGerator(10, 30);
+	Graph* test = randGraphGerator(10, 20);
 	test->printGraph();
 
 	clock_t start, end;
@@ -230,6 +272,7 @@ int main()
 	test->greedyColoring();
 	end = clock();
 
+	std::cout << "Kolorowanie:" << std::endl;
 	test->printGraphColors();
 
 	double greedyCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
@@ -240,13 +283,25 @@ int main()
 	test->exactColoring();
 	end = clock();
 
+	std::cout << "Kolorowanie:" << std::endl;
 	test->printGraphColors();
 
 	double exactCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
 
+	test->resetColors();
+	start = clock();
+	test->heurColoring();
+	end = clock();
+	double heurCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
+
+	std::cout << "Kolorowanie:" << std::endl;
+	test->printGraphColors();
+
 	std::cout << "Czas dzialania algorytmu zachlannego: " << greedyCloroingTime << std::endl
-		      << "Czas dzialania algorytmu dokladnego: " << exactCloroingTime << std::endl;
+		<< "Czas dzialania algorytmu dokladnego: " << exactCloroingTime << std::endl
+		<< "Czas dzialania algorytmu hwurystycznegi: " << heurCloroingTime << std::endl;
 
 	delete test;
 	return 0;
 }
+
