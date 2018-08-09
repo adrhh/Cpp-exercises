@@ -50,7 +50,7 @@ void Graph::greedyColoring()
 void Graph::resetColors()
 {
 	for (int i = 0; i < vertColor.size(); i++)
-		vertColor[i] = 0;
+		vertColor[i] = -1;
 }
 
 void Graph::exactColoring()
@@ -100,6 +100,49 @@ void Graph::exactColoring()
 		}
 	}
 }
+
+void Graph::heurColoring()
+{
+	std::vector<int> vertArr(nrVerticles);
+	std::vector<int> vertGradeArr(nrVerticles);
+	std::vector<bool> colors(nrVerticles,false);
+	int d, i;
+	for (int v = 0; v  < nrVerticles; v++) 
+	{
+		vertArr[v] = v;                   
+		vertGradeArr[v] = 0;                 
+
+		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) // Przeglądamy kolejnych sąsiadów
+			vertGradeArr[v]++;                    // Obliczamy stopień wyjściowy wierzchołka v
+
+		d = vertGradeArr[v];
+
+		for (i = v; (i > 0) && (vertGradeArr[i - 1] < d); i--)
+		{
+			vertArr[i] = vertArr[i - 1];
+			vertGradeArr[i] = vertGradeArr[i - 1];
+		}
+
+		vertGradeArr[i] = d;
+		vertArr[i] = v;
+	}
+
+	resetColors();
+
+	vertColor[vertArr[0]] = 0;  
+
+	for (int v = 1; v < nrVerticles; v++) 
+	{
+
+		for (auto p = adjList[vertArr[v]].begin(); p != adjList[vertArr[v]].end(); p++)
+			if (vertColor[*p] > -1) 
+				colors[vertColor[*p]] = true; 
+
+		for (i = 0; colors[i]; i++);      
+			vertColor[vertArr[v]] = i;     
+	}
+}
+
 
 Graph* randGraphGerator(int ver, int edges)
 {
