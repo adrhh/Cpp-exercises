@@ -1,3 +1,10 @@
+/*
+dyrektywa preprocesora (działa w pierwszym etapie kompilacji) #include  
+wkleja podane pliki nagłowkowe do kompilowanego pliku
+
+pliki nagłowkowe zawierają deklaracje klas i funkcji
+*/
+
 #include <list>
 #include <vector>
 #include <iostream>
@@ -5,19 +12,27 @@
 #include <algorithm>
 #include <cstdlib>
 
+//prosta klasa implementujaca graf
 class Graph
 {
+//pola klasy prywatne, dostepne tylko wewnatrz klasy
 private:
+	//stala okreslajaca ilosc wierzcholkow
 	const int nrVerticles;
+	//tablica kolorow weirzcholkow, za pomoca konterna vector z biblioteki stl 
 	std::vector<int> vertColor;
+	//tablica listy sasedztw, za pomoca wskaźnika tworzona i usuwana dynamicznie
 	std::list<int> *adjList;
 	
 public:
+	//konstruktor domyslny, przyjmuje jago argument liczbe wierzcholkow tworzonego grafu
 	Graph(int size = 0) : nrVerticles(size)
 	{
+		//dynamicznie tworzy tablice list sasiedztwa
 		adjList = new std::list<int>[size];
 		vertColor.resize(size);
 	}
+	//destruktor, usuwa dynamicznie utworzna liste sasiedztwa
 	~Graph() { delete[] adjList; }
 
 	void addEdge(int u, int w)
