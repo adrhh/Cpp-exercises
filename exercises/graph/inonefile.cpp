@@ -35,7 +35,7 @@ public:
 	//destruktor, usuwa dynamicznie utworzna liste sasiedztwa
 	~Graph() { delete[] adjList; }
 
-	//funkcja dodajaca krawedz miedzy wierzcholkami u i v
+	//funkcja dodajaca krawedz miedzy wierzcholkami u i w
 	void addEdge(int u, int w)
 	{
 		//do tablicy saseidztwa wierzcholka u dodaj w i na odwrot
