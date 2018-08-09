@@ -35,13 +35,18 @@ public:
 	//destruktor, usuwa dynamicznie utworzna liste sasiedztwa
 	~Graph() { delete[] adjList; }
 
+	//funkcja dodajaca krawedz miedzy wierzcholkami u i v
 	void addEdge(int u, int w)
 	{
+		//do tablicy saseidztwa wierzcholka u dodaj w i na odwrot
 		adjList[u].push_back(w);
 		adjList[w].push_back(u);
 	}
+	//sprawdza czy istnieje krawedz miedzy wierzcholkami
 	bool haveEdge(int i, int j) const;
+	//drukuje liste sasiedztwa wierzcholkow
 	void printGraph() const;
+	//drukuje liste kolorow
 	void printGraphColors() const;
 	void greedyColoring();
 	void exactColoring();
@@ -52,6 +57,8 @@ public:
 
 void Graph::printGraph() const
 {
+	//dla kazdego elemntu listy sasiedztwa wydrukuj elemnt
+	//powtorz dla list wszytkich wierzcholkow
 	for (int i = 0; i < nrVerticles; i++)
 	{
 		std::cout << "Lista sasiedztwa wierzcholka nr (" << i << "): " << i;
@@ -63,11 +70,13 @@ void Graph::printGraph() const
 
 void Graph::printGraphColors() const
 {
+	//drukuj kazdy elemnt tablicy kolorow
 	for (int i = 0; i < nrVerticles; i++)
 		std::cout << "Wirzcholek nr: " << i << " ma kolor"
 				  << vertColor[i] << std::endl;
 }
 
+//kolrowanie zachlanne
 void Graph::greedyColoring()
 {
 	std::vector<bool> available(nrVerticles, false);
@@ -97,12 +106,15 @@ void Graph::greedyColoring()
 	}
 }
 
+
+//resetyj kolory, ustaw wszytkie na -1
 void Graph::resetColors()
 {
 	for (int i = 0; i < vertColor.size(); i++)
 		vertColor[i] = -1;
 }
 
+//kolorowanie dokladne
 void Graph::exactColoring()
 {
 	int counter = 0;
@@ -151,6 +163,8 @@ void Graph::exactColoring()
 	}
 }
 
+
+//kolorwanie heurystyczne (LF large first)
 void Graph::heurColoring()
 {
 	std::vector<int> vertArr(nrVerticles);
@@ -193,16 +207,25 @@ void Graph::heurColoring()
 	}
 }
 
-
+//generuje losowy graf parametrami sa ilosc wierzcholki i ilosc krawedzi
 Graph* randGraphGerator(int ver, int edges)
 {
+	//dynamicznie tworzy graf o zadanej ilosci wierzcholkow
 	Graph* newGraph = new Graph(ver);
 	srand(time(0));
 
+	//jezeli krawedzi jest zbyt malo, przyjmuje najmniejsza ilosc wierzcholkow by graf byl spojny
+	//by graf mogl byc kolorwany musi istniec droga przez wszytkie wierzcholki
 	if (edges < ver - 1)
 		std::cerr << "zbyt mala liczba wierzcholow, przyjeto: " << ver - 1 << std::endl;
 
 	//najpierw generuj graf spojny 
+	
+	//tablica wierzcholkow ktora posluzy do genrowania grafu spojnego
+	//w grafie spojnym istniej co najmniej jedna krawedz do innego wierzcholka
+	//z tej tablcy beda losowane wierzcholki, a po u zyciue usuwane
+	//by wszytkie wierzcholki mogly miec krawedz
+	
 	std::vector<int> simpleEdges;
 	for (int i = 0; i < ver; i++)
 		simpleEdges.push_back(i);
@@ -210,29 +233,39 @@ Graph* randGraphGerator(int ver, int edges)
 	while (true)
 	{
 		//nieparzysta ilosc wierzcholkow
+		//jezeli zostal jeden wierzcholek koncz
 		if (ver % 2 && simpleEdges.size() == 1)
 			break;
-		//parzysta
+		//parzysta ilosc, jesli brak wierzcholkow koncz
 		if (!(ver % 2) && !simpleEdges.size())
 			break;
 
-
+		//zmienne pomicnicze
+		//zmienne i,j posluza do genrowania krawedzi miedzy wierzcholakmi i,j
+		//zacznij od piwerszego wierzcholka 
 		int i = simpleEdges[0];
 		int j = i;
 		int index;
+		//losuj wierzcholek j doputy bedzie rozny od i
+		//czyli omijaj krawedz miedzy soba samym
 		while(j == i)
 		{ 
 			index = rand() % simpleEdges.size();
 			j = simpleEdges[index];
 		}
-
+		//gdy i, j sa rozne tworz miedzy nimi krawedz
 		newGraph->addEdge(i, j);
+		//usun i j z poli wierzolkow, 
 		simpleEdges.erase(simpleEdges.begin() + index);
 		simpleEdges.erase(simpleEdges.begin());
 	}
 
 	//dodaje pozsotale krawedzie
-
+	// ilosc pozstalych krawedzi do utworzenia
+	//max krawedzi w grafie pelnym to n(n-1)/2
+	//jest podana w wyloaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
+	//ustaw ilosc krawedzi n(n-1)/2
+	//przy tworzeniu kolejnych krawedzi pomin te utworzone w koljenym kroku
 	int reaming = edges - ver;
 	if(edges > (ver*(ver-1))/2)
 	{ 
@@ -240,16 +273,26 @@ Graph* randGraphGerator(int ver, int edges)
 				  << (ver*(ver - 1)) / 2 << std::endl;
 		reaming = (ver*(ver - 1)) / 2 - ver;
 	}
+	
+	//od 0 do ilosci krwaedzi do utworzenia
 	for (int i = 0; i < reaming; i++)
 	{
 		while(true)
 		{ 
+			//losuj wierzcholek z ktorego wyjdzie krawedz
 			int e = rand() % ver;
 			int f = e;
+			//losuj wierzcholek do ktorego dojdzie krawedz
+			//powtarzaj krok dopuki bedzie inny od wychodzacego
+			//by nie laczyc wierzcholka s zamym soba
 			while(e == f)
 				f = rand() % ver;
+			//teraz sprawdz czy taka krawedz miedzy tymi wierzcholkami nie istnieje
+			//jesli istnieje powtorz losowanie
 			if (newGraph->haveEdge(e, f))
 				continue;
+			//jesli ta krawedz nie istnieje, oraz laczy dwa rozne wiercholki
+			//utworz ja
 			else
 			{
 				newGraph->addEdge(e, f);
@@ -257,10 +300,14 @@ Graph* randGraphGerator(int ver, int edges)
 			}
 		}
 	}
-
+	//zwraca wskaznik do utworzonego grafu
+	//jest to zmienna dynamiczna
+	//trzeba bedzie pamietac o jej usunieciu
 	return newGraph;
 }
 
+
+//sprawdza czy istnieje krawedz miedzy wierzcholkami i,j
 bool Graph::haveEdge(int i, int j) const
 {
 	bool isEdge = false;
