@@ -33,6 +33,7 @@ public:
 	void printGraphColors() const;
 	void greedyColoring();
 	void exactColoring();
+	void heurColoring();
 	void resetColors();
 };
 
