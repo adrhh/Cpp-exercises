@@ -1,7 +1,6 @@
 /*
-dyrektywa preprocesora (działa w pierwszym etapie kompilacji) #include  
-wkleja podane pliki nagłowkowe do kompilowanego pliku
-
+dyrektywa preprocesora (działa w pierwszym etapie kompilacji) 
+#include  wkleja podane pliki nagłowkowe do kompilowanego pliku
 pliki nagłowkowe zawierają deklaracje klas i funkcji
 */
 
@@ -21,11 +20,11 @@ private:
 	const int nrVerticles;
 	//tablica kolorow weirzcholkow, za pomoca konterna vector z biblioteki stl 
 	std::vector<int> vertColor;
-	//tablica listy sasedztw, za pomoca wskaźnika tworzona i usuwana dynamicznie
+	//tablica listy sasedztw utworzona za pomoca wskaznika
 	std::list<int> *adjList;
-	
+//pola klasy publiczne, dostepe na zewnarz klasy	
 public:
-	//konstruktor domyslny, przyjmuje jago argument liczbe wierzcholkow tworzonego grafu
+	//konstruktor domyslny, przyjmuje jako argument liczbe wierzcholkow tworzonego grafu
 	Graph(int size = 0) : nrVerticles(size)
 	{
 		//dynamicznie tworzy tablice list sasiedztwa
@@ -38,11 +37,14 @@ public:
 	//funkcja dodajaca krawedz miedzy wierzcholkami u i w
 	void addEdge(int u, int w)
 	{
-		//do tablicy saseidztwa wierzcholka u dodaj w i na odwrot
+		//do tablicy saseidztwa wierzcholka u dodaj polaczenie z wierzcholkiem w
+		//powtorz na odwrot
 		adjList[u].push_back(w);
 		adjList[w].push_back(u);
 	}
 	//sprawdza czy istnieje krawedz miedzy wierzcholkami
+	//modyfikator const przy nawzie funkcji 
+	//pokazuje, ze dana funkcja nie bedzie modyfikowac zawartosci obiektu tej klasy
 	bool haveEdge(int i, int j) const;
 	//drukuje liste sasiedztwa wierzcholkow
 	void printGraph() const;
@@ -57,7 +59,7 @@ public:
 
 void Graph::printGraph() const
 {
-	//dla kazdego elemntu listy sasiedztwa wydrukuj elemnt
+	//dla kazdego elementu listy sasiedztwa wydrukuj elemnt
 	//powtorz dla list wszytkich wierzcholkow
 	for (int i = 0; i < nrVerticles; i++)
 	{
@@ -107,7 +109,7 @@ void Graph::greedyColoring()
 }
 
 
-//resetyj kolory, ustaw wszytkie na -1
+//resetuj kolory, ustaw wszytkie na -1
 void Graph::resetColors()
 {
 	for (int i = 0; i < vertColor.size(); i++)
@@ -176,8 +178,8 @@ void Graph::heurColoring()
 		vertArr[v] = v;                   
 		vertGradeArr[v] = 0;                 
 
-		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) // Przeglądamy kolejnych sąsiadów
-			vertGradeArr[v]++;                    // Obliczamy stopień wyjściowy wierzchołka v
+		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) 
+			vertGradeArr[v]++;                    	
 
 		d = vertGradeArr[v];
 
@@ -207,7 +209,7 @@ void Graph::heurColoring()
 	}
 }
 
-//generuje losowy graf parametrami sa ilosc wierzcholki i ilosc krawedzi
+//generuje losowy graf, parametrami sa ilosc wierzcholki i ilosc krawedzi
 Graph* randGraphGerator(int ver, int edges)
 {
 	//dynamicznie tworzy graf o zadanej ilosci wierzcholkow
@@ -219,8 +221,8 @@ Graph* randGraphGerator(int ver, int edges)
 	if (edges < ver - 1)
 		std::cerr << "zbyt mala liczba wierzcholow, przyjeto: " << ver - 1 << std::endl;
 
-	//najpierw generuj graf spojny 
 	
+	//najpierw generuj graf spojny 
 	//tablica wierzcholkow ktora posluzy do genrowania grafu spojnego
 	//w grafie spojnym istniej co najmniej jedna krawedz do innego wierzcholka
 	//z tej tablcy beda losowane wierzcholki, a po u zyciue usuwane
@@ -242,7 +244,7 @@ Graph* randGraphGerator(int ver, int edges)
 
 		//zmienne pomicnicze
 		//zmienne i,j posluza do genrowania krawedzi miedzy wierzcholakmi i,j
-		//zacznij od piwerszego wierzcholka 
+		//zacznij od peierwszego wierzcholka 
 		int i = simpleEdges[0];
 		int j = i;
 		int index;
@@ -255,7 +257,7 @@ Graph* randGraphGerator(int ver, int edges)
 		}
 		//gdy i, j sa rozne tworz miedzy nimi krawedz
 		newGraph->addEdge(i, j);
-		//usun i j z poli wierzolkow, 
+		//usun i j z poli wierzolkow, by stworzyc nastepne krawedzie dla pozstalych wierzcholkow
 		simpleEdges.erase(simpleEdges.begin() + index);
 		simpleEdges.erase(simpleEdges.begin());
 	}
@@ -263,9 +265,12 @@ Graph* randGraphGerator(int ver, int edges)
 	//dodaje pozsotale krawedzie
 	// ilosc pozstalych krawedzi do utworzenia
 	//max krawedzi w grafie pelnym to n(n-1)/2
-	//jest podana w wyloaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
+	//jest podana w wywolaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
 	//ustaw ilosc krawedzi n(n-1)/2
-	//przy tworzeniu kolejnych krawedzi pomin te utworzone w koljenym kroku
+	//przy tworzeniu kolejnych krawedzi pomin te utworzone w poprzednim kroku
+	
+	//krawedzie do utworzenia = ilosc zadana w wywolaniu funkcji - krawedzie utworzone w kroku poprzendim
+	//							       (te ktor tworza graf spojny)
 	int reaming = edges - ver;
 	if(edges > (ver*(ver-1))/2)
 	{ 
@@ -274,7 +279,7 @@ Graph* randGraphGerator(int ver, int edges)
 		reaming = (ver*(ver - 1)) / 2 - ver;
 	}
 	
-	//od 0 do ilosci krwaedzi do utworzenia
+	//petla od 0 do ilosci krwaedzi do utworzenia 
 	for (int i = 0; i < reaming; i++)
 	{
 		while(true)
@@ -284,11 +289,11 @@ Graph* randGraphGerator(int ver, int edges)
 			int f = e;
 			//losuj wierzcholek do ktorego dojdzie krawedz
 			//powtarzaj krok dopuki bedzie inny od wychodzacego
-			//by nie laczyc wierzcholka s zamym soba
+			//by nie laczyc wierzcholka z zamym soba
 			while(e == f)
 				f = rand() % ver;
-			//teraz sprawdz czy taka krawedz miedzy tymi wierzcholkami nie istnieje
-			//jesli istnieje powtorz losowanie
+			//teraz sprawdz czy taka krawedz miedzy tymi wierzcholkami nie zostala utworzana wczesniej
+			//jesli istnieje powtorz losowanie by wybrac nie istniejeaca krawedz
 			if (newGraph->haveEdge(e, f))
 				continue;
 			//jesli ta krawedz nie istnieje, oraz laczy dwa rozne wiercholki
@@ -311,6 +316,8 @@ Graph* randGraphGerator(int ver, int edges)
 bool Graph::haveEdge(int i, int j) const
 {
 	bool isEdge = false;
+	//dla listy saseidztwa i sprawdz czy jest na niej wierzcholek j
+	//jeslli jest zwroc prawde, jesli nie zwroc falsz
 	for (auto e : adjList[i])
 		if (e == j)
 		{
@@ -329,17 +336,24 @@ int main()
 	test->printGraph();
 
 	clock_t start, end;
-
+	//przed kolorwanie zacznij zliczanie (cykli) po zakonczeniu kolorowania 
+	//zakoncz zliczanie
 	start = clock();
 	test->greedyColoring();
 	end = clock();
 
+	//wydrukuj kolory
 	std::cout << "Kolorowanie:" << std::endl;
 	test->printGraphColors();
-
+	
+	//czas kolorwoania to ilosc cykli zegara miedzy poczatkiem, a koncem kolorowania,
+	//podzielona przez ilosc cykli na sekunde
+	//static cast jest to rzutowanie na ty podstawowy zmiennoprzecinkowym double
+	//poniewaz liczba cykli jest zmienna typu calkowitego potrzebne  jest rzutwoanie
+	//by podac wynik w ulamkach sekund
 	double greedyCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
 
-
+	//powtorz kolorowanie i zliczanie dla pozstalych metod kolorowania
 	test->resetColors();
 	start = clock();
 	test->exactColoring();
