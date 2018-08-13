@@ -56,8 +56,6 @@ public:
 	void resetColors();
 };
 
-#include "graf.h"
-
 void Graph::printGraph() const
 {
 	for (int i = 0; i < nrVerticles; i++)
