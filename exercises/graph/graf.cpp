@@ -4,9 +4,10 @@ void Graph::printGraph() const
 {
 	for (int i = 0; i < nrVerticles; i++)
 	{
-		std::cout << "Lista sasiedztwa wierzcholka nr (" << i << "): " << i;
+		std::cout << "Lista sasiedztwa wierzcholka nr (" << i << "): ";
 		for (auto j : adjList[i])
 			std::cout << ' ' << j;
+			
 		std::cout << std::endl;
 	}
 }
@@ -148,7 +149,7 @@ Graph* randGraphGerator(int ver, int edges)
 {
 	Graph* newGraph = new Graph(ver);
 	srand(time(0));
-
+	int actedges = 0;
 	if (edges < ver - 1)
 		std::cerr << "zbyt mala liczba wierzcholow, przyjeto: " << ver - 1 << std::endl;
 
@@ -159,31 +160,38 @@ Graph* randGraphGerator(int ver, int edges)
 
 	while (true)
 	{
-		//nieparzysta ilosc wierzcholkow
-		if (ver % 2 && simpleEdges.size() == 1)
-			break;
 		//parzysta
 		if (!(ver % 2) && !simpleEdges.size())
 			break;
 
-
 		int i = simpleEdges[0];
 		int j = i;
 		int index;
+		//nieparzysta ilosc wierzcholkow
+		if (ver % 2 && simpleEdges.size() == 1)
+		{
+			while (j == i)
+				j  = rand() % edges;
+			newGraph->addEdge(i, j);
+			std::cout << i << '\t' << j << '\n';
+			actedges++;
+			break;
+		}
 		while(j == i)
 		{ 
 			index = rand() % simpleEdges.size();
 			j = simpleEdges[index];
 		}
-
+		std::cout << i << '\t' << j << '\n';
 		newGraph->addEdge(i, j);
+		actedges++;
 		simpleEdges.erase(simpleEdges.begin() + index);
 		simpleEdges.erase(simpleEdges.begin());
 	}
 
 	//dodaje pozsotale krawedzie
 
-	int reaming = edges - ver;
+	int reaming = edges - actedges;
 	if(edges > (ver*(ver-1))/2)
 	{ 
 		std::cerr << "zby doza ilosc wierzcholkow, przyjeto: " 
@@ -202,6 +210,7 @@ Graph* randGraphGerator(int ver, int edges)
 				continue;
 			else
 			{
+				std::cout << "   " << e << ' ' << f << ' ';
 				newGraph->addEdge(e, f);
 				break;
 			}
