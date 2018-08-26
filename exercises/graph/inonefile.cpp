@@ -228,9 +228,26 @@ Graph* randGraphGerator(int ver, int edges)
 
 	//jezeli krawedzi jest zbyt malo, przyjmuje najmniejsza ilosc wierzcholkow by graf byl spojny
 	//by graf mogl byc kolorwany musi istniec droga przez wszytkie wierzcholki
+
+	//max krawedzi w grafie pelnym to n(n-1)/2
+	//jest podana w wywolaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
+	//ustaw ilosc krawedzi n(n-1)/2
+	//przy tworzeniu kolejnych krawedzi pomin te utworzone w poprzednim kroku
+
 	int actedges = 0;
+	int edgesNrMax = edges;
 	if (edges < ver - 1)
+	{
 		std::cerr << "zbyt mala liczba krawedzi, przyjeto: " << ver - 1 << std::endl;
+		edgesNrMax = ver - 1;
+	}
+	if (edges >(ver*(ver - 1)) / 2)
+	{
+		edgesNrMax = (ver*(ver - 1)) / 2 ;
+		std::cerr << "zby doza ilosc krawedzi, przyjeto: "
+			<< edgesNrMax << std::endl;
+		
+	}
 
 	//najpierw generuj graf spojny 
 	std::vector<int> simpleEdges;
@@ -277,24 +294,11 @@ Graph* randGraphGerator(int ver, int edges)
 		simpleEdges.erase(simpleEdges.begin() + index);
 		simpleEdges.erase(simpleEdges.begin());
 	}
-
-	//dodaje pozsotale krawedzie
-	// ilosc pozstalych krawedzi do utworzenia
-	//max krawedzi w grafie pelnym to n(n-1)/2
-	//jest podana w wywolaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
-	//ustaw ilosc krawedzi n(n-1)/2
-	//przy tworzeniu kolejnych krawedzi pomin te utworzone w poprzednim kroku
-
+	
 	//krawedzie do utworzenia = ilosc zadana w wywolaniu funkcji - krawedzie utworzone w kroku poprzendim
-	//	
 
-	int reaming = edges - actedges;
-	if (edges > (ver*(ver - 1)) / 2)
-	{
-		std::cerr << "zby doza ilosc krawedzi, przyjeto: "
-			<< (ver*(ver - 1)) / 2 << std::endl;
-		reaming = (ver*(ver - 1)) / 2 - ver;
-	}
+	int reaming = edgesNrMax - actedges;
+
 	//petla od 0 do ilosci krwaedzi do utworzenia 
 	for (int i = 0; i < reaming; i++)
 	{
@@ -348,7 +352,7 @@ int main()
 	//gereuj graf randGraphGerator(i, j)
 	//i - liczba wierzcholkow
 	//j - liczba krawedzi
-	Graph* test = randGraphGerator(4, 20);
+	Graph* test = randGraphGerator(4, 8);
 	test->printGraph();
 
 	clock_t start, end;
