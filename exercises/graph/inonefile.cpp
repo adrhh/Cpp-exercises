@@ -1,5 +1,5 @@
 /*
-dyrektywa preprocesora (działa w pierwszym etapie kompilacji) 
+dyrektywa preprocesora (działa w pierwszym etapie kompilacji)
 #include  wkleja podane pliki nagłowkowe do kompilowanego pliku
 pliki nagłowkowe zawierają deklaracje klas i funkcji
 */
@@ -14,7 +14,7 @@ pliki nagłowkowe zawierają deklaracje klas i funkcji
 //prosta klasa implementujaca graf
 class Graph
 {
-//pola klasy prywatne, dostepne tylko wewnatrz klasy
+	//pola klasy prywatne, dostepne tylko wewnatrz klasy
 private:
 	//stala okreslajaca ilosc wierzcholkow
 	const int nrVerticles;
@@ -65,7 +65,7 @@ void Graph::printGraph() const
 		std::cout << "Lista sasiedztwa wierzcholka nr (" << i << "): ";
 		for (auto j : adjList[i])
 			std::cout << ' ' << j;
-			
+
 		std::cout << std::endl;
 	}
 }
@@ -75,33 +75,43 @@ void Graph::printGraphColors() const
 	//drukuj kazdy elemnt tablicy kolorow
 	for (int i = 0; i < nrVerticles; i++)
 		std::cout << "Wirzcholek nr: " << i << " ma kolor"
-				  << vertColor[i] << std::endl;
+		<< vertColor[i] << std::endl;
 }
 
 //kolrowanie zachlanne
 void Graph::greedyColoring()
 {
+   //tablica dostepnosci wierzcholkow 
 	std::vector<bool> available(nrVerticles, false);
+	//pierwszy wierzcholek ustawiony na kolor 0
 	vertColor[0] = 0;
-
+	//pozstale kolory wierzcholkow na -1
 	for (int i = 1; i < nrVerticles; i++)
 		vertColor[i] = -1;
 
+	//od 1 do liczby wierzcholkow (po kazdym wierzcholku)
 	for (int u = 1; u < nrVerticles; u++)
 	{
-
+		//iterator i do przechodzenia po liscie sasiedztwa
 		std::list<int>::iterator i;
+		//dla tego wierzcholka ustaw tablice dostepnosci kolorow
+		//jesli sasiad ama kolor -1 znaczy nie byl uzyty
+		//zmien wtedy flage dostepnosci kloru na true
 		for (i = adjList[u].begin(); i != adjList[u].end(); ++i)
 			if (vertColor[*i] != -1)
 				available[vertColor[*i]] = true;
 
-		int cr;
+		int cr; //dostepny kolor
+		//znajdz w tablicy dostepdnosci pierwszy dostepny kolor
 		for (cr = 0; cr < nrVerticles; cr++)
 			if (available[cr] == false)
 				break;
-
+		//ustaw kolor aktualnego wierzcholka na znelsizony
+		//w kroku wszczeniej
 		vertColor[u] = cr;
 
+		//zresetuj tablcy dostepnosci dla koljnego wierzcholka
+		// (dla koljengo kroku glownej petli)
 		for (i = adjList[u].begin(); i != adjList[u].end(); ++i)
 			if (vertColor[*i] != -1)
 				available[vertColor[*i]] = false;
@@ -170,12 +180,12 @@ void Graph::heurColoring()
 {
 	std::vector<int> vertArr(nrVerticles);
 	std::vector<int> vertGradeArr(nrVerticles);
-	std::vector<bool> colors(nrVerticles,false);
+	std::vector<bool> colors(nrVerticles, false);
 	int d, i;
-	for (int v = 0; v  < nrVerticles; v++) 
+	for (int v = 0; v < nrVerticles; v++)
 	{
-		vertArr[v] = v;                   
-		vertGradeArr[v] = 0;                 
+		vertArr[v] = v;
+		vertGradeArr[v] = 0;
 
 		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) // Przeglądamy kolejnych sąsiadów
 			vertGradeArr[v]++;                    // Obliczamy stopień wyjściowy wierzchołka v
@@ -194,17 +204,17 @@ void Graph::heurColoring()
 
 	resetColors();
 
-	vertColor[vertArr[0]] = 0;  
+	vertColor[vertArr[0]] = 0;
 
-	for (int v = 1; v < nrVerticles; v++) 
+	for (int v = 1; v < nrVerticles; v++)
 	{
 
 		for (auto p = adjList[vertArr[v]].begin(); p != adjList[vertArr[v]].end(); p++)
-			if (vertColor[*p] > -1) 
-				colors[vertColor[*p]] = true; 
+			if (vertColor[*p] > -1)
+				colors[vertColor[*p]] = true;
 
-		for (i = 0; colors[i]; i++);      
-			vertColor[vertArr[v]] = i;     
+		for (i = 0; colors[i]; i++);
+		vertColor[vertArr[v]] = i;
 	}
 }
 
@@ -215,18 +225,18 @@ Graph* randGraphGerator(int ver, int edges)
 	//dynamicznie tworzy graf o zadanej ilosci wierzcholkow
 	Graph* newGraph = new Graph(ver);
 	srand(time(0));
-	
+
 	//jezeli krawedzi jest zbyt malo, przyjmuje najmniejsza ilosc wierzcholkow by graf byl spojny
 	//by graf mogl byc kolorwany musi istniec droga przez wszytkie wierzcholki
 	int actedges = 0;
 	if (edges < ver - 1)
-		std::cerr << "zbyt mala liczba wierzcholow, przyjeto: " << ver - 1 << std::endl;
+		std::cerr << "zbyt mala liczba krawedzi, przyjeto: " << ver - 1 << std::endl;
 
 	//najpierw generuj graf spojny 
 	std::vector<int> simpleEdges;
 	for (int i = 0; i < ver; i++)
 		simpleEdges.push_back(i);
-	
+
 	//najpierw generuj graf spojny 
 	//tablica wierzcholkow ktora posluzy do genrowania grafu spojnego
 	//w grafie spojnym istniej co najmniej jedna krawedz do innego wierzcholka
@@ -235,30 +245,30 @@ Graph* randGraphGerator(int ver, int edges)
 
 	while (true)
 	{
-	//warunek konca dla: parzysta liczba wierzcholkow
+		//warunek konca dla: parzysta liczba wierzcholkow
 		if (!(ver % 2) && !simpleEdges.size())
 			break;
-	//zmienne pomicnicze
-	//zmienne i,j posluza do genrowania krawedzi miedzy wierzcholakmi i,j
-	//zacznij od peierwszego wierzcholka 
+		//zmienne pomicnicze
+		//zmienne i,j posluza do genrowania krawedzi miedzy wierzcholakmi i,j
+		//zacznij od peierwszego wierzcholka 
 		int i = simpleEdges[0];
 		int j = i;
 		int index;
-	//losuj wierzcholek j doputy bedzie rozny od i
-	//czyli omijaj krawedz miedzy soba samym
-		
-	//warunek konca dla: nieparzysta ilosc wierzcholkow
+		//losuj wierzcholek j doputy bedzie rozny od i
+		//czyli omijaj krawedz miedzy soba samym
+
+		//warunek konca dla: nieparzysta ilosc wierzcholkow
 		if (ver % 2 && simpleEdges.size() == 1)
 		{
 			while (j == i)
-				j  = rand() % edges;
+				j = rand() % edges;
 			newGraph->addEdge(i, j);
 			std::cout << i << '\t' << j << '\n';
 			actedges++;
 			break;
 		}
-		while(j == i)
-		{ 
+		while (j == i)
+		{
 			index = rand() % simpleEdges.size();
 			j = simpleEdges[index];
 		}
@@ -274,29 +284,29 @@ Graph* randGraphGerator(int ver, int edges)
 	//jest podana w wywolaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
 	//ustaw ilosc krawedzi n(n-1)/2
 	//przy tworzeniu kolejnych krawedzi pomin te utworzone w poprzednim kroku
-	
+
 	//krawedzie do utworzenia = ilosc zadana w wywolaniu funkcji - krawedzie utworzone w kroku poprzendim
 	//	
 
 	int reaming = edges - actedges;
-	if(edges > (ver*(ver-1))/2)
-	{ 
-		std::cerr << "zby doza ilosc wierzcholkow, przyjeto: " 
-				  << (ver*(ver - 1)) / 2 << std::endl;
+	if (edges > (ver*(ver - 1)) / 2)
+	{
+		std::cerr << "zby doza ilosc krawedzi, przyjeto: "
+			<< (ver*(ver - 1)) / 2 << std::endl;
 		reaming = (ver*(ver - 1)) / 2 - ver;
 	}
 	//petla od 0 do ilosci krwaedzi do utworzenia 
 	for (int i = 0; i < reaming; i++)
 	{
-		while(true)
-		{ 
+		while (true)
+		{
 			//losuj wierzcholek z ktorego wyjdzie krawedz
 			int e = rand() % ver;
 			int f = e;
 			//losuj wierzcholek do ktorego dojdzie krawedz
 			//powtarzaj krok dopuki bedzie inny od wychodzacego
 			//by nie laczyc wierzcholka z zamym soba
-			while(e == f)
+			while (e == f)
 				f = rand() % ver;
 			//teraz sprawdz czy taka krawedz miedzy tymi wierzcholkami nie zostala utworzana wczesniej
 			//jesli istnieje powtorz losowanie by wybrac nie istniejeaca krawedz
@@ -338,7 +348,7 @@ int main()
 	//gereuj graf randGraphGerator(i, j)
 	//i - liczba wierzcholkow
 	//j - liczba krawedzi
-	Graph* test = randGraphGerator(10, 20);
+	Graph* test = randGraphGerator(4, 20);
 	test->printGraph();
 
 	clock_t start, end;
@@ -351,7 +361,7 @@ int main()
 	//wydrukuj kolory
 	std::cout << "Kolorowanie:" << std::endl;
 	test->printGraphColors();
-	
+
 	//czas kolorwoania to ilosc cykli zegara miedzy poczatkiem, a koncem kolorowania,
 	//podzielona przez ilosc cykli na sekunde
 	//static cast jest to rzutowanie na ty podstawowy zmiennoprzecinkowym double
