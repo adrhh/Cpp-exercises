@@ -140,9 +140,9 @@ void Graph::resetColors()
 //te z najmniejsza ilosc kolorow
 //najpierw koloruj wszystkimi mozliwymi kombinacjami 2 kolorw
 //jesli sasiednie wierzcholki maja ten sam kolor przerwij petle
-//i probuj do kolejna kombinacje
+//i przejdz do nastepnejkombinacje
 //jesli nie da sie pokolorowac 2 kolorami zwieksz liczbe kolorow
-//powtarzaj do spelniania warunkow braku tego samu koloru dla sasiednich wierzcholkow
+//powtarzaj do spelnienia warunkow braku tego samu koloru dla sasiednich wierzcholkow
 
 void Graph::exactColoring()
 {
