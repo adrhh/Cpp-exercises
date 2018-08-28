@@ -126,49 +126,82 @@ void Graph::resetColors()
 }
 
 //kolorowanie dokladne
+//alogrytm dokladny sprawdza wszytkie mozliwe pokolorwania i wybiera 
+//te z najmniejsza ilosc kolorow
+//najpier koloruj wszytkimi mozliwymi kombinacjami 2 kolorw
+//jesli sasiednie wierzcholki maja ten sam kolor przerwij petle
+//jesli nie da sie pokolrowac 2 kolorami zwieksz liczbe kolorow
+//powtarzaj do spelniania warunkow braku tego samu koloru dla sasiednich wierzcholkow
 void Graph::exactColoring()
 {
+	//licznik
 	int counter = 0;
+	//baza b=2 minimum kolorow to 2
 	int b = 0;
+	//licznik najstarszych cyfr
 	int bc = 0;
+	//flaga pomocnicza
 	bool test;
 	while (true)
 	{
+		//gdy istnieje nasjtarsza cyfra
 		if (bc)
 		{
+			//jesi test jest prawdizwy
+			//ustaw flage na true
 			test = true;
+			//zwieksz licznik
 			counter++;
+			//petla po wszytkich wierzcholkach
 			for (int u = 0; u < nrVerticles; u++)
 			{
+				//iterator listy sasiedztwa
 				std::list<int>::iterator i;
+				//dla wszytkich pozycji z listy sasiedztwa wierzcholka u
+				//sprawdz sasiadow wierzcholka u
 				for (i = adjList[u].begin(); i != adjList[u].end(); i++)
+				//czy sadienie wierzcholki maja ten sam kolor
+				// jesli tak - wyjdz z petli
+			        // i ustaw flage test by wyjsc z wyzszej petli for 
 					if (vertColor[u] == vertColor[*i])
 					{
 						test = false;
 						break;
 					}
+				//wyjdz
 				if (!test)
 					break;
 			}
+			//jesli flaga ustawiona, kombinacja znaleziona
 			if (test)
 				break;
 		}
 
+		//zwiekszanie licznika
 		while (true)
 		{
+			//zmienna pomocnicza do przechodzenia petli
 			int i;
+			//po wszytkich wierzcholkach
 			for (i = 0; i < nrVerticles; i++)
 			{
+				//zwieksz kolor wierzcholka i o 1
 				vertColor[i]++;
+				//jesli kolor = baza -1, to zwieksz o 1
+				//licznik najstarszy cyfr
+				//jesli mniejszy od bazy to wyjdz z petli for
 				if (vertColor[i] == b - 1)
 					bc++;
 				if (vertColor[i] < b)
 					break;
+				//zeruj kolor i zmniejsz licznik nastarszych cyfr
 				vertColor[i] = 0;
 				bc--;
 			}
+			//wyjdz z petli
 			if (i < nrVerticles)
 				break;
+			//zwieksz baze
 			b++;
 		}
 	}
