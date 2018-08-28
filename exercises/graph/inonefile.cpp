@@ -79,7 +79,7 @@ void Graph::printGraphColors() const
 {
 	//drukuj kazdy elemnt tablicy kolorow
 	for (int i = 0; i < nrVerticles; i++)
-		std::cout << "Wirzcholek nr (" << i << ") ma kolor: "
+		std::cout << "Wierzcholek nr (" << i << ") ma kolor: "
 		<< vertColor[i] << std::endl;
 }
 
