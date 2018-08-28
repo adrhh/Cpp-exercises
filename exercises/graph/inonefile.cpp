@@ -57,7 +57,7 @@ public:
 	//ile kolorow zostalo uzytch
 	int maxColors() const
 	{
-		return *max_element(vertColor.begin(), vertColor.end());
+		return *max_element(vertColor.begin(), vertColor.end())+1;
 	}
 };
 
@@ -79,7 +79,7 @@ void Graph::printGraphColors() const
 {
 	//drukuj kazdy elemnt tablicy kolorow
 	for (int i = 0; i < nrVerticles; i++)
-		std::cout << "Wirzcholek nr: " << i << " ma kolor"
+		std::cout << "Wirzcholek nr (" << i << ") ma kolor: "
 		<< vertColor[i] << std::endl;
 }
 
@@ -425,7 +425,7 @@ int main()
 	//genruj graf randGraphGerator(i, j)
 	//i - liczba wierzcholkow
 	//j - liczba krawedzi
-	Graph* test = randGraphGerator(4, 8);
+	Graph* test = randGraphGerator(8, 50);
 	test->printGraph();
 
 	clock_t start, end;
