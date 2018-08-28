@@ -463,7 +463,7 @@ int main()
 
 	std::cout << "Czas dzialania algorytmu zachlannego: " << greedyCloroingTime << std::endl
 		<< "Czas dzialania algorytmu dokladnego: " << exactCloroingTime << std::endl
-		<< "Czas dzialania algorytmu hwurystycznegi: " << heurCloroingTime << std::endl;
+		<< "Czas dzialania algorytmu heurystycznego: " << heurCloroingTime << std::endl;
 
 	delete test;
 	return 0;
