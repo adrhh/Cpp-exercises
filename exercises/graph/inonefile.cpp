@@ -164,8 +164,8 @@ void Graph::exactColoring()
 		//gdy istnieje najstarsza cyfra
 		if (bc)
 		{
-			//jesli test jest prawdizwy
-			//ustaw flage na true
+			//jesli jest bc
+			//ustaw flage test na true
 			test = true;
 			//zwieksz licznik
 			counter++;
