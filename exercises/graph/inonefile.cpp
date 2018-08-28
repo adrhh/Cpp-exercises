@@ -79,6 +79,7 @@ void Graph::printGraphColors() const
 }
 
 //kolrowanie zachlanne
+
 void Graph::greedyColoring()
 {
    //tablica dostepnosci wierzcholkow 
@@ -125,13 +126,14 @@ void Graph::resetColors()
 		vertColor[i] = -1;
 }
 
-//kolorowanie dokladne
+//kolorowanie dokladne bardzo wysoka zlozonosc
 //alogrytm dokladny sprawdza wszytkie mozliwe pokolorwania i wybiera 
 //te z najmniejsza ilosc kolorow
 //najpier koloruj wszytkimi mozliwymi kombinacjami 2 kolorw
 //jesli sasiednie wierzcholki maja ten sam kolor przerwij petle
 //jesli nie da sie pokolrowac 2 kolorami zwieksz liczbe kolorow
 //powtarzaj do spelniania warunkow braku tego samu koloru dla sasiednich wierzcholkow
+
 void Graph::exactColoring()
 {
 	//licznik
@@ -209,22 +211,39 @@ void Graph::exactColoring()
 
 
 //kolorwanie heurystyczne (LF large first)
+//za wiki:
+//Kolorowanie grafu za pomocą algorytmu LF można opisać następująco:
+//
+//    Uporządkuj wierzchołki grafu malejąco według ich stopni 
+//    (liczby krawędzi z nich wychodzących).
+//    Koloruj wierzchołki zachłannie, zgodnie z ustaloną wcześniej kolejnością 
+//    (zaczynając od wierzchołka o największym stopniu).
+//
+//Algorytm LF jest algorytmem statycznym, gdyż raz ustalona kolejność 
+//wierzchołków nie zmienia się w trakcie jego działania
+
 void Graph::heurColoring()
 {
-	std::vector<int> vertArr(nrVerticles);
-	std::vector<int> vertGradeArr(nrVerticles);
-	std::vector<bool> colors(nrVerticles, false);
-	int d, i;
-	for (int v = 0; v < nrVerticles; v++)
+	std::vector<int> vertArr(nrVerticles);        //pomocnicza tablica wierzcholkow
+						      //potrzebna do posrtowania wierzcholkow 
+						      //wg ich stopnia
+	std::vector<int> vertGradeArr(nrVerticles);   //tablica stopni wierzcholkow
+	std::vector<bool> colors(nrVerticles, false); //tablica dostepnosci kolorow
+	int d, i; //zmienie pomocnicz do iteracji
+	for (int v = 0; v < nrVerticles; v++) //po wszytkich wierzcholkach
 	{
-		vertArr[v] = v;
-		vertGradeArr[v] = 0;
+		vertArr[v] = v;       //wypenij pomocnicza tablice wierzchookow
+		vertGradeArr[v] = 0;  //zeruj tablice stopnie wierzcholkow
 
-		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) // Przeglądamy kolejnych sąsiadów
-			vertGradeArr[v]++;                    // Obliczamy stopień wyjściowy wierzchołka v
+		//oblicz stopien wierzcholka v
+		//dla wierzcholka v przegldanij liste sasiedztwa
+		//za kazdego sasiada zwieksz stopien tego wierzcholka
+		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) /
+			vertGradeArr[v]++;                   
 
+		//sortowanie
 		d = vertGradeArr[v];
-
+		
 		for (i = v; (i > 0) && (vertGradeArr[i - 1] < d); i--)
 		{
 			vertArr[i] = vertArr[i - 1];
@@ -234,11 +253,12 @@ void Graph::heurColoring()
 		vertGradeArr[i] = d;
 		vertArr[i] = v;
 	}
-
+	//reset kolorow
 	resetColors();
-
+	//wierzcholek startu
 	vertColor[vertArr[0]] = 0;
-
+	//koloruj zachlannie zaczynajac od wierzcholka o nawyjszym stopniu konczac
+	//na najmnijeszym stopniu
 	for (int v = 1; v < nrVerticles; v++)
 	{
 
