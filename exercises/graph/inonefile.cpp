@@ -14,7 +14,7 @@ pliki nagłowkowe zawierają deklaracje klas i funkcji
 //prosta klasa implementujaca graf
 class Graph
 {
-	//pola klasy prywatne, dostepne tylko wewnatrz klasy
+//pola klasy prywatne, dostepne tylko wewnatrz klasy
 private:
 	//stala okreslajaca ilosc wierzcholkow
 	const int nrVerticles;
@@ -22,23 +22,23 @@ private:
 	std::vector<int> vertColor;
 	//tablica listy sasedztw utworzona za pomoca wskaznika
 	std::list<int> *adjList;
-	//pola klasy publiczne, dostepe na zewnarz klasy	
+//pola klasy publiczne, dostepe na zewnarz klasy	
 public:
 	//konstruktor domyslny, przyjmuje jako argument liczbe wierzcholkow tworzonego grafu
 	Graph(int size = 0) : nrVerticles(size)
 	{
-		//dynamicznie tworzy tablice list sasiedztwa
+	//dynamicznie tworzy tablice list sasiedztwa
 		adjList = new std::list<int>[size];
 		vertColor.resize(size);
 	}
 	//destruktor, usuwa dynamicznie utworzna liste sasiedztwa
 	~Graph() { delete[] adjList; }
 
-	//funkcja dodajaca krawedz miedzy wierzcholkami u i w
+	//funkcja dodajaca krawedz miedzy wierzcholkami 'u' i 'w'
 	void addEdge(int u, int w)
 	{
-		//do tablicy saseidztwa wierzcholka u dodaj polaczenie z wierzcholkiem w
-		//powtorz na odwrot
+	//do tablicy saseidztwa wierzcholka u dodaj polaczenie z wierzcholkiem 'w'
+	//powtorz na odwrot
 		adjList[u].push_back(w);
 		adjList[w].push_back(u);
 	}
@@ -78,11 +78,19 @@ void Graph::printGraphColors() const
 		<< vertColor[i] << std::endl;
 }
 
-//kolrowanie zachlanne
+//kolorowanie zachlanne
+//zlozonosc w najgorszym przypadku wynosi:
+//O(v^2 + e) = O(liczba wierzcholow^2 + liczba krawedzi)
+//Najpierw pokoloruj pierwszy wierzcholek pierwszym kolorem
+//Dla pozstolaych wierzcholkow:
+// uzyj pierwszego dostepnego koloru
+// jesli wszytkie uzyte dotychczas kolory sa zajete przez sadiadow
+// uzyj kolejengo koloru
+
 
 void Graph::greedyColoring()
 {
-   //tablica dostepnosci wierzcholkow 
+   	//tablica dostepnosci kolorow
 	std::vector<bool> available(nrVerticles, false);
 	//pierwszy wierzcholek ustawiony na kolor 0
 	vertColor[0] = 0;
@@ -93,10 +101,10 @@ void Graph::greedyColoring()
 	//od 1 do liczby wierzcholkow (po kazdym wierzcholku)
 	for (int u = 1; u < nrVerticles; u++)
 	{
-		//iterator i do przechodzenia po liscie sasiedztwa
+		//iterator 'i' do przechodzenia po liscie sasiedztwa
 		std::list<int>::iterator i;
 		//dla tego wierzcholka ustaw tablice dostepnosci kolorow
-		//jesli sasiad ama kolor -1 znaczy nie byl uzyty
+		//jesli sasiad ma kolor -1 znaczy nie byl uzyty
 		//zmien wtedy flage dostepnosci kloru na true
 		for (i = adjList[u].begin(); i != adjList[u].end(); ++i)
 			if (vertColor[*i] != -1)
@@ -129,8 +137,9 @@ void Graph::resetColors()
 //kolorowanie dokladne bardzo wysoka zlozonosc
 //alogrytm dokladny sprawdza wszytkie mozliwe pokolorwania i wybiera 
 //te z najmniejsza ilosc kolorow
-//najpier koloruj wszytkimi mozliwymi kombinacjami 2 kolorw
+//najpierw koloruj wszystkimi mozliwymi kombinacjami 2 kolorw
 //jesli sasiednie wierzcholki maja ten sam kolor przerwij petle
+//i przej do kolejnej kombinacji
 //jesli nie da sie pokolrowac 2 kolorami zwieksz liczbe kolorow
 //powtarzaj do spelniania warunkow braku tego samu koloru dla sasiednich wierzcholkow
 
@@ -138,7 +147,7 @@ void Graph::exactColoring()
 {
 	//licznik
 	int counter = 0;
-	//baza b=2 minimum kolorow to 2
+	//baza 'b'=2 minimum kolorow to 2
 	int b = 0;
 	//licznik najstarszych cyfr
 	int bc = 0;
@@ -224,24 +233,30 @@ void Graph::exactColoring()
 
 void Graph::heurColoring()
 {
-	std::vector<int> vertArr(nrVerticles);        //pomocnicza tablica wierzcholkow
-						      //potrzebna do posrtowania wierzcholkow 
-						      //wg ich stopnia
-	std::vector<int> vertGradeArr(nrVerticles);   //tablica stopni wierzcholkow
-	std::vector<bool> colors(nrVerticles, false); //tablica dostepnosci kolorow
-	int d, i; //zmienie pomocnicz do iteracji
-	for (int v = 0; v < nrVerticles; v++) //po wszytkich wierzcholkach
+	//pomocnicza tablica wierzcholkow potrzebna 
+	//do posrtowania wierzcholkow wg ich stopnia
+	std::vector<int> vertArr(nrVerticles);        
+	//tablica stopni wierzcholkow				      
+	std::vector<int> vertGradeArr(nrVerticles);
+	//tablica dostepnosci kolorow
+	std::vector<bool> colors(nrVerticles, false); 
+	//zmienie pomocnicze
+	int d, i; 
+	//po wszytkich wierzcholkach
+	for (int v = 0; v < nrVerticles; v++) 
 	{
-		vertArr[v] = v;       //wypenij pomocnicza tablice wierzchookow
-		vertGradeArr[v] = 0;  //zeruj tablice stopnie wierzcholkow
+		//wypenij pomocnicza tablice wierzchookow
+		vertArr[v] = v;   
+		//zeruj tablice stopnie wierzcholkow
+		vertGradeArr[v] = 0;  
 
-		//oblicz stopien wierzcholka v
-		//dla wierzcholka v przegldanij liste sasiedztwa
+		//oblicz stopien wierzcholka 'v'
+		//dla wierzcholka 'v' przegldanij liste sasiedztwa
 		//za kazdego sasiada zwieksz stopien tego wierzcholka
 		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) /
 			vertGradeArr[v]++;                   
 
-		//sortowanie
+		//sortowanie wg stopni
 		d = vertGradeArr[v];
 		
 		for (i = v; (i > 0) && (vertGradeArr[i - 1] < d); i--)
@@ -257,8 +272,8 @@ void Graph::heurColoring()
 	resetColors();
 	//wierzcholek startu
 	vertColor[vertArr[0]] = 0;
-	//koloruj zachlannie zaczynajac od wierzcholka o nawyjszym stopniu konczac
-	//na najmnijeszym stopniu
+	//koloruj zachlannie zaczynajac od wierzcholka o nawyjzszym stopniu konczac
+	//na najmniejszym stopniu
 	for (int v = 1; v < nrVerticles; v++)
 	{
 
@@ -385,11 +400,11 @@ Graph* randGraphGerator(int ver, int edges)
 }
 
 
-//sprawdza czy istnieje krawedz miedzy wierzcholkami i,j
+//sprawdza czy istnieje krawedz miedzy wierzcholkami 'i','j'
 bool Graph::haveEdge(int i, int j) const
 {
 	bool isEdge = false;
-	//dla listy saseidztwa i sprawdz czy jest na niej wierzcholek j
+	//dla listy sasiedztwa wierzcholka 'i' sprawdz czy jest na niej wierzcholek 'j'
 	//jeslli jest zwroc prawde, jesli nie zwroc falsz
 	for (auto e : adjList[i])
 		if (e == j)
