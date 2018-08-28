@@ -353,7 +353,6 @@ Graph* randGraphGerator(int ver, int edges)
 			while (j == i)
 				j = rand() % edges;
 			newGraph->addEdge(i, j);
-			std::cout << i << '\t' << j << '\n';
 			actedges++;
 			break;
 		}
