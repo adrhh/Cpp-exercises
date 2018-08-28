@@ -84,17 +84,18 @@ void Graph::printGraphColors() const
 //Najpierw pokoloruj pierwszy wierzcholek pierwszym kolorem
 //Dla pozstolaych wierzcholkow:
 // uzyj pierwszego dostepnego koloru
-// jesli wszytkie uzyte dotychczas kolory sa zajete przez sadiadow
+// jesli wszystkie uzyte dotychczas kolory sa zajete przez sasiadow
 // uzyj kolejengo koloru
 
 
 void Graph::greedyColoring()
 {
-   	//tablica dostepnosci kolorow
+   	//tablica dostepnosci kolorow, domyslnie kolory
+	//ustawiony na niedostepny false
 	std::vector<bool> available(nrVerticles, false);
 	//pierwszy wierzcholek ustawiony na kolor 0
 	vertColor[0] = 0;
-	//pozstale kolory wierzcholkow na -1
+	//pozostale kolory wierzcholkow na -1
 	for (int i = 1; i < nrVerticles; i++)
 		vertColor[i] = -1;
 
@@ -105,22 +106,22 @@ void Graph::greedyColoring()
 		std::list<int>::iterator i;
 		//dla tego wierzcholka ustaw tablice dostepnosci kolorow
 		//jesli sasiad ma kolor -1 znaczy nie byl uzyty
-		//zmien wtedy flage dostepnosci kloru na true
+		//zmien wtedy flage dostepnosci koloru na true
 		for (i = adjList[u].begin(); i != adjList[u].end(); ++i)
 			if (vertColor[*i] != -1)
 				available[vertColor[*i]] = true;
 
 		int cr; //dostepny kolor
-		//znajdz w tablicy dostepdnosci pierwszy dostepny kolor
+		//znajdz w tablicy dostepnosci pierwszy dostepny kolor
 		for (cr = 0; cr < nrVerticles; cr++)
 			if (available[cr] == false)
 				break;
-		//ustaw kolor aktualnego wierzcholka na znelsizony
-		//w kroku wszczeniej
+		//ustaw kolor aktualnego wierzcholka na znaleziony
+		//w kroku wszczesniej
 		vertColor[u] = cr;
 
-		//zresetuj tablcy dostepnosci dla koljnego wierzcholka
-		// (dla koljengo kroku glownej petli)
+		//zresetuj tablice dostepnosci dla kolejnego wierzcholka
+		// (dla kolejnrgo kroku glownej petli)
 		for (i = adjList[u].begin(); i != adjList[u].end(); ++i)
 			if (vertColor[*i] != -1)
 				available[vertColor[*i]] = false;
@@ -134,13 +135,13 @@ void Graph::resetColors()
 		vertColor[i] = -1;
 }
 
-//kolorowanie dokladne bardzo wysoka zlozonosc
+//kolorowanie dokladne - bardzo wysoka zlozonosc
 //alogrytm dokladny sprawdza wszytkie mozliwe pokolorwania i wybiera 
 //te z najmniejsza ilosc kolorow
 //najpierw koloruj wszystkimi mozliwymi kombinacjami 2 kolorw
 //jesli sasiednie wierzcholki maja ten sam kolor przerwij petle
-//i przej do kolejnej kombinacji
-//jesli nie da sie pokolrowac 2 kolorami zwieksz liczbe kolorow
+//i probuj do kolejna kombinacje
+//jesli nie da sie pokolorowac 2 kolorami zwieksz liczbe kolorow
 //powtarzaj do spelniania warunkow braku tego samu koloru dla sasiednich wierzcholkow
 
 void Graph::exactColoring()
@@ -155,10 +156,10 @@ void Graph::exactColoring()
 	bool test;
 	while (true)
 	{
-		//gdy istnieje nasjtarsza cyfra
+		//gdy istnieje najstarsza cyfra
 		if (bc)
 		{
-			//jesi test jest prawdizwy
+			//jesli test jest prawdizwy
 			//ustaw flage na true
 			test = true;
 			//zwieksz licznik
@@ -171,7 +172,7 @@ void Graph::exactColoring()
 				//dla wszytkich pozycji z listy sasiedztwa wierzcholka u
 				//sprawdz sasiadow wierzcholka u
 				for (i = adjList[u].begin(); i != adjList[u].end(); i++)
-				//czy sadienie wierzcholki maja ten sam kolor
+				//czy sasiednie wierzcholki maja ten sam kolor
 				// jesli tak - wyjdz z petli
 			        // i ustaw flage test by wyjsc z wyzszej petli for 
 					if (vertColor[u] == vertColor[*i])
@@ -199,7 +200,7 @@ void Graph::exactColoring()
 				//zwieksz kolor wierzcholka i o 1
 				vertColor[i]++;
 				//jesli kolor = baza -1, to zwieksz o 1
-				//licznik najstarszy cyfr
+				//licznik najstarszych cyfr
 				//jesli mniejszy od bazy to wyjdz z petli for
 				if (vertColor[i] == b - 1)
 					bc++;
@@ -234,24 +235,24 @@ void Graph::exactColoring()
 void Graph::heurColoring()
 {
 	//pomocnicza tablica wierzcholkow potrzebna 
-	//do posrtowania wierzcholkow wg ich stopnia
+	//do posortowania wierzcholkow wg ich stopnia
 	std::vector<int> vertArr(nrVerticles);        
 	//tablica stopni wierzcholkow				      
 	std::vector<int> vertGradeArr(nrVerticles);
 	//tablica dostepnosci kolorow
 	std::vector<bool> colors(nrVerticles, false); 
-	//zmienie pomocnicze
+	//zmienne pomocnicze
 	int d, i; 
 	//po wszytkich wierzcholkach
 	for (int v = 0; v < nrVerticles; v++) 
 	{
-		//wypenij pomocnicza tablice wierzchookow
+		//wypelnij pomocnicza tablice wierzcholkow
 		vertArr[v] = v;   
-		//zeruj tablice stopnie wierzcholkow
+		//zeruj tablice stopni wierzcholkow
 		vertGradeArr[v] = 0;  
 
 		//oblicz stopien wierzcholka 'v'
-		//dla wierzcholka 'v' przegldanij liste sasiedztwa
+		//dla wierzcholka 'v' przegldnij jego liste sasiedztwa
 		//za kazdego sasiada zwieksz stopien tego wierzcholka
 		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) /
 			vertGradeArr[v]++;                   
@@ -295,7 +296,7 @@ Graph* randGraphGerator(int ver, int edges)
 	srand(time(0));
 
 	//jezeli krawedzi jest zbyt malo, przyjmuje najmniejsza ilosc wierzcholkow by graf byl spojny
-	//by graf mogl byc kolorwany musi istniec droga przez wszytkie wierzcholki
+	//by graf mogl byc kolorwany musi istniec droga przez wszystkie wierzcholki
 
 	//max krawedzi w grafie pelnym to n(n-1)/2
 	//jest podana w wywolaniu ilosc krawedzi jest wieksza niz ilosc maksymalna
@@ -322,7 +323,6 @@ Graph* randGraphGerator(int ver, int edges)
 	for (int i = 0; i < ver; i++)
 		simpleEdges.push_back(i);
 
-	//najpierw generuj graf spojny 
 	//tablica wierzcholkow ktora posluzy do genrowania grafu spojnego
 	//w grafie spojnym istniej co najmniej jedna krawedz do innego wierzcholka
 	//z tej tablcy beda losowane wierzcholki, a po u zyciue usuwane
@@ -334,15 +334,15 @@ Graph* randGraphGerator(int ver, int edges)
 		if (!(ver % 2) && !simpleEdges.size())
 			break;
 		//zmienne pomicnicze
-		//zmienne i,j posluza do genrowania krawedzi miedzy wierzcholakmi i,j
+		//zmienne 'i','j' posluza do genrowania krawedzi miedzy wierzcholakmi 'i','j'
 		//zacznij od peierwszego wierzcholka 
 		int i = simpleEdges[0];
 		int j = i;
 		int index;
-		//losuj wierzcholek j doputy bedzie rozny od i
+		//losuj wierzcholek j doputy bedzie rozny od 'i'
 		//czyli omijaj krawedz miedzy soba samym
 
-		//warunek konca dla: nieparzysta ilosc wierzcholkow
+		//warunek konca dla: nieparzystej ilosc wierzcholkow
 		if (ver % 2 && simpleEdges.size() == 1)
 		{
 			while (j == i)
@@ -367,12 +367,12 @@ Graph* randGraphGerator(int ver, int edges)
 
 	int reaming = edgesNrMax - actedges;
 
-	//petla od 0 do ilosci krwaedzi do utworzenia 
+	//petla od 0 do ilosci karwedzi do utworzenia 
 	for (int i = 0; i < reaming; i++)
 	{
 		while (true)
 		{
-			//losuj wierzcholek z ktorego wyjdzie krawedz
+			//losuj wierzcholek z kotrego wyjdzie krawedz
 			int e = rand() % ver;
 			int f = e;
 			//losuj wierzcholek do ktorego dojdzie krawedz
@@ -384,7 +384,7 @@ Graph* randGraphGerator(int ver, int edges)
 			//jesli istnieje powtorz losowanie by wybrac nie istniejeaca krawedz
 			if (newGraph->haveEdge(e, f))
 				continue;
-			//jesli ta krawedz nie istnieje, oraz laczy dwa rozne wiercholki
+			//jesli ta krawedz nie istnieje, oraz laczy ona dwa rozne wiercholki
 			//utworz ja
 			else
 			{
@@ -417,7 +417,7 @@ bool Graph::haveEdge(int i, int j) const
 
 int main()
 {
-	//gereuj graf randGraphGerator(i, j)
+	//genruj graf randGraphGerator(i, j)
 	//i - liczba wierzcholkow
 	//j - liczba krawedzi
 	Graph* test = randGraphGerator(4, 8);
@@ -436,12 +436,12 @@ int main()
 
 	//czas kolorwoania to ilosc cykli zegara miedzy poczatkiem, a koncem kolorowania,
 	//podzielona przez ilosc cykli na sekunde
-	//static cast jest to rzutowanie na ty podstawowy zmiennoprzecinkowym double
+	//static cast jest to rzutowanie na typ podstawowy zmiennoprzecinkowy double
 	//poniewaz liczba cykli jest zmienna typu calkowitego potrzebne  jest rzutwoanie
 	//by podac wynik w ulamkach sekund
 	double greedyCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
 
-	//powtorz kolorowanie i zliczanie dla pozstalych metod kolorowania
+	//powtorz kolorowanie i zliczanie dla pozostalych metod kolorowania
 	test->resetColors();
 	start = clock();
 	test->exactColoring();
