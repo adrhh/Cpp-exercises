@@ -254,7 +254,7 @@ void Graph::heurColoring()
 		//oblicz stopien wierzcholka 'v'
 		//dla wierzcholka 'v' przegldnij jego liste sasiedztwa
 		//za kazdego sasiada zwieksz stopien tego wierzcholka
-		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) /
+		for (auto i = adjList[v].begin(); i != adjList[v].end(); ++i) 
 			vertGradeArr[v]++;                   
 
 		//sortowanie wg stopni
