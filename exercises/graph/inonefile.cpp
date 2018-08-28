@@ -140,8 +140,8 @@ void Graph::resetColors()
 //te z najmniejsza ilosc kolorow
 //najpierw koloruj wszystkimi mozliwymi kombinacjami 2 kolorw
 //jesli sasiednie wierzcholki maja ten sam kolor przerwij petle
-//i przejdz do nastepnejkombinacje
-//jesli nie da sie pokolorowac 2 kolorami zwieksz liczbe kolorow
+//i przejdz do nastepnej kombinacje
+//jesli nie da sie pokolorowac 2 (dwoma) kolorami zwieksz liczbe kolorow
 //powtarzaj do spelnienia warunkow braku tego samu koloru dla sasiednich wierzcholkow
 
 void Graph::exactColoring()
@@ -325,7 +325,7 @@ Graph* randGraphGerator(int ver, int edges)
 
 	//tablica wierzcholkow ktora posluzy do genrowania grafu spojnego
 	//w grafie spojnym istniej co najmniej jedna krawedz do innego wierzcholka
-	//z tej tablcy beda losowane wierzcholki, a po u zyciue usuwane
+	//z tej tablcy beda losowane wierzcholki, a po u uzyciu usuwane z niej
 	//by wszytkie wierzcholki mogly miec krawedz
 
 	while (true)
@@ -333,13 +333,13 @@ Graph* randGraphGerator(int ver, int edges)
 		//warunek konca dla: parzysta liczba wierzcholkow
 		if (!(ver % 2) && !simpleEdges.size())
 			break;
-		//zmienne pomicnicze
+		//zmienne pomocnicze
 		//zmienne 'i','j' posluza do genrowania krawedzi miedzy wierzcholakmi 'i','j'
-		//zacznij od peierwszego wierzcholka 
+		//zacznij od pierwszego wierzcholka 
 		int i = simpleEdges[0];
 		int j = i;
 		int index;
-		//losuj wierzcholek j doputy bedzie rozny od 'i'
+		//losuj wierzcholek 'j' doputy bedzie rozny od 'i'
 		//czyli omijaj krawedz miedzy soba samym
 
 		//warunek konca dla: nieparzystej ilosc wierzcholkow
@@ -377,7 +377,7 @@ Graph* randGraphGerator(int ver, int edges)
 			int f = e;
 			//losuj wierzcholek do ktorego dojdzie krawedz
 			//powtarzaj krok dopuki bedzie inny od wychodzacego
-			//by nie laczyc wierzcholka z zamym soba
+			//by nie laczyc wierzcholka z samym soba
 			while (e == f)
 				f = rand() % ver;
 			//teraz sprawdz czy taka krawedz miedzy tymi wierzcholkami nie zostala utworzana wczesniej
