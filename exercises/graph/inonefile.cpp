@@ -54,6 +54,11 @@ public:
 	void exactColoring();
 	void heurColoring();
 	void resetColors();
+	//ile kolorow zostalo uzytch
+	int maxColors() const
+	{
+		return *max_element(vertColor.begin(), vertColor.end());
+	}
 };
 
 void Graph::printGraph() const
@@ -431,7 +436,7 @@ int main()
 	end = clock();
 
 	//wydrukuj kolory
-	std::cout << "Kolorowanie:" << std::endl;
+	std::cout << "Kolorowanie zachlanne:" << std::endl;
 	test->printGraphColors();
 
 	//czas kolorwoania to ilosc cykli zegara miedzy poczatkiem, a koncem kolorowania,
@@ -440,6 +445,8 @@ int main()
 	//poniewaz liczba cykli jest zmienna typu calkowitego potrzebne  jest rzutwoanie
 	//by podac wynik w ulamkach sekund
 	double greedyCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
+	//ilosc uzytych kolorow
+	int maxGreedyColor = test->maxColors();
 
 	//powtorz kolorowanie i zliczanie dla pozostalych metod kolorowania
 	test->resetColors();
@@ -447,23 +454,29 @@ int main()
 	test->exactColoring();
 	end = clock();
 
-	std::cout << "Kolorowanie:" << std::endl;
+	std::cout << "Kolorowanie dokladne:" << std::endl;
 	test->printGraphColors();
 
 	double exactCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
+	int maxExactColor = test->maxColors();
 
 	test->resetColors();
 	start = clock();
 	test->heurColoring();
 	end = clock();
 	double heurCloroingTime = (static_cast<double> (end - start)) / CLOCKS_PER_SEC;
+	int maxHeurColor = test->maxColors();
 
-	std::cout << "Kolorowanie:" << std::endl;
+	std::cout << "Kolorowanie heurystyczne:" << std::endl;
 	test->printGraphColors();
 
-	std::cout << "Czas dzialania algorytmu zachlannego: " << greedyCloroingTime << std::endl
-		<< "Czas dzialania algorytmu dokladnego: " << exactCloroingTime << std::endl
-		<< "Czas dzialania algorytmu heurystycznego: " << heurCloroingTime << std::endl;
+	std::cout << "Czas dzialania algorytmu zachlannego: " << greedyCloroingTime 
+		 << "\t ilosc uzytch kolorow: " << maxGreedyColor << std::endl
+		 << "Czas dzialania algorytmu dokladnego: " << exactCloroingTime
+		 << "\t ilosc uzytch kolorow: " << maxExactColor << std::endl
+		 << "Czas dzialania algorytmu heurystycznego: " << heurCloroingTime 
+		 << "\t ilosc uzytch kolorow: " << maxHeurColor << std::endl;
+	
 
 	delete test;
 	return 0;
