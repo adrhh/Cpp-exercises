@@ -136,7 +136,7 @@ void Graph::greedyColoring()
 //resetuj kolory, ustaw wszytkie na -1
 void Graph::resetColors()
 {
-	for (int i = 0; i < vertColor.size(); i++)
+	for (unsigned int i = 0; i < vertColor.size(); i++)
 		vertColor[i] = -1;
 }
 
