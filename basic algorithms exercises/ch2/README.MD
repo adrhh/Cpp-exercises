@@ -1,6 +1,6 @@
 pl 
 
-**Chapter 2** Zlicznie elemntów
+**Rozdział 2** Zliczanie elementów
 
 Zliczanie wystąpień elementów, za pomocą dodatkowej tablicy.
 Jej indeks będzie odpowiadał wartości z badanej tablicy,
