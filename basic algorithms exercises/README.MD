@@ -10,11 +10,14 @@ PWN Warszawa 2016
 
 - [chodnik](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch1/chodnik)
 - [taśma](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch1/tasma)
-- [żadbka](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch1/zabka)
+- [żabka](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch1/zabka)
 
 
 [**Rozdział 2**](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch2)
 - [permutacja](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch2/permu)
 - [ropucha](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch2/ropucha)
 - [przyciski](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch2/przyciski)
+
+[**Rozdział 3**](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch3)
+- [chomiki](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch3/chomiki)
 
