@@ -31,3 +31,11 @@ PWN Warszawa 2016
 - [cukiernia](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch5/cukiernia)
 - [nawiasy](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch5/nawiasy)
 - [ryby](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch5/ryby)
+
+[**Rozdzial 6**](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch6)
+- [dwie czesci](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch6/dwie_czesci)
+- [flaga](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch6/flaga)
+- [lider prefiksowy](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch6/prefiks)
+
+[**Rozdział 7**](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch7)
+- [odchudzanie](https://github.com/adrhh/Cpp-exercises/tree/master/basic%20algorithms%20exercises/ch7/odchudzanie)
