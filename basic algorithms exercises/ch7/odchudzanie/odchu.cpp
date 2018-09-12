@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int minSumOfSubArray(const vector<int>& v)
+int zadanie(const vector<int>& v)
 {
     auto start = max_element(v.begin(), v.end());
     auto koniec = min_element(start, v.end());
