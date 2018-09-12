@@ -33,7 +33,24 @@ bool czyToLeader(vector<int>::iterator start, vector<int>::iterator koniec, int 
     return licznik > (koniec - start) / 2;
 }
 
+int zadanie(vector<int>& v)
+{
+    int leader = kandydatNaLidera(v);
+    int licznik = 0;
+    for(int i = 0; i < v.size()-1; ++i)
+    {
+        auto dzielnik = v.begin() + i;
+        if( czyToLeader( v.begin(), dzielnik, leader) 
+         && czyToLeader( dzielnik, v.end(), leader) )
+            licznik++;
+    }
+    return licznik;
+}
+
 int main()
 {
+    vector<int> test {4,3,4,4,4,2};
+    cout << zadanie(test) << endl;
+    
     return 0;
 }
