@@ -1,4 +1,6 @@
+pl
 **Rodział 1** Złożoność czasowa i pamięciowa
+
 
 Zapozanie się z klasami złożoniści O.
 
