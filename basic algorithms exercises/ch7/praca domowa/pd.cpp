@@ -23,6 +23,7 @@ int maxSubArray(const vector<int> v)
 int zadanie(vector<int> v)
 {
     auto startPos = v.begin();
+    auto nowyStart = startPos;
     auto koniecPos = v.end();
     int koniec = v[0];
     int maxAktualny = v[0];
@@ -37,13 +38,15 @@ int zadanie(vector<int> v)
         else
         {
             koniec = *it;
-            startPos = it;
+            nowyStart = it;
         }
         if( maxAktualny < koniec)
         {
             koniecPos = it;
             maxAktualny = koniec;
         }
+        else
+            startPos = nowyStart;
     }    
     //indeksy rozpoczynajace podciag
     cout <<  startPos - v.begin() << endl;
