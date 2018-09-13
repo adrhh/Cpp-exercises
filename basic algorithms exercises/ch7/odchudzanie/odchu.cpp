@@ -14,7 +14,7 @@ int zadanie(const vector<int>& v)
 int main()
 {
     vector<int> test {6,7,5,4,2};
-    cout << minSumOfSubArray(test) << endl;
+    cout << zadanie(test) << endl;
     
     return 0;
 }
