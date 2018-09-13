@@ -20,6 +20,7 @@ int maxSubArray(const vector<int> v)
 
 //zadanie nieskonczone
 //zrobione: szukanie miejsc w ktorych rozpoczyna sie podciag 
+//do zrobienia: poprawic pozycje konca, teraz jest nie prawidlowa
 int zadanie(vector<int> v)
 {
     auto startPos = v.begin();
