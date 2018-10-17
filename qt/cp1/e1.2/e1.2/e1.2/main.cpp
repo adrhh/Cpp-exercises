@@ -1,9 +1,12 @@
 #include <QtextStream>
 #include <QString>
 #include <QFile>
+#include <QFileInfo>
+#include <QBuffer>
 
 QTextStream cout(stdout);
 QTextStream cerr(stderr);
+QTextStream cin(stdin);
 
 int main(int argc, char *argv[])
 {
@@ -15,10 +18,25 @@ int main(int argc, char *argv[])
 	double e(2.71);
 
 	cout << "Strumien w pamieci" << endl;
-	strbuf << "szczeliwy numerek: " << luck << endl
+	strbuf << "szczeliwy: " << luck << endl
 		<< "pi: " << pi << endl
 		<< "e: " << e << endl;
 	cout << str;
+
+	QFileInfo isOk("my_data");
+	bool writeToFile = true;
+	if(isOk.exists())
+	{ 
+		char choice;
+		cout << "Pilk istnieje, nadpias [Y\\N] ?" << endl;
+		cin >> choice;
+		cin.flush();
+		if (choice == 'Y')
+			writeToFile = true;
+		else
+			cout << "Pominieto zapis" << endl;
+	}
+
 
 	QFile data("my_data");
 	data.open(QIODevice::WriteOnly);
@@ -27,6 +45,8 @@ int main(int argc, char *argv[])
 	data.close();
 	
 	//czytaj do zmiennych o roznych typach
+	//newstr czyta do string do spacji
+	//kolejne wszytwane sa zmienne o zadanym tyype
 	cout << "Odczyt z pliku, UWAGA na zmiane typow" << endl;
 	if (data.open(QIODevice::ReadOnly))
 	{
@@ -43,6 +63,24 @@ int main(int argc, char *argv[])
 			<< r_pi << ", "
 			<< r_e << endl;
 	}
+
+	//zle poniweaz wczyta zanki do liczby
+	/* 
+	if (data.open(QIODevice::ReadOnly))
+	{
+		QTextStream in(&data);
+		int r_luck;
+		in >> r_luck;
+		float r_pi;
+		in >> r_pi;
+		double r_e;
+		in >>  r_e;
+		data.close();
+
+		cout << r_luck << ", "  //!!
+			<< r_pi << ", "
+			<< r_e << endl;
+	}*/
 
 	//czytaj linia po lini
 	cout << "Odczyt z pliku: " << endl;
