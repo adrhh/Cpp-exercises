@@ -76,7 +76,6 @@ int main(int argc, char *argv[])
 		double r_e;
 		in >>  r_e;
 		data.close();
-
 		cout << r_luck << ", "  //!!
 			<< r_pi << ", "
 			<< r_e << endl;

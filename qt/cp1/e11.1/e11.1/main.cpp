@@ -1,4 +1,3 @@
-
 #include <QtWidgets>
 
 int main(int argc, char *argv[])
@@ -12,9 +11,10 @@ int main(int argc, char *argv[])
 	{
 		int factArg = 0;
 		int fact(1);
-		factArg = QInputDialog::getInt(
-			0, "Kalkulator silni", "Silnia: ", 1
-		);
+		bool cancel;
+		factArg = QInputDialog::getInt(0, "Kalkulator silni", "Silnia: ", 1, 1, 1000, 1, &cancel);
+		if (!cancel)
+			break;
 
 		cout << "Uzytwkonik wprowadzil: " << factArg << endl;
 		if (factArg < 0)
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 			QString response = QString("Wprowadzono liczbe ujemna.\n%1")
 				.arg("Kolejne obliczenie?");
 			answer = QMessageBox::question(0, "Jeszcze raz?", response,
-				QMessageBox::Yes | QMessageBox::No);
+				     QMessageBox::Yes | QMessageBox::No);
 			if (answer == QMessageBox::Yes)
 				continue;
 			else
@@ -35,12 +35,11 @@ int main(int argc, char *argv[])
 			fact *= i;
 			i++;
 		}
-		
+
 		QString response = QString("%1 silnia to %2.\n%3")
 			.arg(factArg).arg(fact)
 			.arg("Kolejne obliczenie?");
-		answer = QMessageBox::question(0, "Jeszcze raz?", response,
-			QMessageBox::Yes | QMessageBox::No);
+		answer = QMessageBox::question(0, "Jeszcze raz?", response, QMessageBox::Yes | QMessageBox::No);
 		if (answer == QMessageBox::No)
 			break;
 	} while (answer == QMessageBox::Yes);
