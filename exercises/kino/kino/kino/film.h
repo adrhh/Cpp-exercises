@@ -8,14 +8,13 @@ class Obser_film;
 
 typedef std::string str;
 
-
 class Film 
 {
 public:
-	enum Gatunki { KOMEDIA, SF, FATNASY, DRAMAT, SENACYJNY, HISTORYCZNY };
+	enum Gatunki { KOMEDIA, SF, FATNASY, DRAMAT, SENACYJNY, HISTORYCZNY, NIEZNANY };
 	enum { ID, Tytul, Dlugosc, Gatunek };
 
-	Film() = default;
+	Film() : obserwator_filmu(nullptr) {}
 	Film(const str& tytul_filmu, unsigned int dlugosc_filmu, Gatunki gatunek_filmu) :
 		film_tytul(tytul_filmu),
 		film_dlugosc(dlugosc_filmu),
@@ -32,6 +31,8 @@ public:
 	void set_tytu(const str& nowy_tytul);
 	void set_gatunek(Gatunki gatune);
 	void set_dlugosc(unsigned int nowa_dlugosc);
+	void set_id(unsigned int nowe_id);
+	static void set_counter(unsigned int nowy_licznik);
 private:
 	Obser_film* obserwator_filmu;
 	str film_tytul;

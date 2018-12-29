@@ -2,6 +2,7 @@
 #include <iostream>
 using std::cerr;
 using std::endl;
+using std::pair;
 
 const str DB::DB_NAME = "test1.db";
 const str DB::K_CT = "CREATE TABLE";
@@ -9,12 +10,15 @@ const str DB::K_II = "INSERT INTO";
 const str DB::K_VL = "VALUES";
 const str DB::K_UP = "UPDATE";
 
+map<str, str> DB::map_buffer = map<str, str>();
+vector<str>   DB::vec_buffer = vector<str>();
+
 DB::DB() : db_name(DB_NAME), error_code(0)
 {
 	if (!db)
 	{
 		sqlite3_open(db_name.c_str(), &db);
-		cerr << "baza otworzona" << endl;
+		cerr << "baza otworzona: " << db_name << endl;
 	}
 	else
 		cerr << "baza juz otwarta" << endl;
@@ -28,6 +32,21 @@ int DB::db_callback(void *NotUsed, int argc, char **argv, char **azColName)
 		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
 	printf("\n");
 	return 0;
+}
+
+int DB::db_from(void *NotUsed, int argc, char **argv, char **azColName)
+{
+	auto it = DB::map_buffer.begin();
+	for (int i = 0; i < argc; i++)
+		map_buffer.insert(it, pair<str, str>(azColName[i], argv[i]));
+
+	return 0;
+}
+
+int DB::db_column_from(void *NotUsed, int argc, char **argv, char **azColName)
+{
+	vec_buffer.push_back(*argv);
+	return 0; 
 }
 
 DB& DB::get_db()
@@ -94,13 +113,33 @@ void DB::update_record(const str& table_name, const map<str, str>& key_vals)
 	return;
 }
 
-str DB::select_from_table(const str& sql_ss)
+map<str, str> DB::select_record_from_table(const str& sql_ss)
 {
-	int d = sqlite3_exec(db, sql_ss.c_str(), db_callback, 0, &error_code);
+	
+	int d = sqlite3_exec(db, sql_ss.c_str(), db_from, 0, &error_code);
+	map<str, str> ret_val = map<str, str>(map_buffer);
+	DB::map_buffer.clear();
+	
 	if (d)
 		cerr << "error: " << error_code << endl;
 	//debug info
 	cerr << "debug: " << sql_ss << endl;
 
-	return "adasd";
+	return ret_val;
+}
+
+vector<str> DB::select_column_from_table(const str& sql_ss)
+{
+	int d = sqlite3_exec(db, sql_ss.c_str(), db_column_from, 0, &error_code);
+
+	vector<str> ret_val = vector<str>(vec_buffer);
+	DB::vec_buffer.clear();
+
+	if (d)
+		cerr << "error: " << error_code << endl;
+	//debug info
+	cerr << "debug: " << sql_ss << endl;
+
+	return ret_val;
+
 }

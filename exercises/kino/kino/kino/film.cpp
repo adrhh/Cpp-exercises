@@ -13,13 +13,15 @@ str Film::get_gatunek()			 const
 	{
 	case KOMEDIA:		return "komedia";
 	case SF:			return "SF";
-	case FATNASY:		return "fanatsy";
+	case FATNASY:		return "fantasy";
 	case DRAMAT:		return "dramat";
 	case HISTORYCZNY:	return "historyczny";
 	//
+	case NIEZNANY:
 	default: return "Nieznany";
 	};
 }
+
 void Film::set_obserwator(Obser_film* obs_ptr)
 {
 	obserwator_filmu = obs_ptr;
@@ -42,4 +44,15 @@ void Film::set_dlugosc(unsigned int nowa_dlugosc)
 	film_dlugosc = nowa_dlugosc;
 	if (obserwator_filmu)
 		obserwator_filmu->update(Dlugosc);
+}
+
+
+void Film::set_id(unsigned int nowe_id)
+{
+	film_id = nowe_id;
+}
+
+void Film::set_counter(unsigned int nowy_licznik)
+{
+	film_counter = nowy_licznik;
 }

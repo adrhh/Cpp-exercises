@@ -3,3 +3,6 @@
 #include "obserwator.h"
 #include "film.h"
 #include "from_db.h"
+#include "sala.h"
+#include "seans.h"
+#include "menu.h"

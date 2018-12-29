@@ -9,9 +9,29 @@ using std::endl;
 unsigned int To_DB::error_nr = 0;
 const str Film_to_DB::COLUMN_NAME_FILM = "film";
 const str Sala_to_DB::COLUMN_NAME_SALA = "sala";
+const str Seans_to_DB::COLUMN_NAME_SEANS = "seans";
 
+const vector<str> Seans_to_DB::column_names
+{
+	"AA_ID",
+	"Data",
+	"Sala",
+	"Film"
+};
 
+const vector<str> Seans_to_DB::column_atributes
+{
+	"INT PRIMARY KEY NOT NULL",
+	"INT NOT NULL",
+	"INT NOT NULL",
+	"INT NOT NULL"
+};
 
+const vector<str> Sala_to_DB::column_names
+{
+	"AA_ID",
+	"Wielkosc"
+};
 
 const vector<str> Sala_to_DB::column_atributes
 {
@@ -36,10 +56,66 @@ const vector<str> Film_to_DB::column_atributes
 	"CHAR(32)",							//Gatunek
 };
 
+void Seans_to_DB::set_seans(Seans* seans_ptr)
+{
+	ptr_to_seans = seans_ptr;
+}
+
 void Film_to_DB::set_film(const Film* film_ptr)
 {
 	ptr_to_film = film_ptr;
 }
+
+void Sala_to_DB::set_sala(const Sala* sala_ptr)
+{
+	ptr_to_sala = sala_ptr;
+}
+
+map<str, str> Seans_to_DB::create_table_map() const
+{
+	map<str, str> new_table_map;
+	auto it = new_table_map.begin();
+	auto cn = column_names.begin();
+	auto ca = column_atributes.begin();
+	for (; cn != column_names.end(); ++cn, ++ca)
+		new_table_map.insert(it, pair<str, str>(*cn, *ca));
+
+	return new_table_map;
+}
+
+map<str, str> Seans_to_DB::add_record_map() const
+{
+	map<str, str> new_record_map;
+	auto it = new_record_map.begin();
+	new_record_map.insert(it, pair<str, str>(column_names[_ID],  to_string(ptr_to_seans->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Data], to_string(ptr_to_seans->get_data())));
+	new_record_map.insert(it, pair<str, str>(column_names[Sala], to_string(ptr_to_seans->get_sala()->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Film], to_string(ptr_to_seans->get_film()->get_id())));
+
+	return new_record_map;
+}
+
+map<str, str> Sala_to_DB::create_table_map() const
+{
+	map<str, str> new_table_map;
+	auto it = new_table_map.begin();
+	auto cn = column_names.begin();
+	auto ca = column_atributes.begin();
+	for (; cn != column_names.end(); ++cn, ++ca)
+		new_table_map.insert(it, pair<str, str>(*cn, *ca));
+
+	return new_table_map;
+}
+
+map<str, str> Sala_to_DB::add_record_map() const
+{
+	map<str, str> new_record_map;
+	auto it = new_record_map.begin();
+	new_record_map.insert(it, pair<str, str>(column_names[_ID], to_string(ptr_to_sala->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Wielkoscs], to_string(ptr_to_sala->get_wielkosc())));
+	return new_record_map;
+}
+
 
 map<str, str> Film_to_DB::create_table_map() const
 {

@@ -6,6 +6,7 @@
 #include <vector>
 #include "film.h"
 #include "sala.h"
+#include "seans.h"
 
 class Film;
 
@@ -22,6 +23,23 @@ public:
 	static unsigned int error_nr;
 };
 
+class Seans_to_DB : public To_DB
+{
+public:
+	const static str COLUMN_NAME_SEANS;
+	Seans_to_DB() = default;
+	virtual map<str, str> create_table_map()					const override;
+	virtual map<str, str> add_record_map()						const override;
+	virtual map<str, str> up_record_map(unsigned int kolumna)	const override { map<str, str> e; return e; }//todo}
+	void set_seans(Seans* seans_ptr);
+private:
+	static const unsigned int NUMBER_OF_COLUMNS = 4;
+	enum columns { _ID, Data, Sala, Film};						// size 4
+	const static vector<str> column_names;						// names vector size must be equal to atributes vecotr size
+	const static vector<str> column_atributes;
+	Seans* ptr_to_seans;										//not const because get data is not const
+};
+
 
 class Sala_to_DB : public To_DB
 {
@@ -31,7 +49,7 @@ public:
 	Sala_to_DB(const Sala* sala_ptr) : ptr_to_sala(sala_ptr) {}
 	virtual map<str, str> create_table_map()					const override;
 	virtual map<str, str> add_record_map()						const override;
-	virtual map<str, str> up_record_map(unsigned int kolumna)	const override;
+	virtual map<str, str> up_record_map(unsigned int kolumna)	const override { map<str, str> e; return e; }//todo}
 	void set_sala(const Sala* sala_ptr);
 	
 private:
