@@ -7,8 +7,8 @@ using std::cerr;
 using std::endl;
 
 unsigned int To_DB::error_nr = 0;
-const str Film_to_DB::COLUMN_NAME_FILM = "film";
-const str Sala_to_DB::COLUMN_NAME_SALA = "sala";
+const str Film_to_DB::COLUMN_NAME_FILM	 = "film";
+const str Sala_to_DB::COLUMN_NAME_SALA   = "sala";
 const str Seans_to_DB::COLUMN_NAME_SEANS = "seans";
 
 const vector<str> Seans_to_DB::column_names
@@ -16,12 +16,14 @@ const vector<str> Seans_to_DB::column_names
 	"AA_ID",
 	"Data",
 	"Sala",
-	"Film"
+	"Film",
+	"Zajete"
 };
 
 const vector<str> Seans_to_DB::column_atributes
 {
 	"INT PRIMARY KEY NOT NULL",
+	"CHAR(64) NOT NULL",
 	"INT NOT NULL",
 	"INT NOT NULL",
 	"INT NOT NULL"
@@ -56,7 +58,7 @@ const vector<str> Film_to_DB::column_atributes
 	"CHAR(32)",							//Gatunek
 };
 
-void Seans_to_DB::set_seans(Seans* seans_ptr)
+void Seans_to_DB::set_seans(const Seans* seans_ptr)
 {
 	ptr_to_seans = seans_ptr;
 }
@@ -87,10 +89,12 @@ map<str, str> Seans_to_DB::add_record_map() const
 {
 	map<str, str> new_record_map;
 	auto it = new_record_map.begin();
-	new_record_map.insert(it, pair<str, str>(column_names[_ID],  to_string(ptr_to_seans->get_id())));
-	new_record_map.insert(it, pair<str, str>(column_names[Data], to_string(ptr_to_seans->get_data())));
-	new_record_map.insert(it, pair<str, str>(column_names[Sala], to_string(ptr_to_seans->get_sala()->get_id())));
-	new_record_map.insert(it, pair<str, str>(column_names[Film], to_string(ptr_to_seans->get_film()->get_id())));
+
+	new_record_map.insert(it, pair<str, str>(column_names[_ID],    to_string(ptr_to_seans->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Data],   str("'" + to_string(ptr_to_seans->get_data()) + "'")));
+	new_record_map.insert(it, pair<str, str>(column_names[Sala],   to_string(ptr_to_seans->get_sala()->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Film],   to_string(ptr_to_seans->get_film()->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Zajete], to_string(ptr_to_seans->get_zajete())));
 
 	return new_record_map;
 }

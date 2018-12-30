@@ -1,4 +1,5 @@
 #include "from_db.h"
+#include "data.h"
 #include <iostream>
 #include <string>
 
@@ -6,8 +7,40 @@ using std::endl;
 using std::cerr;
 using std::to_string;
 
-const str Film_from_DB::COLUMN_NAME_FILM = "film";
-const str Sala_from_DB::COLUMN_NAME_SALA = "sala";
+const str Film_from_DB::COLUMN_NAME_FILM	= "film";
+const str Sala_from_DB::COLUMN_NAME_SALA	= "sala";
+const str Seans_from_DB::COLUMN_NAME_SEANS  = "seans";
+
+
+Seans Seans_from_DB::get_seans_from_db(unsigned int key)
+{
+	str sql_str = "select * from ";
+	sql_str += COLUMN_NAME_SEANS + " where AA_ID == " + to_string(key) + ";";
+	map<str, str> seans_map = db->select_record_from_table(sql_str);
+
+	Seans new_seans = Seans();
+	dddata dt;
+
+	dt.from_64(stoull(seans_map["Data"]));
+	new_seans.set_data(dt);
+	new_seans.set_id(stoi(seans_map["AA_ID"]));
+	new_seans.set_film_id(stoi(seans_map["Film"]));
+	new_seans.set_sala_id(stoi(seans_map["Sala"]));
+	new_seans.set_zajete(stoi(seans_map["Zajete"]));
+	
+
+	return new_seans;
+}
+
+
+vector<unsigned int> Seans_from_DB::get_seans_ids_from_db()
+{
+	str sql_str = "select AA_ID from ";
+	sql_str += COLUMN_NAME_SEANS + ";";
+
+	return get_ids_from_db(sql_str);
+}
+
 
 vector<unsigned int> From_DB::get_ids_from_db(const str& sql_ss)
 {

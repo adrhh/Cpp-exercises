@@ -4,6 +4,7 @@
 #include "db.h"
 #include "film.h"
 #include "sala.h"
+#include "seans.h"
 #include <vector>
 
 typedef std::string str;
@@ -17,6 +18,15 @@ private:
 public:
 	DB* db;
 	vector<unsigned int> get_ids_from_db(const str& sql_ss);
+};
+
+class Seans_from_DB : public From_DB
+{
+private:
+	const static str COLUMN_NAME_SEANS;
+public:
+	Seans get_seans_from_db(unsigned int key);
+	vector<unsigned int> get_seans_ids_from_db();
 };
 
 class Sala_from_DB : public From_DB

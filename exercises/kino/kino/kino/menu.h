@@ -31,6 +31,7 @@ private:
 	bool is_filmy_table;
 	bool is_seans_table;
 
+	void get_seanse_from_db();
 	void get_sale_from_db();
 	void get_films_from_db();
 public:
@@ -39,6 +40,7 @@ public:
 			  db = &DB::get_db(); 
 			  get_films_from_db();
 			  get_sale_from_db();
+			  get_seanse_from_db();
 			}
 	void dodaj_sale();
 	void pokaz_sale();
@@ -51,7 +53,7 @@ public:
 class Menu
 {
 
-public:
+private:
 	static const short NOT_IN_RANGE = -1;
 	struct Node
 	{
@@ -75,18 +77,18 @@ public:
 	};
 	Node nl[100] = 
 	{
-		{nullptr,		{&nl[filmy], &nl[sale], &nl[seans]},				nullptr,					   "glowne"},
-		{&nl[glowne],	{&nl[dodaj_film], &nl[pokaz_filmy]},			nullptr,					    "filmy"},
-		{&nl[filmy],	{},												&Kino::dodaj_film,		   "dodaj film"},
-		{&nl[filmy],	{},												&Kino::pokaz_filmy,		   "pokaz filmy"},
-		{&nl[glowne],	{&nl[dodaj_sale], &nl[pokaz_sale]},			    nullptr,				   "sale"},
-		{&nl[sale],	    {},												&Kino::dodaj_sale,		   "dodaj sale"},
-		{&nl[sale],	    {},												&Kino::pokaz_sale,		   "pokaz sale"},
-		{&nl[glowne],	{&nl[dodaj_seans], &nl[pokaz_seanse]},			nullptr,					    "seanse"},
-		{&nl[seans],	{},												&Kino::dodaj_seans,		   "dodaj seans"},
-		{&nl[seans],	{},												&Kino::pokaz_seanse,		"pokaz seanse"},
+		{nullptr,		{&nl[filmy], &nl[sale], &nl[seans]},			nullptr,				   "glowne"			},
+		{&nl[glowne],	{&nl[dodaj_film], &nl[pokaz_filmy]},			nullptr,				   "filmy"			},
+		{&nl[filmy],	{},												&Kino::dodaj_film,		   "dodaj film"		},
+		{&nl[filmy],	{},												&Kino::pokaz_filmy,		   "pokaz filmy"	},
+		{&nl[glowne],	{&nl[dodaj_sale], &nl[pokaz_sale]},			    nullptr,				   "sale"			},
+		{&nl[sale],	    {},												&Kino::dodaj_sale,		   "dodaj sale"		},
+		{&nl[sale],	    {},												&Kino::pokaz_sale,		   "pokaz sale"		},
+		{&nl[glowne],	{&nl[dodaj_seans], &nl[pokaz_seanse]},			nullptr,				   "seanse"			},
+		{&nl[seans],	{},												&Kino::dodaj_seans,		   "dodaj seans"	},
+		{&nl[seans],	{},												&Kino::pokaz_seanse,	   "pokaz seanse"	},
 	};
-private:
+
 	Kino kino;
 	Node* actual_node;
 
