@@ -7,6 +7,8 @@
 #include "film.h"
 #include "sala.h"
 #include "seans.h"
+#include "klient.h"
+#include "rezerwacja.h"
 
 class Film;
 
@@ -23,6 +25,57 @@ public:
 	static unsigned int error_nr;
 };
 
+class Rezerwacje_to_DB : public To_DB
+{
+public:
+	const static str COLUMN_NAME_REZERWACJE;
+	Rezerwacje_to_DB() = default;
+	virtual map<str, str> create_table_map()					const override;
+	virtual map<str, str> add_record_map()						const override;
+	virtual map<str, str> up_record_map(unsigned int kolumna)	const override { map<str, str> e; return e; }//todo}
+	void set_rezerwacje(const Rezerwacje* rezerwacje_ptr);
+private:
+	static const unsigned int NUMBER_OF_COLUMNS = 3;
+	enum columns { _ID, Rezerwacja_ID, Klient_ID };					// size 5
+	const static vector<str> column_names;							// names vector size must be equal to atributes vecotr size
+	const static vector<str> column_atributes;
+	const Rezerwacje* ptr_to_rezerwacje;						
+};
+
+class Rezerwacja_to_DB : public To_DB
+{
+public:
+	const static str COLUMN_NAME_REZERWACJA;
+	Rezerwacja_to_DB() = default;
+	virtual map<str, str> create_table_map()					const override;
+	virtual map<str, str> add_record_map()						const override;
+	virtual map<str, str> up_record_map(unsigned int kolumna)	const override { map<str, str> e; return e; }//todo}
+	void set_rezerwacja(const Rezerwacja* rezerwacja_ptr);
+private:
+	static const unsigned int NUMBER_OF_COLUMNS = 3;
+	enum columns { _ID, Seans_ID, Oplacona };						// size 3
+	const static vector<str> column_names;							// names vector size must be equal to atributes vecotr size
+	const static vector<str> column_atributes;
+	const Rezerwacja* ptr_to_rezerwacja;							
+};
+
+class Klient_to_DB : public To_DB
+{
+public:
+	const static str COLUMN_NAME_KLIENT;
+	Klient_to_DB() = default;
+	virtual map<str, str> create_table_map()					const override;
+	virtual map<str, str> add_record_map()						const override;
+	virtual map<str, str> up_record_map(unsigned int kolumna)	const override { map<str, str> e; return e; }//todo}
+	void set_klient(const Klient* klient_ptr);
+private:
+	static const unsigned int NUMBER_OF_COLUMNS = 3;
+	enum columns { _ID, Imie, Nazwisko };					// size 5
+	const static vector<str> column_names;					// names vector size must be equal to atributes vecotr size
+	const static vector<str> column_atributes;
+	const Klient* ptr_to_klient;								
+};
+
 class Seans_to_DB : public To_DB
 {
 public:
@@ -37,7 +90,7 @@ private:
 	enum columns { _ID, Data, Sala, Film, Zajete};					// size 5
 	const static vector<str> column_names;							// names vector size must be equal to atributes vecotr size
 	const static vector<str> column_atributes;
-	const Seans* ptr_to_seans;										//not const because get data is not const
+	const Seans* ptr_to_seans;									
 };
 
 

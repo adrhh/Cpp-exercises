@@ -7,9 +7,55 @@ using std::cerr;
 using std::endl;
 
 unsigned int To_DB::error_nr = 0;
-const str Film_to_DB::COLUMN_NAME_FILM	 = "film";
-const str Sala_to_DB::COLUMN_NAME_SALA   = "sala";
-const str Seans_to_DB::COLUMN_NAME_SEANS = "seans";
+const str Film_to_DB::COLUMN_NAME_FILM				= "film";
+const str Sala_to_DB::COLUMN_NAME_SALA				= "sala";
+const str Seans_to_DB::COLUMN_NAME_SEANS			= "seans";
+const str Klient_to_DB::COLUMN_NAME_KLIENT			= "klient";
+const str Rezerwacja_to_DB::COLUMN_NAME_REZERWACJA  = "rezerwcja";
+const str Rezerwacje_to_DB::COLUMN_NAME_REZERWACJE  = "rezerwcje";
+
+const vector<str> Rezerwacje_to_DB::column_names
+{
+	"AA_ID",
+	"Rezerwacja_ID",
+	"Klient_ID"
+};
+
+const vector<str> Rezerwacje_to_DB::column_atributes
+{
+	"INT PRIMARY KEY NOT NULL",
+	"INT NOT NULL",
+	"INT NOT NULL"
+};
+
+
+const vector<str> Rezerwacja_to_DB::column_names
+{
+	"AA_ID",
+	"Seans_ID",
+	"Oplacona"
+};
+
+const vector<str> Rezerwacja_to_DB::column_atributes
+{
+	"INT PRIMARY KEY NOT NULL",
+	"INT NOT NULL",
+	"INT DEFAULT 0"
+};
+
+const vector<str> Klient_to_DB::column_names
+{
+	"AA_ID",
+	"Imie",
+	"Nazwisko"
+};
+
+const vector<str> Klient_to_DB::column_atributes
+{
+	"INT PRIMARY KEY NOT NULL",
+	"CHAR(64) NOT NULL",
+	"CHAR(64) NOT NULL"
+};
 
 const vector<str> Seans_to_DB::column_names
 {
@@ -23,7 +69,7 @@ const vector<str> Seans_to_DB::column_names
 const vector<str> Seans_to_DB::column_atributes
 {
 	"INT PRIMARY KEY NOT NULL",
-	"CHAR(64) NOT NULL",
+	"CHAR(64) NOT NULL",	
 	"INT NOT NULL",
 	"INT NOT NULL",
 	"INT NOT NULL"
@@ -58,6 +104,11 @@ const vector<str> Film_to_DB::column_atributes
 	"CHAR(32)",							//Gatunek
 };
 
+void Klient_to_DB::set_klient(const Klient* kleint_ptr)
+{
+	ptr_to_klient = kleint_ptr;
+}
+
 void Seans_to_DB::set_seans(const Seans* seans_ptr)
 {
 	ptr_to_seans = seans_ptr;
@@ -71,6 +122,89 @@ void Film_to_DB::set_film(const Film* film_ptr)
 void Sala_to_DB::set_sala(const Sala* sala_ptr)
 {
 	ptr_to_sala = sala_ptr;
+}
+
+void Rezerwacja_to_DB::set_rezerwacja(const Rezerwacja* rezerwacja_ptr)
+{
+	ptr_to_rezerwacja = rezerwacja_ptr;
+}
+
+void Rezerwacje_to_DB::set_rezerwacje(const Rezerwacje* rezerwacje_ptr)
+{
+	ptr_to_rezerwacje = rezerwacje_ptr;
+}
+
+map<str, str> Rezerwacje_to_DB::create_table_map() const
+{
+	map<str, str> new_table_map;
+	auto it = new_table_map.begin();
+	auto cn = column_names.begin();
+	auto ca = column_atributes.begin();
+	for (; cn != column_names.end(); ++cn, ++ca)
+		new_table_map.insert(it, pair<str, str>(*cn, *ca));
+
+	return new_table_map;
+}
+
+map<str, str> Rezerwacje_to_DB::add_record_map() const
+{
+	map<str, str> new_record_map;
+	auto it = new_record_map.begin();
+
+	new_record_map.insert(it, pair<str, str>(column_names[_ID], to_string(ptr_to_rezerwacje->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Rezerwacja_ID], to_string(ptr_to_rezerwacje->get_rezerwacja()->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Klient_ID], to_string(ptr_to_rezerwacje->get_klient()->get_id())));
+
+	return new_record_map;
+}
+
+
+map<str, str> Rezerwacja_to_DB::create_table_map() const
+{
+	map<str, str> new_table_map;
+	auto it = new_table_map.begin();
+	auto cn = column_names.begin();
+	auto ca = column_atributes.begin();
+	for (; cn != column_names.end(); ++cn, ++ca)
+		new_table_map.insert(it, pair<str, str>(*cn, *ca));
+
+	return new_table_map;
+}
+
+map<str, str> Rezerwacja_to_DB::add_record_map() const
+{
+	map<str, str> new_record_map;
+	auto it = new_record_map.begin();
+
+	new_record_map.insert(it, pair<str, str>(column_names[_ID], to_string(ptr_to_rezerwacja->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Seans_ID], to_string(ptr_to_rezerwacja->get_seans()->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Oplacona], to_string((int)ptr_to_rezerwacja->get_oplacona())));
+
+	return new_record_map;
+}
+
+map<str, str> Klient_to_DB::create_table_map() const
+{
+	map<str, str> new_table_map;
+	auto it = new_table_map.begin();
+	auto cn = column_names.begin();
+	auto ca = column_atributes.begin();
+	for (; cn != column_names.end(); ++cn, ++ca)
+		new_table_map.insert(it, pair<str, str>(*cn, *ca));
+
+	return new_table_map;
+}
+
+map<str, str> Klient_to_DB::add_record_map() const
+{
+	map<str, str> new_record_map;
+	auto it = new_record_map.begin();
+
+	new_record_map.insert(it, pair<str, str>(column_names[_ID], to_string(ptr_to_klient->get_id())));
+	new_record_map.insert(it, pair<str, str>(column_names[Imie], str("'" +	ptr_to_klient->get_imie() + "'")));
+	new_record_map.insert(it, pair<str, str>(column_names[Nazwisko], str("'" + ptr_to_klient->get_nazwisko() + "'")));
+
+	return new_record_map;
 }
 
 map<str, str> Seans_to_DB::create_table_map() const

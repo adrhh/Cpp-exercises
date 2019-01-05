@@ -5,6 +5,8 @@
 #include "film.h"
 #include "sala.h"
 #include "seans.h"
+#include "klient.h"
+#include "rezerwacja.h"
 #include <vector>
 
 typedef std::string str;
@@ -18,6 +20,33 @@ private:
 public:
 	DB* db;
 	vector<unsigned int> get_ids_from_db(const str& sql_ss);
+};
+
+class Rezerwacja_from_DB : public From_DB
+{
+private:
+	const static str COLUMN_NAME_REZERWACJA;
+public:
+	Rezerwacja get_rezerwacja_from_db(unsigned int key);
+	vector<unsigned int> get_rezerwacja_ids_from_db();
+};
+
+class Rezerwacje_from_DB : public From_DB
+{
+private:
+	const static str COLUMN_NAME_REZERWACJE;
+public:
+	Rezerwacje get_rezerwacje_from_db(unsigned int key);
+	vector<unsigned int> get_rezerwacje_ids_from_db();
+};
+
+class Klient_from_DB : public From_DB
+{
+private:
+	const static str COLUMN_NAME_KLIENT;
+public:
+	Klient get_klient_from_db(unsigned int key);
+	vector<unsigned int> get_klient_ids_from_db();
 };
 
 class Seans_from_DB : public From_DB

@@ -7,10 +7,80 @@ using std::endl;
 using std::cerr;
 using std::to_string;
 
-const str Film_from_DB::COLUMN_NAME_FILM	= "film";
-const str Sala_from_DB::COLUMN_NAME_SALA	= "sala";
-const str Seans_from_DB::COLUMN_NAME_SEANS  = "seans";
+const str Film_from_DB::COLUMN_NAME_FILM	 = "film";
+const str Sala_from_DB::COLUMN_NAME_SALA	 = "sala";
+const str Seans_from_DB::COLUMN_NAME_SEANS	 = "seans";
+const str Klient_from_DB::COLUMN_NAME_KLIENT = "klient";
+const str Rezerwacja_from_DB::COLUMN_NAME_REZERWACJA = "rezerwcja";
+const str Rezerwacje_from_DB::COLUMN_NAME_REZERWACJE = "rezerwcje";
 
+
+Rezerwacja Rezerwacja_from_DB::get_rezerwacja_from_db(unsigned int key)
+{
+	str sql_str = "select * from ";
+	sql_str += COLUMN_NAME_REZERWACJA + " where AA_ID == " + to_string(key) + ";";
+	map<str, str> rezerwacja_map = db->select_record_from_table(sql_str);
+
+	Rezerwacja nowa_rezerwacja = Rezerwacja();
+	nowa_rezerwacja.set_id(stoi(rezerwacja_map["AA_ID"]));
+	nowa_rezerwacja.set_oplacona(stoi(rezerwacja_map["Oplacona"]));
+	nowa_rezerwacja.set_seans_id(stoi(rezerwacja_map["Seans_ID"]));
+
+	return nowa_rezerwacja;
+}
+
+vector<unsigned int> Rezerwacja_from_DB::get_rezerwacja_ids_from_db()
+{
+	str sql_str = "select AA_ID from ";
+	sql_str += COLUMN_NAME_REZERWACJA + ";";
+
+	return get_ids_from_db(sql_str);
+}
+
+Rezerwacje Rezerwacje_from_DB::get_rezerwacje_from_db(unsigned int key)
+{
+	str sql_str = "select * from ";
+	sql_str += COLUMN_NAME_REZERWACJE + " where AA_ID == " + to_string(key) + ";";
+	map<str, str> rezerwacje_map = db->select_record_from_table(sql_str);
+
+	Rezerwacje nowa_rezerwacje = Rezerwacje();
+	nowa_rezerwacje.set_id(stoi(rezerwacje_map["AA_ID"]));
+	nowa_rezerwacje.set_klient_id(stoi(rezerwacje_map["Klient_ID"]));
+	nowa_rezerwacje.set_rezerwacja_id(stoi(rezerwacje_map["Rezerwacja_ID"]));
+
+	return nowa_rezerwacje;
+}
+
+vector<unsigned int> Rezerwacje_from_DB::get_rezerwacje_ids_from_db()
+{
+	str sql_str = "select AA_ID from ";
+	sql_str += COLUMN_NAME_REZERWACJE + ";";
+
+	return get_ids_from_db(sql_str);
+}
+
+Klient Klient_from_DB::get_klient_from_db(unsigned int key)
+{
+	str sql_str = "select * from ";
+	sql_str += COLUMN_NAME_KLIENT + " where AA_ID == " + to_string(key) + ";";
+	map<str, str> klient_map = db->select_record_from_table(sql_str);
+
+	Klient nowy_klient = Klient();
+
+	nowy_klient.set_id(stoi(klient_map["AA_ID"]));
+	nowy_klient.set_imie(klient_map["Imie"]);
+	nowy_klient.set_nazwisko(klient_map["Nazwisko"]);
+
+	return nowy_klient;
+}
+
+vector<unsigned int> Klient_from_DB::get_klient_ids_from_db()
+{
+	str sql_str = "select AA_ID from ";
+	sql_str += COLUMN_NAME_KLIENT + ";";
+
+	return get_ids_from_db(sql_str);
+}
 
 Seans Seans_from_DB::get_seans_from_db(unsigned int key)
 {
@@ -28,7 +98,6 @@ Seans Seans_from_DB::get_seans_from_db(unsigned int key)
 	new_seans.set_sala_id(stoi(seans_map["Sala"]));
 	new_seans.set_zajete(stoi(seans_map["Zajete"]));
 	
-
 	return new_seans;
 }
 
@@ -65,6 +134,7 @@ Sala Sala_from_DB::get_sala_from_db(unsigned int key)
 
 	return new_sala;
 }
+
 vector<unsigned int> Sala_from_DB::get_sala_ids_from_db()
 {
 	str sql_str = "select AA_ID from ";

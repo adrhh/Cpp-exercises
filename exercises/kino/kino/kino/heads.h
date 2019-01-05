@@ -7,3 +7,5 @@
 #include "seans.h"
 #include "menu.h"
 #include "data.h"
+#include "klient.h"
+#include "rezerwacja.h"

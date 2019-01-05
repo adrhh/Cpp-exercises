@@ -23,7 +23,6 @@ public:
 				h  : 8,
 				mi : 8,
 				   : 0;
-			 
 	};
 
 	void from_64(uint64_t in)
