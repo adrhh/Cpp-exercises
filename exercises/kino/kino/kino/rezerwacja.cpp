@@ -10,7 +10,7 @@ void				Rezerwacja::set_counter(unsigned int count)			   { counter	   = count; }
 void				Rezerwacja::set_oplacona(bool czy_oplacona)			   { oplacona	   = czy_oplacona; }
 const Seans*		Rezerwacja::get_seans()				const			   { return seans_ptr; }
 unsigned int		Rezerwacja::get_seans_id()			const			   { return seans_id; }
-unsigned int		Rezerwacja::get_id()				const			   { return seans_id; }
+unsigned int		Rezerwacja::get_id()				const			   { return rezerwacja_id; }
 bool				Rezerwacja::get_oplacona()			const			   { return oplacona; }
 
 unsigned int Rezerwacje::counter = 0;
