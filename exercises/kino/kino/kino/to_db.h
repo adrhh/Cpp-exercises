@@ -83,11 +83,12 @@ public:
 	Seans_to_DB() = default;
 	virtual map<str, str> create_table_map()					const override;
 	virtual map<str, str> add_record_map()						const override;
-	virtual map<str, str> up_record_map(unsigned int kolumna)	const override { map<str, str> e; return e; }//todo}
+	virtual map<str, str> up_record_map(unsigned int kolumna)	const override;
 	void set_seans(const Seans* seans_ptr);
+	enum columns { _ID, Data, Sala, Film, Zajete };
 private:
 	static const unsigned int NUMBER_OF_COLUMNS = 5;
-	enum columns { _ID, Data, Sala, Film, Zajete};					// size 5
+					// size 5
 	const static vector<str> column_names;							// names vector size must be equal to atributes vecotr size
 	const static vector<str> column_atributes;
 	const Seans* ptr_to_seans;									

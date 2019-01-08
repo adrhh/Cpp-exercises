@@ -6,6 +6,8 @@
 #include "data.h"
 #include <ctime>
 
+class Obser_seans;
+
 class Seans
 {
 private:
@@ -18,6 +20,8 @@ private:
 	unsigned int zajete_miejsca;
 	unsigned int seans_id;
 	static unsigned int counter;
+	Obser_seans* obserwator_seansu;
+	
 public:
 	Seans() = default;
 	Seans(Film* f, Sala* s, dddata dt);
@@ -38,6 +42,7 @@ public:
 	void		 set_id(unsigned int id);
 	void		 set_film(const Film* f);
 	void		 set_sala(const Sala* s);
+	void		 set_obserwator(Obser_seans* os);
 	static void  set_counter(unsigned int count);
 };
 

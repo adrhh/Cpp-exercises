@@ -233,6 +233,36 @@ map<str, str> Seans_to_DB::add_record_map() const
 	return new_record_map;
 }
 
+map<str, str> Seans_to_DB::up_record_map(unsigned int kolumna) const
+{
+	map<str, str> update_map;
+	if (kolumna > NUMBER_OF_COLUMNS)
+	{
+		cerr << "kolumna poza zakresem";
+		To_DB::error_nr = 1;
+		return update_map;
+	}
+	auto it = update_map.begin();
+	update_map.insert(it, pair<str, str>(column_names[_ID], to_string(ptr_to_seans->get_id())));
+	switch (kolumna)
+	{
+	case Data:
+		update_map.insert(it, pair<str, str>(column_names[Data], to_string(ptr_to_seans->get_data())));
+		break;
+	case Sala:
+		update_map.insert(it, pair<str, str>(column_names[Sala], to_string(ptr_to_seans->get_sala_id())));
+		break;
+	case Film:
+		update_map.insert(it, pair<str, str>(column_names[Film], to_string(ptr_to_seans->get_film_id())));
+		break;
+	case Zajete:
+		update_map.insert(it, pair<str, str>(column_names[Zajete], to_string(ptr_to_seans->get_zajete())));
+		break;
+	};
+
+	return update_map;
+}
+
 map<str, str> Sala_to_DB::create_table_map() const
 {
 	map<str, str> new_table_map;

@@ -3,7 +3,6 @@
 
 #include <string>
 
-class Obserwowany;
 class Obser_film;
 
 typedef std::string str;

@@ -6,6 +6,49 @@ using std::cout;
 using std::endl;
 using std::cin;
 
+void Kino::prpfilm(Film* film_ptr)
+{
+	to_db = &film_to_db;
+	film_to_db.set_film(film_ptr);
+}
+
+void Kino::edytuj_dlugosc_filmu()
+{
+	Film* film_ptr = pobierz_film();
+	
+	unsigned int nowa_dlugosc;
+	cout << "Podaj nowa dlugosc filmu" << endl;
+	cin >> nowa_dlugosc;
+	cin.clear(); cin.ignore(INT_MAX, '\n');
+	
+
+	prpfilm(film_ptr);
+	film_ptr->set_dlugosc(nowa_dlugosc);
+}
+
+Film* Kino::pobierz_film()
+{
+	unsigned int film_id;
+	Film* film_ptr;
+	bool is_correct_film_id = false;
+	while (!is_correct_film_id)
+	{
+		cout << "Podaj id filmu: " << endl;
+		cin >> film_id;
+		cin.clear(); cin.ignore(INT_MAX, '\n');
+		for (auto& f : filmy)
+		{
+			if (f.get_id() == film_id)
+			{
+				film_ptr = &f;
+				is_correct_film_id = true;
+				break;
+			}
+		}
+	}
+	return film_ptr;
+}
+
 void Kino::pokaz_rez_szczeg()
 {
 	for (auto& r : rezerwacje_lista)
@@ -32,13 +75,17 @@ void Kino::pokaz_film(const Film& f)
 void Kino::pokaz_filmy()
 {
 	for (auto& p : filmy)
+	{
+		cout << "----------------------------------------------" << endl;
 		pokaz_film(p);
+	}
 }
 
 void Kino::pokaz_sale()
 {
 	for (auto& p : sale)
 	{
+		cout << "----------------------------------------------" << endl;
 		cout << "nr sali: "		 << p.get_id()		 << endl;
 		cout << "ilosc mijesc: " << p.get_wielkosc() << endl;
 		cout										 << endl;
@@ -47,7 +94,7 @@ void Kino::pokaz_sale()
 
 void Kino::pokaz_klienta(const Klient& k)
 {
-	cout << "Imie: " << k.get_imie() << endl;
+	cout << "Imie: "	 << k.get_imie() << endl;
 	cout << "Nazwisko: " << k.get_nazwisko() << endl;
 	cout << endl;
 }
@@ -55,7 +102,11 @@ void Kino::pokaz_klienta(const Klient& k)
 void Kino::pokaz_klientow()
 {
 	for (auto& k : klienci)
+	{
+		cout << "----------------------------------------------" << endl;
 		pokaz_klienta(k);
+	}
+		
 }
 
 void Kino::pokaz_seans(const Seans& s)
@@ -63,18 +114,21 @@ void Kino::pokaz_seans(const Seans& s)
 	dddata dt;
 	dt.from_64(s.get_data());
 
-	cout << "ID seanse: " << s.get_id() << endl;
+	cout << "ID seanse: "	<< s.get_id() << endl;
 	cout << "Data seansu: " << dt.year << '/' << (short)dt.month << '/' << (short)dt.day << endl;
-	cout << "Sala nr: " << s.get_sala()->get_id() << endl;
-	cout << "Wielkosc sali: " << s.get_sala()->get_wielkosc() << endl;
-	cout << "Film:" << s.get_film()->get_tytul() << endl;
+	cout << "Sala nr: "		<< s.get_sala()->get_id() << endl;
+	cout << "Miejsca: "		<< s.get_sala()->get_wielkosc() << " / " << s.get_zajete() << endl;
+	cout << "Film:"			<< s.get_film()->get_tytul() << endl;
 
 }
 
 void Kino::pokaz_seanse()
 {
 	for (auto& s : seanse)
+	{
+		cout << "----------------------------------------------" << endl;
 		pokaz_seans(s);
+	}
 }
 
 
@@ -141,8 +195,13 @@ void Kino::rezerwuj()
 	db->insert_to_table(Rezerwacja_to_DB::COLUMN_NAME_REZERWACJA, to_db->add_record_map());
 	rezerwacja_lista.push_back(nowa_rezerwacja);
 
-	// TO DO
-	// UPDATE SEANS ILOSC MIEJSC
+	// seans update
+	to_db = &seans_to_db;
+	seans_to_db.set_seans(se_ptr);
+	unsigned int zajete = se_ptr->get_zajete();
+	se_ptr->set_zajete(++zajete);
+
+
 
 	Rezerwacje nowe_rezerwacje(kl_ptr, &rezerwacja_lista.back());
 
@@ -242,24 +301,7 @@ void Kino::dodaj_seans()
 	dddata dt(rok, miesiac, dzien, godzina);
 	
 
-	Film* film_ptr = nullptr;
-	unsigned int film_id = UINT_MAX;
-	bool is_correct_film_id = false;
-	while (!is_correct_film_id)
-	{
-		cout << "Podaj id filmu: " << endl;
-		cin >> film_id;
-		cin.clear(); cin.ignore(INT_MAX, '\n');
-		for (auto& f : filmy)
-		{
-			if (f.get_id() == film_id)
-			{
-				film_ptr = &f;
-				is_correct_film_id = true;
-				break;
-			}
-		}
-	}
+	Film* film_ptr = pobierz_film();
 
 	Sala* sala_ptr;
 	unsigned int sala_id = UINT_MAX;
@@ -283,6 +325,7 @@ void Kino::dodaj_seans()
 	Seans nowy_seans(film_ptr, sala_ptr, dt);
 	seans_to_db.set_seans(&nowy_seans);
 	nowy_seans.set_ilosc_miejsc();
+	nowy_seans.set_obserwator(&seans_obser);
 	db->insert_to_table(Seans_to_DB::COLUMN_NAME_SEANS, to_db->add_record_map());
 	seanse.push_back(nowy_seans);
 
@@ -424,6 +467,7 @@ void Kino::get_seanse_from_db()
 					break;
 				}
 			}
+			nowy_seans.set_obserwator(&seans_obser);
 			seanse.push_back(nowy_seans);
 		}
 	}
@@ -440,7 +484,10 @@ void Kino::get_films_from_db()
 		is_filmy_table = true;
 		unsigned int max_id = *std::max_element(film_ids.begin(), film_ids.end());
 		for (auto id : film_ids)
+		{ 
 			filmy.push_back(from_db.get_film_from_db(id));
+			filmy.back().set_obserwator(&film_obser);
+		}
 		Film::set_counter(max_id);
 	}
 }
