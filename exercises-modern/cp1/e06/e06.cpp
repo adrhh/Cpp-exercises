@@ -3,6 +3,7 @@
 #include <cmath>
 #include <numeric>
 
+
 std::vector<unsigned int> get_divisors(unsigned int n)
 {
     std::vector<unsigned int> vec;
@@ -21,7 +22,7 @@ std::vector<unsigned int> get_divisors(unsigned int n)
 int abundan_factor(unsigned int n)
 {
     auto divs = get_divisors(n);
-    auto div_sum = std::accumulate(divs.begin(), divs.end(), 0);
+    auto div_sum = std::accumulate(divs.begin(), divs.end(), 1);
     for(auto d : divs)
         std::cout << d << ',';
     std::cout << '\n' << n << " , " << div_sum << std::endl;
