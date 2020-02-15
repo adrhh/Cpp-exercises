@@ -1,4 +1,3 @@
- 
 #include <iostream>
 #include <numeric>
 #include <cstdlib>
@@ -14,7 +13,6 @@ int lcm(int a, int b)
 {
     return abs(a * b) / gcd(a, b);
 }
-
 
 template <typename T>
 int lcmr(T first, T end)
@@ -33,13 +31,11 @@ int main()
     std::cout << lcm(a, b) << std::endl;
     std::cout << std::lcm(a, b) << std::endl;
     
-    // mult test
     const size_t ARRS = 10;
     int arr[ARRS] = {1,2,3,4,5,6,7,8,9,10};
     int arr_lcm = lcmr(arr, arr + ARRS);
     std::cout << arr_lcm << std::endl;
     
-    // accumulate test
     int sum = std::accumulate(arr, arr + ARRS, 0);
     std::cout << sum << std::endl;
     int sub = std::accumulate(arr, arr + ARRS, 0, std::minus<int>());
@@ -57,7 +53,6 @@ int main()
     
     long long powr = std::accumulate(arr, arr + 4, 2, [&pow](int a, int b){ return pow(a,b); });
     std::cout << powr << std::endl;
-    
     
     return 0;
 }

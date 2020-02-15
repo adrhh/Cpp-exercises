@@ -1,5 +1,5 @@
 #include <iostream>
-Sum of the numbers divisible by 3 or 5
+//Sum of the numbers divisible by 3 or 5
 
 using std::cin;
 using std::cout;
