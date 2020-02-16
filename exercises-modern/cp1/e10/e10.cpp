@@ -24,7 +24,8 @@ int main()
     for(unsigned int i = 0u; i <= 0xFF; ++i)
     {
         unsigned int gr = uint_to_gray(i);
-        std::cout << i << '\t' << std::bitset<8>(i) << '\t' << std::bitset<8>(gr) << '\t' << std::bitset<8>(gray_to_uint(gr)) << std::endl;
+        std::cout << i << '\t' << std::bitset<8>(i) << '\t' << std::bitset<8>(gr) << '\t' << 
+        std::bitset<8>(gray_to_uint(gr)) << std::endl;
     }
     return 0;
 }
