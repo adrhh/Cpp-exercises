@@ -2,6 +2,7 @@
 #include <utility>
 #include <vector>
 #include <iostream>
+#include <regex>
 
 const std::vector<std::pair<const std::string, unsigned int>> roman_int
 {
@@ -36,6 +37,10 @@ std::string uint_to_roman(unsigned int n)
 
 unsigned int roman_to_uint(std::string r)
 {
+    auto pattern = std::regex("^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
+    if ( ! std::regex_match(r, pattern))
+        return 0;
+
     unsigned int n = 0;
     while(r.size())
         for(auto const& item : roman_int)
