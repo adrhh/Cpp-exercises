@@ -78,6 +78,11 @@ bool ISBN13::verify() const
 
 ISBN10::ISBN10(const std::string& str)
 {
+    isbn = "";
+    nation_code = 0;
+    publisher_code = 0;
+    book_nr = 0;
+    control_sum = 0;
     nr = 0;
     if ( str.length() == 13 &&
          std::count_if(str.begin(), str.end(), isdigit) == 10 &&
@@ -114,8 +119,13 @@ ISBN10::ISBN10(const std::string& str)
     }
 }
 
-ISBN13::ISBN13(const std::string& str) 
+ISBN13::ISBN13(const std::string& str) : ean{0}
 {
+    isbn = "";
+    nation_code = 0;
+    publisher_code = 0;
+    book_nr = 0;
+    control_sum = 0;
     nr = 0;
     if ( str.length() == 17 &&
          std::count_if(str.begin(), str.end(), isdigit) == 13 &&
