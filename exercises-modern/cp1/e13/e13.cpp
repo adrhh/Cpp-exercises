@@ -54,7 +54,7 @@ double long get_pi_monte(E& engine, D& dist, const unsigned long samples)
         if ( y <= std::sqrt( 1 - std::pow(x, 3)))
             hit += 1UL;
     }
-    return 4.0 * hit / samples;
+    return 4.0DL * hit / samples;
 }
 
 int main()
