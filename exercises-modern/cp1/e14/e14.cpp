@@ -15,6 +15,9 @@ protected:
     unsigned int control_sum;
     unsigned long int nr;
 public:
+    ISBN() : isbn{}, nation_code{0}, publisher_code{0},
+             book_nr{0}, nr{0} {}
+            
     virtual bool verify() const = 0;
     virtual std::string get_str() const = 0;
     virtual ~ISBN() = default;
@@ -78,12 +81,6 @@ bool ISBN13::verify() const
 
 ISBN10::ISBN10(const std::string& str)
 {
-    isbn = "";
-    nation_code = 0;
-    publisher_code = 0;
-    book_nr = 0;
-    control_sum = 0;
-    nr = 0;
     if ( str.length() == 13 &&
          std::count_if(str.begin(), str.end(), isdigit) == 10 &&
          std::count(str.begin(), str.end(), '-') == 3 &&
@@ -121,12 +118,6 @@ ISBN10::ISBN10(const std::string& str)
 
 ISBN13::ISBN13(const std::string& str) : ean{0}
 {
-    isbn = "";
-    nation_code = 0;
-    publisher_code = 0;
-    book_nr = 0;
-    control_sum = 0;
-    nr = 0;
     if ( str.length() == 17 &&
          std::count_if(str.begin(), str.end(), isdigit) == 13 &&
          std::count(str.begin(), str.end(), '-') == 4 &&
@@ -169,11 +160,11 @@ int main()
 
     ISBN10 isbn10{"0-306-40615-2"};
     std::cout << isbn10.get_str() << std::endl;
-    std::cout << isbn10.verify() << std::endl;
+    std::cout << isbn10.verify()  << std::endl;
     
     ISBN13 isbn13{"978-3-16-148410-0"};
     std::cout << isbn13.get_str() << std::endl;
-    std::cout << isbn13.verify() << std::endl;
+    std::cout << isbn13.verify()  << std::endl;
     
     return 0;
 }
