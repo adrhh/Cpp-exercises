@@ -37,9 +37,9 @@ public:
     {
         return (
             static_cast<unsigned long>(data[0] << 24) |
-            static_cast<unsigned long>(data[0] << 16) |
-            static_cast<unsigned long>(data[0] << 8) |
-            static_cast<unsigned long>(data[0])
+            static_cast<unsigned long>(data[1] << 16) |
+            static_cast<unsigned long>(data[2] << 8) |
+            static_cast<unsigned long>(data[3])
         );
     }
     friend std::ostream& operator<<(std::ostream& os, const ip4& ip)
