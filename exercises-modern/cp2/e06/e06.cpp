@@ -21,6 +21,12 @@ bool contain_all(C& c, Args&&... args)
     return ( ... && contain(c, args));
 }
 
+template <typename T, typename... Args>
+auto fold_sum_with_init(const T& t, Args&& ... args)
+{
+    return (t + ... + args);
+}
+
 
 int main()
 {
@@ -30,6 +36,8 @@ int main()
     std::cout << contain_any(vec, 0, 2, 4) << std::endl;
     std::cout << contain_all(vec, 1, 2, 4) << std::endl;
     std::cout << contain_all(vec, 0, 2, 4) << std::endl;
+    std::cout << fold_sum_with_init(1, 1, 2, 3) << std::endl;
+    std::cout << fold_sum_with_init(0, 1, 2, 3) << std::endl;
     
     return 0;
 }
