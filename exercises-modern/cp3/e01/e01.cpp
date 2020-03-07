@@ -39,7 +39,6 @@ int main()
     std::array<unsigned int, 6> arr;
     std::copy(vec.begin(), vec.end(), arr.data());
 
-    
     std::cout << bytes_to_string(vec) << std::endl;
     std::cout << bytes_to_string(arr) << std::endl;
     std::cout << bytes_to_string_t(0xFF, 0x12, 0x0A, 0xB0, 0xD3, 0x31) << std::endl;
