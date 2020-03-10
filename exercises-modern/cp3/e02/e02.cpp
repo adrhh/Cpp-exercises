@@ -12,7 +12,6 @@ std::vector<unsigned char> stoucv(const std::string& str)
             std::string temp{str[i], str[i+1]};
             ret_vec.push_back(std::stoul(temp, nullptr, 16));
         }
-        
     return ret_vec;
 }
 
